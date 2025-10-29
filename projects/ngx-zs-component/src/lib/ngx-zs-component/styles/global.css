@@ -1,0 +1,117 @@
+/* ================================================================= */
+/* ==========================\ ZS Styles \========================== */
+/* ================================================================= */
+
+/* =============================
+  Shadows
+============================= */
+/* ====== Light Mode Shadows ====== */
+.shadow-sm-all {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-md-all {
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.shadow-lg-all {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ====== Dark Mode Shadows ====== */
+.dark .shadow-sm-all-night {
+  box-shadow: 0 0 2px rgba(156, 163, 175, 0.3);
+}
+
+.dark .shadow-md-all-night {
+  box-shadow: 0 0 6px rgba(156, 163, 175, 0.3);
+}
+
+.dark .shadow-lg-all-night {
+  box-shadow: 0 0 12px rgba(156, 163, 175, 0.3);
+}
+
+/* =============================
+  Carousel Global Styles
+============================= */
+zs-carousel {
+  --carousel-item-width: 25%;
+}
+
+[carousel-item] {
+  flex: 0 0 var(--carousel-item-width);
+  box-sizing: border-box;
+}
+
+/* =============================
+  Base Scroll
+============================= */
+.scroll {
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--scroll-thumb, #888) var(--scroll-track, #f1f1f1);
+}
+
+/* Chrome, Edge, Safari */
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: var(--scroll-track, #f1f1f1);
+  border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb, #888);
+  border-radius: 10px;
+}
+
+/*  Scroll Themes */
+.scroll-primary {
+  --scroll-thumb: #3b82f6; /* blue-500 */
+  --scroll-track: #dbeafe;
+}
+
+.scroll-secondary {
+  --scroll-thumb: #6b7280; /* gray-500 */
+  --scroll-track: #e5e7eb;
+}
+
+.scroll-success {
+  --scroll-thumb: #10b981; /* green-500 */
+  --scroll-track: #d1fae5;
+}
+
+.scroll-warning {
+  --scroll-thumb: #f59e0b; /* yellow-500 */
+  --scroll-track: #fef3c7;
+}
+
+.scroll-danger {
+  --scroll-thumb: #ef4444; /* red-500 */
+  --scroll-track: #fee2e2;
+}
+
+.scroll-info {
+  --scroll-thumb: #0ea5e9; /* sky-500 */
+  --scroll-track: #e0f2fe;
+}
+
+.scroll-violet {
+  --scroll-thumb: #8b5cf6; /* violet-500 */
+  --scroll-track: #ede9fe;
+}
+
+.scroll-teal {
+  --scroll-thumb: #14b8a6; /* teal-500 */
+  --scroll-track: #ccfbf1;
+}
+
+.scroll-dark {
+  --scroll-thumb: #374151; /* gray-700 */
+  --scroll-track: #1f2937;
+}
+/* ================================================================= */
+/* ==========================\ ZS Styles \========================== */
+/* ================================================================= */
