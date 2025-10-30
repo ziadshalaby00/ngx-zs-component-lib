@@ -19,7 +19,6 @@ export * from './lib/ngx-zs-component/palette-service';
 export * from './lib/ngx-zs-component/scroll-to-top/scroll-to-top';
 export * from './lib/ngx-zs-component/spinner/spinner';
 export * from './lib/ngx-zs-component/theme-toggle/theme-toggle';
-export * from './lib/ngx-zs-component/zs-style-sevice';
 export * from './lib/ngx-zs-component/FormCompFolder/button/button';
 export * from './lib/ngx-zs-component/FormCompFolder/checkbox/checkbox';
 export * from './lib/ngx-zs-component/FormCompFolder/file/file';
