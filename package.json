@@ -29,7 +29,6 @@
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@tailwindcss/cli": "^4.1.16",
-    "@tailwindcss/postcss": "^4.1.16",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
@@ -38,6 +37,7 @@
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
+    "@tailwindcss/postcss": "^4.1.16",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
