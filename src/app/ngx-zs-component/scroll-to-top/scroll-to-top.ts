@@ -41,7 +41,7 @@ export class ScrollToTop {
   /**
    * Tailwind CSS class for the circle's color (background ring).
    */
-  readonly circleColorClass = input<string>('text-gray-400/60 dark:text-gray-600/70 group-hover:brightness-110');
+  readonly circleColorClass = input<string>('zs:text-gray-400/60 zs:dark:text-gray-600/70 zs:group-hover:brightness-110');
 
   /**
    * BaseColors class for the arrow and progress indicator color.
@@ -83,8 +83,8 @@ export class ScrollToTop {
    * Returns Tailwind classes to position the button horizontally.
    */
   readonly positionClass = computed(() => ({
-    'right-4': this.position() === 'right',
-    'left-4': this.position() === 'left',
+    'zs:right-4': this.position() === 'right',
+    'zs:left-4': this.position() === 'left',
   }));
 
 

@@ -1,13 +1,15 @@
 <!-- ========================= Scroll-to-Top Container ========================= -->
 <div
   [ngClass]="positionClass()"
-  class="fixed group bottom-4 {{ zIndices.scrollToTop }} transition-opacity duration-300"
+  class="zs:fixed zs:group zs:bottom-4 {{ zIndices.scrollToTop }} 
+  zs:transition-opacity zs:duration-300"
   [style.opacity]="scrollY() > 200 ? 1 : 0"
 >
   <!-- ========================= Scroll Button ========================= -->
   <button
     (click)="scrollToTop()"
-    class="w-12 h-12 group-hover:scale-105 rounded-full flex items-center justify-center relative overflow-hidden focus:outline-hidden"
+    class="zs:w-12 zs:h-12 zs:group-hover:scale-105 zs:rounded-full zs:flex zs:items-center 
+    zs:justify-center zs:relative zs:overflow-hidden zs:focus:outline-hidden"
     type="button"
     role="button"
     aria-label="Scroll to top"
@@ -15,7 +17,7 @@
   >
     <!-- ========================= Progress Ring (SVG) ========================= -->
     <svg
-      class="absolute inset-0 w-full h-full transform -rotate-90"
+      class="zs:absolute zs:inset-0 zs:w-full zs:h-full zs:transform zs:-rotate-90"
       aria-hidden="true"
       focusable="false"
     >
@@ -41,14 +43,14 @@
         [attr.stroke-dasharray]="circleCircumference"
         [attr.stroke-dashoffset]="progressOffset()"
         [ngClass]="arrowProgressColorClass()"
-        class="transition-all duration-300 ease-out"
+        class="zs:transition-all zs:duration-300 zs:ease-out"
         stroke-linecap="round"
       />
     </svg>
 
     <!-- ========================= Up Arrow Icon ========================= -->
     <i
-      class="fas fa-arrow-up relative z-100 text-lg"
+      class="fas fa-arrow-up zs:relative zs:z-100 zs:text-lg"
       [ngClass]="arrowProgressColorClass()"
       aria-hidden="true"
     ></i>

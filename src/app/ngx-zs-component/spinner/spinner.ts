@@ -11,10 +11,11 @@ export type LoaderType = 'spinner' | 'pro' | 'double' | 'gear' | 'fan' | 'pulse'
 import { Component, computed, inject, input } from '@angular/core';
 import { BaseColors, BaseSize, ColorMapping } from '../palette-service';
 import { zIndices, ZIndicesType } from '../z-index';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ZS-spinner',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './spinner.html',
   styleUrl: './spinner.css'
 })
@@ -29,7 +30,7 @@ export class Spinner {
   readonly isFloating = input<boolean>(false);
   readonly color = input<BaseColors>('blue');
   readonly withBox = input<boolean>(false);
-  readonly boxColorClass = input<string>('bg-gray-300/90 dark:bg-gray-400/80');
+  readonly boxColorClass = input<string>('zs:bg-gray-300/90 zs:dark:bg-gray-400/80');
   readonly type = input<LoaderType>('spinner');
   readonly size = input<BaseSize>('md');
 
@@ -39,66 +40,67 @@ export class Spinner {
 
   readonly wrapperClasses = computed<string>(() =>
     this.isFloating()
-      ? `fixed inset-0 flex items-center justify-center ${ this.zIndices.spinner } bg-black/50 dark:bg-black/70`
-      : 'flex items-center justify-center'
+      ? `zs:fixed zs:inset-0 zs:flex zs:items-center zs:justify-center 
+      ${ this.zIndices.spinner } zs:bg-black/50 zs:dark:bg-black/70`
+      : 'zs:flex zs:items-center zs:justify-center'
   );
 
   readonly boxClasses = computed<string>(() =>
     this.withBox()
-      ? `p-5 rounded-lg shadow-md ${this.boxColorClass()}`
+      ? `zs:p-5 zs:rounded-lg zs:shadow-md ${this.boxColorClass()}`
       : ''
   );
 
   readonly spinnerSizeTextClass = computed<string>(() => {
     const sizes: Record<BaseSize, string> = {
-      sm: 'text-3xl',
-      md: 'text-5xl',
-      lg: 'text-7xl'
+      sm: 'zs:text-3xl',
+      md: 'zs:text-5xl',
+      lg: 'zs:text-7xl'
     };
     return sizes[this.size()];
   });
 
   readonly spinnerSizeDotsClass = computed<string>(() => {
     const sizes: Record<BaseSize, string> = {
-      sm: 'size-2',
-      md: 'size-4',
-      lg: 'size-6'
+      sm: 'zs:size-2',
+      md: 'zs:size-4',
+      lg: 'zs:size-6'
     };
     return sizes[this.size()];
   });
 
   readonly spinnerSizeBarsClass = (num: number): string => {
     const sizes: Record<BaseSize, string[]> = {
-      sm: ['w-1 h-3', 'w-1 h-3.5', 'w-1 h-4'],
-      md: ['w-1.5 h-6', 'w-1.5 h-8', 'w-1.5 h-10'],
-      lg: ['w-2 h-8', 'w-2 h-9', 'w-2 h-10']
+      sm: ['zs:w-1 zs:h-3', 'zs:w-1 zs:h-3.5', 'zs:w-1 zs:h-4'],
+      md: ['zs:w-1.5 zs:h-6', 'zs:w-1.5 zs:h-8', 'zs:w-1.5 zs:h-10'],
+      lg: ['zs:w-2 zs:h-8', 'zs:w-2 zs:h-9', 'zs:w-2 zs:h-10']
     };
     return sizes[this.size()][num - 1];
   };
 
   readonly spinnerSizeProClass = computed<string>(() => {
     const sizes: Record<BaseSize, string> = {
-      sm: 'border-t-3 border-b-3 size-7',
-      md: 'border-t-5 border-b-5 size-12',
-      lg: 'border-t-7 border-b-7 size-18'
+      sm: 'zs:border-t-3 zs:border-b-3 zs:size-7',
+      md: 'zs:border-t-5 zs:border-b-5 zs:size-12',
+      lg: 'zs:border-t-7 zs:border-b-7 zs:size-18'
     };
     return sizes[this.size()];
   });
 
   readonly spinnerSizePulseClass = computed<string>(() => {
     const sizes: Record<BaseSize, string> = {
-      sm: 'border-3 size-7',
-      md: 'border-5 size-12',
-      lg: 'border-7 size-18'
+      sm: 'zs:border-3 zs:size-7',
+      md: 'zs:border-5 zs:size-12',
+      lg: 'zs:border-7 zs:size-18'
     };
     return sizes[this.size()];
   });
 
   readonly spinnerSizeDoubleClass = (num: 1 | 2): string => {
     const sizes: Record<BaseSize, { 1: string; 2: string }> = {
-      sm: { 1: 'border-3 size-7', 2: 'border-3 size-5' },
-      md: { 1: 'border-5 size-12', 2: 'border-5 size-8.5' },
-      lg: { 1: 'border-7 size-18', 2: 'border-7 size-13' }
+      sm: { 1: 'zs:border-3 zs:size-7', 2: 'zs:border-3 zs:size-5' },
+      md: { 1: 'zs:border-5 zs:size-12', 2: 'zs:border-5 zs:size-8.5' },
+      lg: { 1: 'zs:border-7 zs:size-18', 2: 'zs:border-7 zs:size-13' }
     };
     return sizes[this.size()][num];
   };

@@ -122,9 +122,9 @@ export class NavItem {
 
   getItemClasses = (item: NavbarItem): string => {
     const defaultTextClass =
-      'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100';
+      'zs:text-gray-600 zs:dark:text-gray-300 zs:hover:text-gray-900 zs:dark:hover:text-gray-100';
     const defaultBgClass =
-      'hover:bg-gray-100 dark:hover:bg-gray-700';
+      'zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700';
 
     if (item.colorClass) {
       return item.colorClass;
@@ -136,8 +136,8 @@ export class NavItem {
   };
 
   labelLineClass(item: NavbarItem) {
-    return item.label.length > 60 ? 'text-xs' 
-    : item.label.length > 40 ? 'text-sm' 
+    return item.label.length > 60 ? 'zs:text-xs' 
+    : item.label.length > 40 ? 'zs:text-sm' 
     : ''
   }
 }

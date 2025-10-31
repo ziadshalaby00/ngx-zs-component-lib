@@ -31,7 +31,7 @@ export class ThemeToggle {
   // ==============================================
   // Inputs
   // ==============================================
-  readonly bodyClass = input<string>('bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100');
+  readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100');
 
 
   // ==============================================

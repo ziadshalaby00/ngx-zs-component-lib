@@ -3,7 +3,7 @@
 /* ================================================================= */
 
 @import "tailwindcss" prefix(zs);
-/* @import '.././using-fontawesome/css/all.min.css'; */
+@import '.././using-fontawesome/css/all.min.css';
 
 @custom-variant dark (&:where(.dark, .dark *)); /* Custom Variants */
 
