@@ -1,5 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Test } from './test/test';
+import { ThemeToggle } from "./ngx-zs-component/theme-toggle/theme-toggle";
 // import { Input } from './ngx-zs-component/FormCompFolder/input/input';
 // import { Range } from './ngx-zs-component/FormCompFolder/range/range';
 // import { Alert } from './ngx-zs-component/AlertFolder/alert/alert';
@@ -24,26 +26,9 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   imports: [
     RouterOutlet,
-    // Input,
-    // Button,
-    // Card,
-    // Navbar,
-    // NavItem,
-    // Toggle,
-    // ThemeToggle,
-    // ScrollToTop,
-    // Range,
-    // Select,
-    // FileInput,
-    // Spinner,
-    // Carousel,
-    // Connection,
-    // Modal,
-    // Page404,
-    // Pagination,
-    // Alert,
-    // Checkbox
-  ],
+    Test,
+    ThemeToggle
+],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

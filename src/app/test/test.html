@@ -1,0 +1,31 @@
+<div class="min-h-screen">
+    <ZS-navbar
+      [siteNameConfig]="siteNameConfig"
+    
+      [authButtons]="authButtons"
+      [showUserSection]="true"
+    
+      [showSearchBar]="true"
+      [searchPlaceholder]="'Search for a product...'"
+      [navItems]="navItems"
+    
+      [isLoggedIn]="true"
+      [userProfile]="userProfile()"
+      [userMenuItems]="userMenuItems"
+    
+      (loginClickedEv)="onLogin()"
+      (signupClickedEv)="onSignup()"
+      (searchSubmittedEv)="onSearch($event)"
+      (searchValueChange)="onSearch($event)"
+    ></ZS-navbar>
+
+
+
+    <div class="mt-8 m-auto w-96">
+        <ZS-input
+        [required]="true"
+        [validateFns]="[va]"
+        >
+        </ZS-input>
+    </div>
+</div>

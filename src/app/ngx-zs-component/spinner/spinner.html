@@ -59,7 +59,7 @@
   
         <!-- ========================= Dots ========================= -->
         @case ('dots') {
-          <div class="flex space-x-2 items-center" aria-hidden="true">
+          <div class="flex gap-2 items-center" aria-hidden="true">
             <span 
               class="rounded-full animate-bounce" 
               [class]="bgColor() + ' ' + spinnerSizeDotsClass()" 
@@ -81,7 +81,7 @@
   
         <!-- ========================= Bars ========================= -->
         @case ('bars') {
-          <div class="flex space-x-1 items-center h-6" aria-hidden="true">
+          <div class="flex gap-1 items-center h-6" aria-hidden="true">
             <span 
               class="rounded-sm animate-bar-scale" 
               [class]="bgColor() + ' ' + spinnerSizeBarsClass(1)" 

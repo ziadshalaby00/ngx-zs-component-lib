@@ -110,7 +110,7 @@ export class Button {
       ['xl'].includes(size) ? 'rounded-xl' : 'rounded-lg',
       'focus-visible:ring-2',
       'select-none',
-      'outline-none',
+      'outline-hidden',
       sizes[size],
       variant === 'solid' ? solidClasses : outlineClasses,
       stateClasses,

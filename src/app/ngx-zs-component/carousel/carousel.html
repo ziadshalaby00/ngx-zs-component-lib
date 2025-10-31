@@ -67,7 +67,7 @@
 
 <!-- =================================== Indicators =================================== -->
 @if(showIndicators()) {
-  <div class="flex justify-center mt-4 space-x-2" role="tablist" aria-label="Carousel indicators">
+  <div class="flex justify-center mt-4 gap-2" role="tablist" aria-label="Carousel indicators">
     @for (item of indicatorBoxes(); track $index; let i = $index) {
       <button
         type="button"

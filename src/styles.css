@@ -1,8 +1,9 @@
 /* ================================================================= */
 /* ==========================\ ZS Styles \========================== */
 /* ================================================================= */
-@import "tailwindcss";
-@import '.././using-fontawesome/css/all.min.css';
+
+@import "tailwindcss" prefix(ngxzs);
+/* @import '.././using-fontawesome/css/all.min.css'; */
 
 @custom-variant dark (&:where(.dark, .dark *)); /* Custom Variants */
 
