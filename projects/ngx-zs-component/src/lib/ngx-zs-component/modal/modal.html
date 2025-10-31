@@ -1,0 +1,94 @@
+<!-- ========================= Overlay ========================= -->
+@if (isOpen()) {
+  <div #modalRef
+    class="zs:fixed zs:inset-0 zs:flex {{ zIndices.modal }} zs:bg-black/50 zs:dark:bg-black/70 zs:transition-all zs:duration-300"
+    [ngClass]="[positionClass(), open() ? 'animate-fadeIn' : 'animate-fadeOut']"
+    (click)="onOverlayClick($event)"
+    role="presentation"
+    [attr.inert]="isOpen() ? null : ''"
+  >
+
+    <!-- ========================= Modal Container ========================= -->
+    <div
+      class="zs:relative zs:m-4 zs:bg-white zs:dark:bg-slate-900 zs:w-full zs:max-w-lg zs:mx-4 
+      zs:rounded-2xl zs:shadow-lg zs:transition-all zs:duration-300 zs:outline-hidden"
+      [ngClass]="[
+        'zs:border', 
+        palette().border,
+        palette().text,
+        open() ? 'animate-modalIn' : 'animate-modalOut'
+      ]"
+      (click)="$event.stopPropagation()"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="'modal-title'"
+      [attr.aria-describedby]="'modal-body'"
+      tabindex="0"
+      (keydown.escape)="close()"
+    >
+
+        <!-- ========================= Modal Header ========================= -->
+        <div
+            class="zs:flex zs:items-center zs:justify-between zs:px-4 zs:py-3 zs:border-b"
+            [class]="palette().border"
+        >
+            <h3 id="modal-title" class="zs:font-semibold zs:text-lg">
+            {{ title() }}
+            </h3>
+            @if(showCancelIcon()) {
+                <button 
+                class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer zs:transition-colors zs:duration-200 zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-offset-2 zs:focus-visible:ring-blue-500 zs:rounded-md"
+                [class]="palette().textHover"
+                (click)="close()"
+                aria-label="Close dialog"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            }
+        </div>
+
+        <!-- ========================= Modal Body ========================= -->
+        <div id="modal-body" class="zs:p-4 scroll zs:max-h-[75vh] scroll-{{ modalStyle() }}">
+            <ng-content></ng-content>
+        </div>
+
+        <!-- ========================= Modal Footer ========================= -->
+        @if (showFooter()) {
+            <div
+            class="zs:flex zs:justify-end zs:gap-3 zs:p-4 zs:border-t"
+            [class]="palette().border"
+            >
+                @if (cancelMerged().show) {
+                    <ZS-button
+                    [btnStyle]="cancelMerged().btnStyle"
+                    variant="solid"
+                    type="button"
+                    (clickedEv)="cancelEv.emit()"
+                    [icon]="cancelMerged().icon"
+                    [disabled]="cancelMerged().disabled"
+                    [size]="cancelMerged().size"
+                    [variant]="cancelMerged().variant"
+                    aria-label="Cancel"
+                    >
+                        {{ cancelMerged().text}}
+                    </ZS-button>
+                }
+                @if (confirmMerged().show) {
+                    <ZS-button
+                    type="button"
+                    [btnStyle]="confirmMerged().btnStyle"
+                    (clickedEv)="confirmEv.emit()"
+                    [icon]="confirmMerged().icon"
+                    [disabled]="confirmMerged().disabled"
+                    [size]="confirmMerged().size"
+                    [variant]="confirmMerged().variant"
+                    aria-label="Confirm"
+                    >
+                        {{ confirmMerged().text}}
+                    </ZS-button>
+                }
+            </div>
+        }
+    </div>
+  </div>
+}

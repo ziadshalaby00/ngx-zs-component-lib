@@ -1,0 +1,125 @@
+<div
+  class="zs:flex zs:flex-col zs:gap-2 zs:w-full"
+  [ngClass]="disabled() ? 'zs:opacity-60' : ''"
+  role="group"
+  [attr.aria-labelledby]="Id() + '-label'"
+  [attr.aria-describedby]="Id() + '-hint ' + Id() + '-error'"
+>
+  <!-- ========================= Label & Hint ========================= -->
+  <ZS-label [class]="(label() || hint()) ? 'zs:mb-1' : ''"
+    [label]="label()"
+    [hint]="hint()"
+    [required]="required()"
+    [hintId]="Id() + '-hint'"
+    [for]="Id()"
+    [id]="Id() + '-label'"
+  >
+  </ZS-label>
+
+  <!-- ================= Input ================= -->
+  <div
+    [class]="[
+      'zs:relative zs:rounded-xl zs:flex zs:flex-col zs:justify-center zs:items-center zs:gap-2 zs:border-2 zs:border-dashed zs:transition-all zs:duration-200',
+      palette().border,
+      palette().ring,
+      palette().borderHover,
+      palette().inputBg
+    ].join(' ')"
+    [ngClass]="disabledOrReadonly() ? 'cursor-not-allowed' : 'cursor-pointer'"
+    tabindex="0"
+    role="button"
+    [attr.aria-disabled]="disabledOrReadonly()"
+    [attr.aria-label]="placeholder() || 'Upload file'"
+    (keydown.enter)="!disabledOrReadonly() && fileInput.click()"
+    (keydown.space)="!disabledOrReadonly() && fileInput.click()"
+  >
+    <input
+      #fileInput
+      type="file"
+      [id]="Id()"
+      [name]="iName()"
+      [attr.accept]="accept()"
+      [attr.multiple]="multiple() ? '' : null"
+      [attr.autofocus]="autofocus() ? true : null"
+      class="zs:absolute zs:inset-0 zs:opacity-0 zs:cursor-pointer"
+      [disabled]="disabledOrReadonly()"
+      (change)="handleFileChange($event)"
+      [attr.aria-required]="required()"
+      [attr.aria-invalid]="!!error().length"
+      [attr.aria-describedby]="Id() + '-hint ' + Id() + '-error'"
+    />
+
+    <div class="zs:flex zs:flex-col zs:items-center zs:justify-center zs:text-center zs:py-6 zs:pointer-events-none zs:select-none">
+      <i class="fa-solid fa-upload text-3xl mb-2" [ngClass]="palette().text" aria-hidden="true"></i>
+      <p class="zs:text-sm zs:text-gray-500 zs:dark:text-gray-400">
+        {{ placeholder() }}
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= Files Preview ================= -->
+  @if (hasFiles()) {
+    <div
+      class="zs:flex zs:flex-col zs:gap-2 zs:mt-3"
+      role="list"
+      aria-label="Uploaded files"
+    >
+      @for (entry of files().entries(); track entry[0]) {
+        <div
+          class="zs:flex zs:flex-col zs:gap-1 zs:p-2 zs:rounded-lg zs:border zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-offset-2"
+          [ngClass]="[palette().border, palette().inputBg]"
+          role="listitem"
+          tabindex="0"
+        >
+          <span class="zs:block zs:text-sm zs:font-medium zs:truncate">
+            {{ entry[1].name }}
+          </span>
+
+          <div class="zs:flex zs:items-center zs:justify-between zs:gap-4">
+            <div class="zs:flex zs:items-center zs:gap-1">
+              <i class="text-lg fa-solid fa-file" [ngClass]="palette().text" aria-hidden="true"></i>
+              <span class="zs:text-xs zs:text-gray-500">
+                {{ formatSize(entry[1].size) }}
+              </span>
+            </div>
+
+            <div class="zs:flex zs:gap-2">
+              @if (allowPreview() && entry[1].url?.startsWith('blob:')) {
+                <ZS-button
+                  type="button"
+                  (clickedEv)="preview(entry[1].url)"
+                  [btnStyle]="inputStyle()"
+                  size="sm"
+                  aria-label="Preview {{ entry[1].name }}"
+                >
+                  Preview
+                </ZS-button>
+              }
+
+              @if (!disabledOrReadonly()) {
+                <ZS-button
+                  type="button"
+                  variant="outline"
+                  btnStyle="danger"
+                  (clickedEv)="removeFile(entry[0])"
+                  icon="fa-solid fa-trash"
+                  aria-label="Remove {{ entry[1].name }}"
+                >
+                </ZS-button>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- ========================= Error Messages ========================= -->
+  <ZS-input-errors
+    [Id]="Id() + '-error'"
+    [errors]="[error()]"
+    aria-live="assertive"
+    role="alert"
+  >
+  </ZS-input-errors>
+</div>

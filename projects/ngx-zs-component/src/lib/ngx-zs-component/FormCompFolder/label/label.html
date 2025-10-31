@@ -1,0 +1,35 @@
+<!-- ================= Label Wrapper ================= -->
+@if (label() || hint()) {
+  <label 
+    [for]="for()" 
+    class="zs:flex zs:items-center zs:gap-2"
+  >
+
+    <!-- ========== Label Text ========== -->
+    @if (label()) {
+      <span class="zs:font-semibold zs:truncate" [ngClass]="sizeClasses().label">
+        {{ label() }}
+
+        <!-- Required Indicator -->
+        @if (required()) {
+          <span class="zs:text-red-500" aria-hidden="true">*</span>
+          <span class="sr-only">(required)</span>
+        }
+      </span>
+    }
+
+    <!-- ========== Hint Text ========== -->
+    @if (hint()) {
+      <small
+        [id]="hintId()"
+        class="zs:text-slate-500 zs:dark:text-slate-400" 
+        [ngClass]="sizeClasses().hint"
+      >
+        {{ hint() }}
+      </small>
+    }
+    <!-- ========== End Hint Text ========== -->
+
+  </label>
+}
+<!-- ================= End Label Wrapper ================= -->

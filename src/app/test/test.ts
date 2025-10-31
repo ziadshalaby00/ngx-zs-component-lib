@@ -1,10 +1,12 @@
-import { Component, computed } from '@angular/core';
-import { AuthButtonsType, Navbar, NavbarItemExport, navItemsType, SiteNameConfigType, UserProfile } from '../ngx-zs-component/navbar/navbar';
-import { Input } from "../ngx-zs-component/FormCompFolder/input/input";
+import { Component, computed, inject } from '@angular/core';
+import { AuthButtonsType, Navbar, NavbarItemExport, navItemsType, SiteNameConfigType, UserProfile } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/navbar/navbar';
+import { Input } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/input/input";
+import { Alert } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert/alert";
+import { AlertService } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert-service/alert-service';
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Input],
+  imports: [Navbar, Input, Alert],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -13,6 +15,11 @@ export class Test {
 
   // readonly isMobileMenuOpen = model<boolean>(false)
   
+  readonly alertService = inject(AlertService)
+  constructor() {
+    
+  }
+
   siteNameConfig: SiteNameConfigType = {
     siteName: 'NgxZsComponent',
     siteNameColorClass: 'text-gray-800 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300'

@@ -1,0 +1,87 @@
+<!-- ========================= Theme Switcher Panel ========================= -->
+<div 
+  class="zs:fixed zs:left-0 zs:top-1/6 {{ zIndices.themeToggle }} zs:transform 
+  zs:-translate-y-1/2 zs:transition-all zs:duration-300"
+  [ngClass]="!isOpen() ? 'zs:-translate-x-24' : ''"
+  role="complementary"
+  aria-label="Theme switcher panel"
+>
+  <!-- ========================= Theme Selection Buttons ========================= -->
+  <div class="zs:flex zs:items-center">
+    <div 
+      class="zs:flex zs:overflow-hidden zs:transition-all zs:duration-300"
+      role="group"
+      aria-label="Theme selection"
+    >
+      <!-- Light Theme Button -->
+      <button
+        (click)="setTheme('light')"
+        type="button"
+        class="zs:px-3 zs:py-2 zs:rounded-l-none zs:border-l-0 zs:border-y 
+        zs:transition-colors zs:shrink-0
+        zs:bg-white zs:text-gray-900 zs:border-gray-300
+        zs:dark:bg-gray-800 zs:dark:text-gray-100 zs:dark:border-gray-600
+        zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700 zs:w-12
+        zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-offset-2 
+        zs:focus-visible:ring-blue-500"
+        aria-label="Activate light theme"
+        [attr.aria-pressed]="currentTheme() === 'light'"
+      >
+        <i class="fas fa-sun zs:text-yellow-500" aria-hidden="true"></i>
+      </button>
+
+      <!-- Dark Theme Button -->
+      <button
+        (click)="setTheme('dark')"
+        type="button"
+        class="zs:px-3 zs:py-2 zs:rounded-r-lg zs:border-y zs:border-r 
+        zs:transition-colors zs:shrink-0
+        zs:bg-white zs:text-gray-900 zs:border-gray-300
+        zs:dark:bg-gray-800 zs:dark:text-gray-100 zs:dark:border-gray-600
+        zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700 zs:w-12
+        zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-offset-2 
+        zs:focus-visible:ring-blue-500"
+        aria-label="Activate dark theme"
+        [attr.aria-pressed]="currentTheme() === 'dark'"
+      >
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- ========================= Toggle Button with Connector ========================= -->
+    <div 
+      class="zs:relative"
+      [ngClass]="isOpen() ? 'zs:hidden' : ''"
+    >
+      <!-- Connector Line -->
+      <div
+        class="zs:absolute zs:top-1/2 zs:right-0 zs:h-0.5 zs:w-3 zs:transform zs:-translate-y-1/2
+                zs:bg-gray-300 zs:dark:bg-gray-600"
+        aria-hidden="true"
+      ></div>
+
+      <!-- Toggle Button -->
+      <button
+        (click)="toggleOpen()"
+        type="button"
+        class="zs:relative zs:z-100 zs:w-12 zs:h-12 zs:rounded-full zs:rounded-l-none zs:border-l-0 
+        zs:border-2
+        zs:transition-all zs:duration-300 zs:flex zs:items-center zs:justify-center
+        zs:bg-white zs:text-gray-900 zs:border-gray-300
+        zs:dark:bg-gray-800 zs:dark:text-gray-100 zs:dark:border-gray-600
+        zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700
+        zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-offset-2 
+        zs:focus-visible:ring-blue-500"
+        aria-label="Toggle theme switcher"
+        [attr.aria-expanded]="isOpen()"
+        aria-controls="theme-panel"
+      >
+        @if (currentTheme() === 'dark') {
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        } @else {
+          <i class="fas fa-sun zs:text-yellow-500" aria-hidden="true"></i>
+        }
+      </button>
+    </div>
+  </div>
+</div>

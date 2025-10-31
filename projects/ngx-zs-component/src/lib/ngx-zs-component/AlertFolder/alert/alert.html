@@ -1,0 +1,73 @@
+<!-- ========================= Alert Container ========================= -->
+<div
+  class="zs:fixed zs:ml-4 zs:break-all {{ zIndices.alert }} zs:flex zs:flex-col 
+  zs:overflow-y-auto custom-scrollbar zs:p-2 zs:gap-3 zs:max-h-[calc(100vh-1rem)]"
+  [ngClass]="positionClasses()"
+  role="region"
+  aria-label="Notification area"
+  aria-live="polite"
+>
+
+  @for (alert of alertConfig(); track alert.id) {
+
+    <!-- ========================= Alert Card ========================= -->
+    <div
+      class="zs:pointer-events-auto zs:max-w-sm zs:min-h-14 zs:rounded-lg zs:border zs:p-4 zs:shadow-md zs:dark:shadow-gray-400/30
+              zs:transition-all zs:duration-300 zs:ease-in-out animate-fade-in zs:relative zs:overflow-hidden"
+      [class]="alert.bgColor + ' ' + alert.textColor + ' ' + alert.borderColor"
+      role="alert"
+    >
+
+      <!-- ========================= Alert Content ========================= -->
+      <div class="zs:flex zs:items-center">
+
+        <!-- Icon -->
+        <i
+          [class]="alert.icon + ' zs:mt-0.5 zs:me-3'"
+          aria-hidden="true"
+        ></i>
+
+        <!-- Message -->
+        <div class="zs:flex-1 zs:text-sm zs:font-medium">
+          {{ alert.message }}
+        </div>
+
+        <!-- Close Button -->
+        @if (alert.showCloseButton ?? defaultShowCloseButton()) {
+          <button
+            type="button"
+            class="zs:ms-2 zs:inline-flex zs:h-6 zs:w-6 zs:items-center zs:justify-center zs:rounded-full
+                    zs:text-gray-500 zs:dark:text-gray-300
+                    zs:hover:bg-gray-200 zs:dark:hover:bg-gray-700
+                    zs:hover:text-gray-700 zs:dark:hover:text-gray-100
+                    zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-within:ring-indigo-500"
+            (click)="closeAlert(alert.id!)"
+            aria-label="Close alert"
+          >
+            <i class="fas fa-times zs:text-xs" aria-hidden="true"></i>
+          </button>
+        }
+
+      </div>
+
+      <!-- ========================= Auto-Close Progress Bar ========================= -->
+      @if (alert.autoClose ?? defaultAutoClose()) {
+        <div
+          class="zs:absolute zs:bottom-0 zs:left-0 zs:h-1 zs:bg-gray-300 zs:dark:bg-gray-700 zs:w-full"
+          role="progressbar"
+          [attr.aria-valuenow]="alert.progress ?? 100"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <div
+            class="zs:h-1 zs:bg-current zs:transition-[width] zs:duration-100"
+            [style.width.%]="alert.progress ?? 100"
+          ></div>
+        </div>
+      }
+
+    </div>
+
+  }
+
+</div>

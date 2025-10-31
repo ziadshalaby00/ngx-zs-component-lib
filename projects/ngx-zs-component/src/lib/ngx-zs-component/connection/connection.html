@@ -1,0 +1,24 @@
+<div tabindex="0" 
+  class="zs:inline-flex zs:items-center zs:justify-center zs:gap-2 zs:rounded-full 
+  zs:text-sm zs:font-medium zs:px-3 zs:h-8 zs:w-fit zs:cursor-pointer"
+  [ngClass]="[
+    isOnline() 
+      ? 'zs:bg-green-100 zs:text-green-800 zs:dark:bg-green-700 zs:dark:text-green-100'
+      : 'zs:bg-red-100 zs:text-red-800 zs:dark:bg-red-700 zs:dark:text-red-100'
+  ]"
+>
+  <i
+    class="fa fa-circle zs:text-xs zs:leading-none"
+    [ngClass]="[
+      isOnline() ? 'zs:text-green-500' : 'zs:text-red-500'
+    ]"
+    aria-hidden="true"
+  ></i>
+  <span>
+    @if (isOnline()) {
+      Online
+    } @else {
+      Offline
+    }
+  </span>
+</div>

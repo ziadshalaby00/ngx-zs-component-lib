@@ -1,0 +1,20 @@
+<!-- ========================= Button Core Attributes ========================= -->
+<button 
+  [id]="Id()"
+  class="zs:w-full"
+  [attr.type]="type()"
+  [disabled]="disabled()"
+  [ngClass]="['zs:flex zs:gap-2', baseClasses()]"
+
+  [attr.aria-disabled]="disabled()"
+  [attr.aria-label]="icon() ? (icon() + ' button') : undefined"
+  [attr.tabindex]="disabled() ? -1 : 0"
+
+  (click)="onClick($event)"
+>
+  <!-- ========================= Button Content ========================= -->
+  @if (icon()) {
+    <i [class]="icon()" aria-hidden="true"></i>
+  }
+  <ng-content></ng-content>
+</button>

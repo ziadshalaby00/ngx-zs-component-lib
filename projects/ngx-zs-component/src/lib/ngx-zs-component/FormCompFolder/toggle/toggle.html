@@ -1,0 +1,52 @@
+<div class="zs:flex zs:items-center zs:justify-start zs:w-full zs:select-none">
+  <!-- ===================== Checkbox Wrapper ===================== -->
+  <div
+    class="zs:cursor-pointer zs:leading-none"
+  >
+    <!-- ===================== Hidden Input (Native for screen readers) ===================== -->
+    <input
+      type="checkbox"
+      class="zs:hidden"
+      [id]="Id()"
+      [checked]="isChecked()"
+      [disabled]="disabledOrReadonly()"
+      (change)="toggleChecked()"
+    />
+
+    <!-- ===================== Custom Accessible Toggle ===================== -->
+    <button
+    (click)="value.set(!value())"
+    class="zs:relative zs:rounded-full zs:border-2 zs:flex zs:items-center zs:transition-all zs:duration-500 zs:ease-in-out zs:overflow-hidden"
+    [ngClass]="[
+        toggleClasses(),
+        colorClasses('border'),
+        value() ? colorClasses('bg') : '', 
+        value() ? '' : 'zs:bg-gray-100 zs:dark:bg-gray-700',
+        btnSize(),
+    ]"
+    >
+      <div
+          class="zs:absolute zs:left-1 zs:top-1/2 zs:-translate-1/2 zs:rounded-full zs:flex zs:items-center zs:justify-center zs:transition-all zs:duration-500 zs:ease-in-out zs:shadow-md"
+          [ngClass]="[
+              value() ? '' : colorClasses('bg'),
+              value() ? colorClasses('text') : 'zs:text-gray-100 zs:dark:text-gray-300',
+              value() ? 'zs:bg-gray-100 zs:dark:bg-gray-300' : '',
+              wrapperSize(),
+              value() ? transSize() : 'zs:translate-x-0',
+          ]"
+      >
+          <i [class]="icon()"></i>
+      </div>
+    </button>
+  </div>
+
+  <!-- ===================== Label (ZS-label component) ===================== -->
+  <ZS-label [class]="(label() || hint()) ? 'zs:ml-1' : ''"
+    [id]="Id() + '-label'"
+    [label]="label()"
+    [hint]="hint()"
+    [size]="size()"
+    [hintId]="Id() + '-hint'"
+    [for]="Id()"
+  ></ZS-label>
+</div>

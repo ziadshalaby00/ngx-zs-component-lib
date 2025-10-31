@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Test } from './test/test';
-import { ThemeToggle } from "./ngx-zs-component/theme-toggle/theme-toggle";
+import { ThemeToggle } from "../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle";
 // import { Input } from './ngx-zs-component/FormCompFolder/input/input';
 // import { Range } from './ngx-zs-component/FormCompFolder/range/range';
 // import { Alert } from './ngx-zs-component/AlertFolder/alert/alert';

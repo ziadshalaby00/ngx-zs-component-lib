@@ -1,0 +1,82 @@
+<!-- ========================= Conditional Rendering ========================= -->
+@if (item()) {
+  @if (item().children?.length) {
+
+    <!-- ========================= Parent Item with Dropdown ========================= -->
+    <div class="zs:relative zs:w-full">
+
+      <!-- ========================= Main Toggle Button ========================= -->
+      <button
+        type="button"
+        (click)="toggle()"
+        [ngClass]="getItemClasses(item())"
+        class="zs:flex zs:w-full zs:items-center zs:gap-2 zs:rounded-md zs:px-3 zs:py-2 zs:text-left 
+        zs:text-sm zs:font-medium zs:md:text-base"
+        aria-haspopup="true"
+        [attr.aria-expanded]="isOpen()"
+        [attr.aria-controls]="'submenu-' + index()"
+      >
+        <div class="zs:flex zs:items-center">
+          @if (item().icon) {
+            <i [ngClass]="[
+              item().icon, 
+              item().iconClass ?? '',
+              (item().icon && item().label) ? 'zs:mr-2' : ''
+            ]" aria-hidden="true"></i>
+          }
+          <span class="zs:wrap-break-word" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
+        </div>
+        <i class="fas fa-chevron-down zs:ml-auto zs:p-0.5 zs:text-xs" aria-hidden="true"></i>
+      </button>
+
+      <!-- ========================= Dropdown Menu ========================= -->
+      <div
+        [id]="'submenu-' + index()"
+        [ngClass]="{
+          'zs:block': isOpen(),
+          'zs:hidden': !isOpen(),
+          'zs:absolute zs:left-6 zs:w-50 zs:mt-1 zs:py-1 zs:bg-white zs:dark:bg-gray-800 
+          zs:rounded-md shadow-md-all shadow-md-all-night': item().childrenOpenWindow,
+          'zs:px-4 zs:mt-1': !item().childrenOpenWindow
+        }"
+        class="{{ zIndices.navItemDropdown }}"
+        role="menu"
+        [attr.aria-label]="item().label + ' submenu'"
+      >
+        @for (child of item().children; track $index) {
+          <ZS-nav-item
+            [item]="child"
+            [collectionName]="collectionName() + '-' + index()"
+            (anyItemClickedEv)="handleChildClick($event)"
+            role="menuitem"
+          ></ZS-nav-item>
+        }
+      </div>
+
+    </div>
+
+  } @else {
+
+    <!-- ========================= Leaf Item (No Children) ========================= -->
+    <a
+      [routerLink]="item().routerLink"
+      [routerLinkActive]="item().routerLinkActive ?? ''"
+      #rla="routerLinkActive"
+      [ngClass]="rla.isActive ? '' : getItemClasses(item())"
+      class="zs:flex zs:items-center zs:rounded-md zs:px-3 zs:py-2 
+      zs:text-sm zs:font-medium zs:md:text-base"
+      (click)="onItemClick()"
+      role="menuitem"
+    >
+      @if (item().icon) {
+        <i [ngClass]="[
+          item().icon,
+          rla.isActive ? '' : item().iconClass ?? '',
+          (item().icon && item().label) ? 'zs:mr-2' : ''
+        ]"
+        aria-hidden="true"></i>
+      }
+      <span class="zs:wrap-break-word zs:line-clamp-3" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
+    </a>
+  }
+}

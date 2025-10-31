@@ -1,0 +1,87 @@
+<!-- =================================== Main Container =================================== -->
+<div 
+  class="zs:relative zs:w-full zs:mt-6"
+  role="region"
+  aria-label="Image carousel"
+  aria-roledescription="carousel"
+>
+
+  <!-- =================================== Carousel Track =================================== -->
+  <div 
+    carousel-container
+    #carouselContainer
+    class="zs:overflow-hidden zs:relative"
+    role="group"
+    aria-label="Carousel track"
+    (pointerdown)="onDragStart($event)"
+    (pointermove)="onDragMove($event)"
+    (pointerup)="onDragEnd()"
+    (pointerleave)="onDragEnd()"
+    (pointercancel)="onDragEnd()"
+    [class.dragging]="dragging()"
+  >
+    <div 
+      #carouselTrack 
+      [style.--carousel-item-width]="itemsPerBoxWidth()"
+      class="zs:flex zs:transition-transform zs:duration-500 zs:ease-in-out"
+      [style.transform]="'translateX(' + currentTranslate() + 'px)'"
+    >
+      <!-- Cards -->
+      <ng-content select="[carousel-item]"></ng-content>
+      <!-- /Cards -->
+    </div>
+  </div>
+  <!-- =================================== /Carousel Track =================================== -->
+
+  <!-- =================================== Navigation Arrows =================================== -->
+  @if (arrows()) {
+    <button
+      type="button"
+      class="zs:absolute zs:top-1/2 zs:left-3 zs:size-10 zs:-translate-y-1/2 zs:p-3 zs:flex zs:items-center zs:justify-center 
+      zs:rounded-full zs:bg-gray-100/50 zs:dark:bg-gray-500/50 zs:hover:bg-gray-100/70 
+      zs:dark:hover:bg-gray-500/70 zs:transition shadow-lg-all shadow-lg-all-night"
+      (click)="previous()"
+      aria-label="Previous slide"
+      [attr.aria-controls]="carouselContainer?.id"
+    >
+      <i [ngClass]="arrowColorClass()" class="fas fa-chevron-left zs:text-xl" aria-hidden="true"></i>
+    </button>
+
+    <button
+      type="button"
+      class="zs:absolute zs:top-1/2 zs:right-3 zs:size-10 zs:-translate-y-1/2 zs:p-3 zs:flex zs:items-center zs:justify-center 
+      zs:rounded-full zs:bg-gray-100/50 zs:dark:bg-gray-500/50 zs:hover:bg-gray-100/70 
+      zs:dark:hover:bg-gray-500/70 zs:transition shadow-lg-all shadow-lg-all-night"
+      (click)="next()"
+      aria-label="Next slide"
+      [attr.aria-controls]="carouselContainer?.id"
+    >
+      <i [ngClass]="arrowColorClass()" class="fas fa-chevron-right zs:text-xl" aria-hidden="true"></i>
+    </button>
+  }
+  <!-- =================================== /Navigation Arrows =================================== -->
+
+</div>
+<!-- =================================== /Main Container =================================== -->
+
+
+<!-- =================================== Indicators =================================== -->
+@if(showIndicators()) {
+  <div class="zs:flex zs:justify-center zs:mt-4 zs:gap-2" role="tablist" aria-label="Carousel indicators">
+    @for (item of indicatorBoxes(); track $index; let i = $index) {
+      <button
+        type="button"
+        role="tab"
+        class="zs:w-3 zs:h-3 zs:rounded-full zs:transition"
+        [ngClass]="currentIndex() === i 
+                    ? 'zs:bg-gray-800 zs:dark:bg-gray-200 zs:scale-110' 
+                    : 'zs:bg-gray-400 zs:dark:bg-gray-600 zs:hover:bg-gray-600 zs:dark:hover:bg-gray-400'"
+        (click)="updateIndex(i)"
+        [attr.aria-label]="'Go to slide ' + (i + 1)"
+        [attr.aria-current]="currentIndex() === i ? 'true' : null"
+        tabindex="0"
+      ></button>
+    }
+  </div>
+}
+<!-- =================================== /Indicators =================================== -->

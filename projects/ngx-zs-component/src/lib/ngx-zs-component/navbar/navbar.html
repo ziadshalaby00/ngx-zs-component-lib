@@ -1,0 +1,328 @@
+<!-- ========================= Fixed Navbar Container ========================= -->
+
+<nav
+  class="zs:bg-white zs:dark:bg-[#18202F] zs:top-0 zs:left-0 zs:right-0 {{ zIndices.navbar }} zs:shadow-md zs:dark:shadow-gray-400/30"
+  [ngClass]="fixed() ? 'zs:fixed' : 'zs:relative'"
+  role="navigation"
+  aria-label="Main Navigation"
+>
+  <div class="zs:max-w-7xl zs:mx-auto zs:px-4 zs:sm:px-6 zs:lg:px-8">
+    <div class="zs:flex zs:justify-between zs:h-16 zs:gap-4">
+
+      <!-- ========================= Logo & Site Name ========================= -->
+      <div class="zs:flex zs:items-center">
+        @if (logoUrl() || siteNameConfig()) {
+          <a
+            [routerLink]="[siteNameConfig()?.routerLink ?? '/']"
+            class="zs:shrink-0 zs:flex zs:items-center zs:gap-2 zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-blue-500"
+            aria-label="Homepage"
+          >
+            @if (logoUrl()) {
+              <img
+                [src]="logoUrl()"
+                alt="{{ siteNameConfig()?.siteName ?? 'Site Logo' }}"
+                class="zs:h-8 zs:w-auto"
+              />
+            }
+            @if (siteNameConfig()) {
+              <span
+                [class]="siteNameConfig()?.siteNameColorClass ?? 'zs:text-gray-800 zs:dark:text-gray-100'"
+                class="zs:font-bold zs:text-xl"
+              >
+                {{ siteNameConfig()?.siteName }}
+              </span>
+            }
+          </a>
+        }
+      </div>
+
+      <!-- ========================= Desktop Navigation ========================= -->
+      <div class="zs:hidden zs:lg:flex zs:items-center zs:gap-4" role="menubar">
+        @for (item of visibleNavItems(); track $index) {
+          <ZS-nav-item
+            [item]="item"
+            [collectionName]="'navItems'"
+            (anyItemClickedEv)="itemClicked($event)"
+            role="menuitem"
+          />
+        }
+
+        @if (moreNavItems().length > 0) {
+          <div class="zs:relative" role="none">
+            <button
+              (click)="isMoreOpen.set(!isMoreOpen())"
+              [attr.aria-expanded]="isMoreOpen()"
+              aria-haspopup="true"
+              aria-controls="more-menu"
+              class="zs:px-3 zs:py-2 zs:text-sm zs:font-bold zs:text-blue-600 zs:dark:text-blue-400 zs:hover:text-blue-700 zs:dark:hover:text-blue-300 zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-blue-500"
+            >
+              More
+              <i class="fas fa-chevron-down zs:ml-1 zs:text-xs zs:text-gray-500 zs:dark:text-gray-400"></i>
+            </button>
+            <div
+              id="more-menu"
+              [ngClass]="{ 'zs:block': isMoreOpen(), 'zs:hidden': !isMoreOpen() }"
+              class="zs:absolute zs:bg-white zs:dark:bg-[#18202F] shadow-md-all shadow-md-all-night zs:rounded-md zs:mt-1 zs:py-1 zs:min-w-48 z-200"
+              role="menu"
+            >
+              @for (item of moreNavItems(); track $index) {
+                <ZS-nav-item
+                  [item]="item"
+                  [collectionName]="'navItems'"
+                  (anyItemClickedEv)="itemClicked($event)"
+                  role="menuitem"
+                />
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- ========================= Right Controls ========================= -->
+      <div class="zs:flex zs:items-center zs:gap-3">
+
+        <!-- Search Bar (Desktop) -->
+        @if (showSearchBar()) {
+          <div class="zs:hidden zs:lg:block" role="search">
+            <div class="zs:relative">
+              <label for="desktop-search" class="sr-only">Search</label>
+              <input
+                id="desktop-search"
+                type="text"
+                [value]="searchValue()"
+                (input)="searchValue.set($any($event.target).value)"
+                (keyup.enter)="onSearchSubmit()"
+                [placeholder]="searchPlaceholder()"
+                class="zs:bg-gray-100 zs:dark:bg-gray-700 zs:text-gray-800 zs:dark:text-gray-200 zs:rounded-full zs:py-2 zs:px-4 zs:w-64
+                       zs:transition-all zs:duration-200 zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-blue-500
+                       zs:focus:bg-white zs:dark:focus:bg-gray-600 zs:shadow-sm zs:dark:shadow-gray-500/40
+                       zs:hover:shadow-md zs:dark:hover:shadow-gray-500/50"
+              />
+              <button
+                (click)="onSearchSubmit()"
+                class="zs:absolute zs:py-1 zs:px-2 zs:right-2 zs:top-1/2 zs:-translate-y-1/2 zs:text-gray-500 zs:dark:text-gray-400
+                       zs:hover:text-gray-700 zs:dark:hover:text-gray-300 zs:transition-colors zs:duration-200"
+                aria-label="Submit search"
+              >
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- User Profile Dropdown -->
+        @if (isLoggedIn() && userProfile() && showUserSection()) {
+          <div class="zs:relative">
+            <button
+              (click)="toggleUserMenu()"
+              class="zs:flex zs:items-center zs:gap-2 zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-blue-500"
+              aria-haspopup="true"
+              [attr.aria-expanded]="isUserMenuOpen()"
+              aria-controls="user-menu"
+              aria-label="User menu"
+            >
+              @if (userProfile()?.imageUrl) {
+                <img
+                  [src]="userProfile()?.imageUrl"
+                  alt="{{ userProfile()?.name ?? 'User profile image' }}"
+                  class="zs:h-8 zs:w-8 zs:rounded-full zs:object-cover"
+                />
+              } @else {
+                <div
+                  class="zs:h-8 zs:w-8 zs:rounded-full zs:bg-blue-500 zs:flex zs:items-center zs:justify-center zs:text-white zs:font-semibold"
+                  aria-hidden="true"
+                >
+                  {{ userProfile()?.name?.charAt(0) || 'U' }}
+                </div>
+              }
+              <i class="fas fa-chevron-down zs:text-xs zs:text-gray-600 zs:dark:text-gray-400
+                         zs:hover:text-gray-700 zs:dark:hover:text-gray-300"></i>
+            </button>
+
+            @if (isUserMenuOpen() && userMenuItems().length > 0) {
+              <div
+                id="user-menu"
+                class="zs:absolute zs:right-0 zs:mt-2.5 zs:min-w-56 zs:bg-white zs:dark:bg-gray-800 zs:rounded-md
+                      shadow-md-all shadow-md-all-night zs:pt-2 z-400"
+                role="menu"
+              >
+                <!-- User Info Section -->
+                <div class="zs:px-4 zs:py-2 zs:border-b zs:border-gray-200 zs:dark:border-gray-700">
+                  @if (userProfile()?.name) {
+                    <div class="zs:font-semibold zs:text-gray-900 zs:dark:text-gray-100">
+                      {{ userProfile()?.name }}
+                    </div>
+                  }
+                  @if (userProfile()?.username) {
+                    <div class="zs:text-sm zs:text-gray-600 zs:dark:text-gray-400">
+                      @{{ userProfile()?.username }}
+                    </div>
+                  }
+                  @if (userProfile()?.email) {
+                    <div class="zs:text-sm zs:text-gray-500 zs:dark:text-gray-400">
+                      {{ userProfile()?.email }}
+                    </div>
+                  }
+                </div>
+
+                <!-- Menu Items -->
+                @if (userMenuItems().length > 0) {
+                  <div class="zs:py-1">
+                    @for (item of getUserMenuItems(); track $index) {
+                      <ZS-nav-item
+                        [item]="item"
+                        [collectionName]="'MenuItems'"
+                        (anyItemClickedEv)="itemClicked($event)"
+                        role="menuitem"
+                      />
+                    }
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Auth Buttons -->
+        @else if (authButtons().showAuthButtons && !isLoggedIn()) {
+          <div class="zs:hidden zs:lg:flex zs:items-center zs:gap-3" role="group" aria-label="Authentication">
+            <ZS-button
+            [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
+            [variant]="authButtons().login?.variant ?? 'outline'"
+            [size]="authButtons().login?.size ?? 'md'"
+            [icon]="authButtons().login?.icon  ?? ''"
+            (clickedEv)="onLogin()"
+            >
+              Login
+            </ZS-button>
+
+            <ZS-button
+            [btnStyle]="authButtons().signup?.btnStyle ?? 'primary'"
+            [variant]="authButtons().signup?.variant ?? 'solid'"
+            [size]="authButtons().signup?.size ?? 'md'"
+            [icon]="authButtons().signup?.icon  ?? ''"
+            (clickedEv)="onSignup()"
+            >
+              Sign Up
+            </ZS-button>
+          </div>
+        }
+
+        <!-- Mobile Menu Toggle -->
+        <div class="zs:lg:hidden">
+          <button
+            (click)="toggleMobileMenu()"
+            class="zs:p-2 zs:rounded-md zs:text-gray-600 zs:dark:text-gray-300
+                   zs:hover:text-gray-900 zs:dark:hover:text-gray-100
+                   zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-inset
+                   zs:focus:ring-gray-200 zs:dark:focus:ring-gray-700"
+            aria-controls="mobile-menu"
+            aria-expanded="{{ isMobileMenuOpen() }}"
+            aria-label="Toggle mobile menu"
+          >
+            <i class="fas fa-bars zs:px-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================= Mobile Menu ========================= -->
+  @if (isMobileMenuOpen()) {
+    <div
+      id="mobile-menu"
+      class="zs:lg:hidden zs:bg-white zs:dark:bg-[#18202F] 
+      zs:[box-shadow:0_8px_0_0_#364153] zs:dark:[box-shadow:0_8px_0_0_black]"
+      role="menu"
+      aria-label="Mobile navigation"
+    >
+      <div class="zs:px-2 zs:pt-2 zs:pb-3 zs:flex zs:flex-col zs:gap-1 zs:sm:px-3">
+
+        <!-- Navigation Items -->
+        <div class="zs:max-h-96 zs:overflow-y-auto">
+          @for (item of mobileNavItems(); track $index) {
+            <ZS-nav-item
+              [item]="item"
+              [collectionName]="'navItems'"
+              (anyItemClickedEv)="itemClicked($event)"
+              role="menuitem"
+            />
+          }
+        </div>
+
+        <!-- Search Bar (Mobile) -->
+        @if (showSearchBar()) {
+          <div class="zs:px-3 zs:py-2" role="search">
+            <label for="mobile-search" class="sr-only">Search</label>
+            <div class="zs:relative">
+              <input
+                id="mobile-search"
+                type="text"
+                [value]="searchValue()"
+                (input)="searchValue.set($any($event.target).value)"
+                (keyup.enter)="onSearchSubmit()"
+                [placeholder]="searchPlaceholder()"
+                class="zs:w-full zs:bg-gray-100 zs:dark:bg-gray-700 zs:text-gray-800 zs:dark:text-gray-200
+                       zs:rounded-full zs:py-2 zs:px-4 zs:transition-all zs:duration-200 zs:focus:outline-hidden
+                       zs:focus:ring-2 zs:focus:ring-blue-500 zs:focus:bg-white zs:dark:focus:bg-gray-600
+                       zs:shadow-sm zs:dark:shadow-gray-500/40 zs:hover:shadow-md zs:dark:hover:shadow-gray-500/50"
+              />
+              <button
+                (click)="onSearchSubmit()"
+                class="zs:absolute zs:py-1 zs:px-2 zs:right-2 zs:top-1/2 zs:-translate-y-1/2 zs:text-gray-500 zs:dark:text-gray-400
+                       zs:hover:text-gray-700 zs:dark:hover:text-gray-300 zs:transition-colors zs:duration-200"
+                aria-label="Submit search"
+              >
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- Auth Buttons (Mobile) -->
+        @if (authButtons().showAuthButtons && !isLoggedIn()) {
+          <div
+            class="zs:pt-3 zs:pb-4 zs:border-t zs:border-gray-300 zs:dark:border-gray-500
+            zs:flex zs:flex-wrap zs:justify-start zs:items-center zs:gap-2"
+            role="group"
+            aria-label="Authentication (mobile)"
+          >
+            <ZS-button
+            [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
+            [variant]="authButtons().login?.variant ?? 'outline'"
+            [size]="authButtons().login?.size ?? 'md'"
+            [icon]="authButtons().login?.icon  ?? ''"
+            (clickedEv)="onLogin(); isMobileMenuOpen.set(false)"
+            >
+              Login
+            </ZS-button>
+
+            <ZS-button
+            [btnStyle]="authButtons().signup?.btnStyle ?? 'primary'"
+            [variant]="authButtons().signup?.variant ?? 'solid'"
+            [size]="authButtons().signup?.size ?? 'md'"
+            [icon]="authButtons().signup?.icon  ?? ''"
+            (clickedEv)="onSignup(); isMobileMenuOpen.set(false)"
+            >
+              Sign Up
+            </ZS-button>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</nav>
+
+<!-- ========================= Spacer for Fixed Navbar ========================= -->
+@if (fixed()) {
+  <div class="zs:h-16" aria-hidden="true"></div>
+}
+
+<!-- ========================= Overlay for Menu Closing ========================= -->
+@if (isMobileMenuOpen()) {
+  <div
+    class="zs:fixed zs:inset-0 zs:bg-gray-700 zs:dark:bg-black z-700"
+    (click)="closeAllMenus()"
+    aria-hidden="true"
+  ></div>
+}
