@@ -1,13 +1,10 @@
 import fs from "fs";
 import path from "path";
 
-const PREFIX = "ngxzs:";
+const PREFIX = "zs:";
 
 const exts = [".html", ".ts"];
 const folder = "./src/app/ngx-zs-component";
-
-// regex: يلتقط أي كلمة ضخمة (utility) يتبعها :prefixes* وتحتاج إضافة prefix
-const regex = /(?<![\w-])(hover:|focus:|active:|disabled:|visited:|dark:|md:|lg:|xl:|2xl:|sm:|group-hover:|group-focus:|motion-safe:|motion-reduce:)?(\[[^\]]+\]|[a-z0-9.-/]+(?:\[[^\]]+\])?)/gi;
 
 function walk(dir) {
   fs.readdirSync(dir).forEach((file) => {
@@ -23,13 +20,18 @@ function walk(dir) {
 function processFile(file) {
   let data = fs.readFileSync(file, "utf8");
 
-  // استبدال كل الكلاسات داخل class=""
+  // ✅ معالجة class=""
   data = data.replace(/class="([^"]+)"/g, (match, classes) => {
     const newClasses = classes
       .split(/\s+/)
       .map((cls) => {
-        if (cls.startsWith(PREFIX)) return cls; // لو فيه prefix مسبقًا
         if (!cls.trim()) return cls;
+
+        // ✅ لا تلمس كلاسات FontAwesome
+        if (cls.startsWith("fa")) return cls;
+
+        // ✅ لو فيه prefix مسبقًا
+        if (cls.startsWith(PREFIX)) return cls;
 
         return PREFIX + cls;
       })
@@ -38,13 +40,18 @@ function processFile(file) {
     return `class="${newClasses}"`;
   });
 
-  // استبدال الكلاسات داخل strings في TS
+  // ✅ معالجة Strings داخل الـ TS
   data = data.replace(/`([^`]+)`/g, (match, content) => {
     const newContent = content
       .split(/\s+/)
       .map((cls) => {
-        if (cls.startsWith(PREFIX)) return cls;
         if (!cls.trim()) return cls;
+
+        // ✅ تجاهل FontAwesome
+        if (cls.startsWith("fa")) return cls;
+
+        if (cls.startsWith(PREFIX)) return cls;
+
         return PREFIX + cls;
       })
       .join(" ");

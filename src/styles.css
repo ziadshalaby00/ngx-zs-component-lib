@@ -2,7 +2,7 @@
 /* ==========================\ ZS Styles \========================== */
 /* ================================================================= */
 
-@import "tailwindcss" prefix(ngxzs);
+@import "tailwindcss" prefix(zs);
 /* @import '.././using-fontawesome/css/all.min.css'; */
 
 @custom-variant dark (&:where(.dark, .dark *)); /* Custom Variants */
