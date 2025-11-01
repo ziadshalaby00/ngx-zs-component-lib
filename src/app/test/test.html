@@ -20,12 +20,20 @@
     ></ZS-navbar>
 
 
-
-    <div class="mt-8 m-auto w-96">
-        <ZS-input
-        [required]="true"
-        [validateFns]="[va]"
+    <div class="zs:m-auto zs:w-56 zs:flex zs:flex-col zs:gap-4 zs:my-8">
+      @for(item of features; track $index; let i = $index) {
+        <ZS-card
+        [animation]="getAnimation(i)"
+        cardStyle="info"
+        bodyClass="bg-gray-100/50 dark:bg-gray-800/40 
+                   hover:bg-gray-100 dark:hover:bg-gray-800 
+                   transition-colors duration-300 rounded-2xl shadow-sm hover:shadow-md"
         >
-        </ZS-input>
+        <p class="zs:p-4 zs:text-center">
+          {{ item.feature }}
+          <i class="{{ item.icon }}"></i>
+        </p>
+        </ZS-card>
+      }
     </div>
 </div>

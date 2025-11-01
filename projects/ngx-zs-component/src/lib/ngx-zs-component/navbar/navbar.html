@@ -62,7 +62,7 @@
             <div
               id="more-menu"
               [ngClass]="{ 'zs:block': isMoreOpen(), 'zs:hidden': !isMoreOpen() }"
-              class="zs:absolute zs:bg-white zs:dark:bg-[#18202F] shadow-md-all shadow-md-all-night zs:rounded-md zs:mt-1 zs:py-1 zs:min-w-48 z-200"
+              class="zs:absolute zs:bg-white zs:dark:bg-[#18202F] shadow-md-all shadow-md-all-night zs:rounded-md zs:mt-1 zs:py-1 zs:min-w-48 zs:z-200"
               role="menu"
             >
               @for (item of moreNavItems(); track $index) {
@@ -143,7 +143,7 @@
               <div
                 id="user-menu"
                 class="zs:absolute zs:right-0 zs:mt-2.5 zs:min-w-56 zs:bg-white zs:dark:bg-gray-800 zs:rounded-md
-                      shadow-md-all shadow-md-all-night zs:pt-2 z-400"
+                      shadow-md-all shadow-md-all-night zs:pt-2 zs:z-400"
                 role="menu"
               >
                 <!-- User Info Section -->
@@ -321,7 +321,7 @@
 <!-- ========================= Overlay for Menu Closing ========================= -->
 @if (isMobileMenuOpen()) {
   <div
-    class="zs:fixed zs:inset-0 zs:bg-gray-700 zs:dark:bg-black z-700"
+    class="zs:fixed zs:inset-0 zs:bg-gray-700 zs:dark:bg-black zs:z-700"
     (click)="closeAllMenus()"
     aria-hidden="true"
   ></div>

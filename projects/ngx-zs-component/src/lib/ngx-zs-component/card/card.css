@@ -6,6 +6,7 @@
 [class*='animate-from-'] {
   opacity: 0;
   transform: translate(0, 0);
+  will-change: opacity, transform; /* ✅ GPU acceleration */
 }
 
 /* Activate animation only when element appears */

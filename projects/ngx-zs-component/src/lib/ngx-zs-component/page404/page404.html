@@ -1,7 +1,8 @@
 <!-- ========================= Page 404 Container ========================= -->
 <div class="zs:flex zs:flex-col zs:items-center zs:justify-center zs:min-h-[90vh]
-    zs:text-center zs:text-sky-600 zs:dark:text-sky-500
-    zs:transition-colors zs:duration-500 zs:animate-fadeIn">
+    zs:text-center zs:transition-colors zs:duration-500 zs:animate-fadeIn"
+    [ngClass]="[style().iconText]"
+    >
 
   <!-- ========================= Icon ========================= --> 
   <div class="zs:text-[136px] zs:mb-8 animate-float zs:opacity-90 zs:leading-none">
@@ -30,10 +31,11 @@
       [routerLink]="routerLink()"
       (click)="onAction.emit()"
       class="zs:px-6 zs:py-2 zs:rounded-full
-             zs:bg-sky-500 zs:text-white zs:font-medium zs:shadow-md
-             zs:hover:bg-sky-600 zs:hover:shadow-lg zs:flex zs:items-center 
+             zs:text-white zs:font-medium zs:shadow-md
+             zs:hover:shadow-lg zs:flex zs:items-center 
              zs:justify-center zs:transition-all zs:duration-300 zs:ease-out 
-             zs:gap-1.5 zs:dark:bg-sky-600 zs:dark:hover:bg-sky-500"
+             zs:gap-1.5"
+      [ngClass]="[style().btnBG, style().btnBgHover]"
     >
       <i class="fa-solid fa-house"></i>
       {{ buttonText() }}

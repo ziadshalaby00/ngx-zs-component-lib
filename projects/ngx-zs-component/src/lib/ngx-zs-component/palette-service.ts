@@ -25,8 +25,8 @@ export interface FormPaletteEntry {
   text: string;
   textHover: string;
 
-  checkBoxText?: string;
-  checkBoxTextHover?: string;
+  checkBoxText: string;
+  checkBoxTextHover: string;
 }
 
 export const FormPaletteMap = new Map<FormStyle, FormPaletteEntry>([

@@ -1,4 +1,5 @@
-import { Component, computed, inject } from '@angular/core';
+import { AnimationType, Card } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/card/card';
+import { Component, computed, inject, signal } from '@angular/core';
 import { AuthButtonsType, Navbar, NavbarItemExport, navItemsType, SiteNameConfigType, UserProfile } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/navbar/navbar';
 import { Input } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/input/input";
 import { Alert } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert/alert";
@@ -6,7 +7,7 @@ import { AlertService } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Input, Alert],
+  imports: [Navbar, Input, Alert, Card],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -16,13 +17,11 @@ export class Test {
   // readonly isMobileMenuOpen = model<boolean>(false)
   
   readonly alertService = inject(AlertService)
-  constructor() {
-    
-  }
 
   siteNameConfig: SiteNameConfigType = {
     siteName: 'NgxZsComponent',
-    siteNameColorClass: 'text-gray-800 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300'
+    siteNameColorClass: `zs:text-gray-800 zs:hover:text-gray-600 
+    zs:dark:text-gray-100 zs:dark:hover:text-gray-300`
   }
 
   authButtons: AuthButtonsType = {
@@ -41,11 +40,13 @@ export class Test {
         label: 'Test', 
         routerLink: '/test', 
         icon: 'fa-solid fa-vial',
-        iconClass: 'text-lg', 
-        colorClass: `text-green-600 hover:text-green-700 dark:hover:text-green-500`, 
+        iconClass: 'zs:text-lg', 
+        colorClass: `zs:text-green-600 zs:hover:text-green-700 zs:dark:hover:text-green-500`, 
       },
-      { label: 'Products', routerLink: '/products', icon: 'fas fa-tag', iconClass: 'text-lg'},
-      { label: 'Cart', routerLink: '/cart', icon: 'fas fa-shopping-cart', iconClass: 'text-blue-700 dark:text-blue-500 text-lg'},
+      { label: 'Products', routerLink: '/products', icon: 'fas fa-tag', iconClass: 'zs:text-lg'},
+      { label: 'Cart', routerLink: '/cart', 
+        icon: 'fas fa-shopping-cart', 
+        iconClass: 'zs:text-blue-700 zs:dark:text-blue-500 zs:text-lg'},
       { label: 'About Us', routerLink: '/about'},
       { label: 'Contact Us', routerLink: '/contact'},
       {
@@ -67,12 +68,12 @@ export class Test {
   })
 
   userMenuItems: NavbarItemExport[] = [
-    { label: 'Profile', routerLink: '/profile', icon: 'fa-solid fa-user ', iconClass: 'text-lg'},
+    { label: 'Profile', routerLink: '/profile', icon: 'fa-solid fa-user ', iconClass: 'zs:text-lg'},
     { 
       label: 'Cart', 
       routerLink: '/cart', 
       icon: 'fas fa-shopping-cart',
-      iconClass: 'text-lg text-blue-700 dark:text-blue-500', 
+      iconClass: 'zs:text-lg zs:text-blue-700 zs:dark:text-blue-500', 
     },
     { 
       label: 'Dashboard', 
@@ -82,19 +83,22 @@ export class Test {
           label: 'Orders', 
           routerLink: '/orders', 
           icon: 'fas fa-box',
-          iconClass: 'text-lg text-indigo-500',
+          iconClass: 'zs:text-lg zs:text-indigo-500',
           useDefaultColorClass: 'bg'
         },
-        { label: 'Addresses', routerLink: '/addresses', icon: 'fa-solid fa-location-dot', iconClass: 'text-lg', useDefaultColorClass: 'bg' },
-        { label: 'Reviews', routerLink: '/reviews', icon: 'fa-solid fa-star', iconClass: 'text-lg', useDefaultColorClass: 'bg' },
+        { label: 'Addresses', routerLink: '/addresses', 
+          icon: 'fa-solid fa-location-dot', 
+          iconClass: 'zs:text-lg zs:text-lime-500', useDefaultColorClass: 'bg' },
+        { label: 'Reviews', routerLink: '/reviews', icon: 'fa-solid fa-star', 
+          iconClass: 'zs:text-lg zs:text-yellow-600', useDefaultColorClass: 'bg' },
       ]
     },
     { 
       label: 'Logout', 
       action: () => this.logout(),
-      colorClass: 'text-red-700 hover:text-red-800 dark:hover:text-red-600',
+      colorClass: 'zs:text-red-700 zs:hover:text-red-800 zs:dark:hover:text-red-600',
       icon: 'fas fa-sign-out-alt',
-      iconClass: 'text-lg',
+      iconClass: 'zs:text-lg',
     }
   ];
 
@@ -115,4 +119,147 @@ export class Test {
   }
 
   va = (value: string | null) => value === '1' ? ['value is 1'] : ['value not 1']
+
+  callCount = 0;
+  getAnimation(index: number): AnimationType {
+    const animations: AnimationType[] = ['top-right', 'bottom-left', 'top-left', 'bottom-right'];
+    const result = animations[index % animations.length];
+    console.log('getAnimation called for index', index, '→', result, '(Call #', ++this.callCount, ')');
+    return result;
+  }
+
+  readonly features = [
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+      {
+        icon: 'fa-solid fa-circle-notch',
+        feature: 'Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter. Smart and smooth Tasbeeh counter.',
+      },
+    ];
 }

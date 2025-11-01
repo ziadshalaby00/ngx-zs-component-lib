@@ -1,4 +1,5 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
+@import "../projects/ngx-zs-component/src/lib/ngx-zs-component/global.css";
 @import '.././using-fontawesome/css/all.min.css';
 
 @custom-variant dark (&:where(.dark, .dark *)); /* Custom Variants */

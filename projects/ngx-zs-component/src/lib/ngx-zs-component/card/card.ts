@@ -1,5 +1,7 @@
-import { Component, computed, ElementRef, input, signal, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, signal, viewChild } from '@angular/core';
 import { FormPaletteMap, FormStyle } from '../palette-service';
+import { VisibilityObserverService } from '../visibility-observer/visibility-observer-service';
+import { CommonModule } from '@angular/common';
 
 // ==============================================================================
 // Types
@@ -28,9 +30,12 @@ export type AnimationType =
   selector: 'ZS-card',
   standalone: true,
   templateUrl: './card.html',
-  styleUrl: './card.css'
+  styleUrl: './card.css',
+  imports: [CommonModule]
 })
 export class Card {
+  readonly visibility = inject(VisibilityObserverService)
+
   // ==========================================================================
   // Inputs
   // ==========================================================================
@@ -47,33 +52,34 @@ export class Card {
   readonly isVisible = signal(false);
 
   constructor() {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            this.isVisible.set(true);
-            observer.unobserve(entry.target);
-          }
-        }
-      },
-      { threshold: 0.2 }
-    );
-
     queueMicrotask(() => {
       const el = this.cardRef()?.nativeElement;
-      if (el) observer.observe(el);
+      if (!el) return;
+
+      this.visibility.observe(el, () => {
+        this.isVisible.set(true);
+      })
     });
   }
 
   // ==========================================================================
   // Computed Classes
   // ==========================================================================
-  readonly classList = computed(() => {
+
+  readonly visibleClasses  = computed<string>(() => {
+    const visible = this.isVisible();
+    return visible ? 'animate-visible' : '';
+  })
+
+  readonly animationClasses = computed<string>(() => {
+    const animation = this.animation();
+    return animation !== 'none' ? `animate-from-${animation}` : '';
+  })
+
+  readonly classList = computed<string>(() => {
     const style = this.cardStyle();
     const variant = this.variant();
     const clickable = this.clickable();
-    const animation = this.animation();
-    const visible = this.isVisible();
     const bodyClass = this.bodyClass();
 
     const palette = FormPaletteMap.get(style) ?? {
@@ -109,12 +115,6 @@ export class Card {
       : '';
 
     // ---------------------
-    // Animation Handling
-    // ---------------------
-    const animationClass = animation !== 'none' ? `animate-from-${animation}` : '';
-    const visibleClass = visible ? 'animate-visible' : '';
-
-    // ---------------------
     // Combine Classes
     // ---------------------
     return [
@@ -124,8 +124,6 @@ export class Card {
       bodyClass,
       shadowClasses,
       clickEffects,
-      animationClass,
-      visibleClass
     ]
       .filter(Boolean)
       .join(' ');

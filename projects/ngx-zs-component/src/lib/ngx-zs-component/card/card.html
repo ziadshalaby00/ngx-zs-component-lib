@@ -1,4 +1,5 @@
-<div #cardRef [class]="classList()"
+<div #cardRef 
+[ngClass]="[classList(), animationClasses(), visibleClasses()]"
 role="group"
 tabindex="0"
 [attr.aria-label]="clickable() ? 'Interactive card' : 'Information card'"
