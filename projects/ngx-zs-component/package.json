@@ -1,6 +1,6 @@
 {
   "name": "@ziadshalaby/ngx-zs-component",
-  "version": "2.0.4",
+  "version": "2.0.6",
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0"

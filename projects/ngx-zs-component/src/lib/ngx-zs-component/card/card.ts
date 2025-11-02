@@ -66,15 +66,43 @@ export class Card {
   // Computed Classes
   // ==========================================================================
 
-  readonly visibleClasses  = computed<string>(() => {
-    const visible = this.isVisible();
-    return visible ? 'animate-visible' : '';
-  })
-
-  readonly animationClasses = computed<string>(() => {
+  readonly animationClasses = computed(() => {
     const animation = this.animation();
-    return animation !== 'none' ? `animate-from-${animation}` : '';
-  })
+    const visible = this.isVisible();
+
+    const animateMap: Record<AnimationType, string> = {
+      'top': 'zs:translate-y-8',
+      'bottom': 'zs:-translate-y-8',
+      'left': 'zs:-translate-x-8',
+      'right': 'zs:translate-x-8',
+      'top-left': 'zs:translate-y-8 zs:-translate-x-8',
+      'top-right': 'zs:translate-y-8 zs:translate-x-8',
+      'bottom-left': 'zs:-translate-y-8 zs:-translate-x-8',
+      'bottom-right': 'zs:-translate-y-8 zs:translate-x-8',
+      'none': '',
+    };
+
+    if (visible) {
+      return `zs:opacity-100
+      zs:transform-gpu
+      zs:will-change-transform
+      zs:translate-x-0
+      zs:translate-y-0
+      zs:transition zs:duration-500`;
+    }
+
+    // Hidden state
+    if (animation === 'none') {
+      return 'zs:opacity-100';
+    }
+
+    return [
+      'zs:opacity-0',
+      animateMap[animation],
+      'zs:transform-gpu',
+      'zs:will-change-transform'
+    ].filter(Boolean).join(' ');
+  });
 
   readonly classList = computed<string>(() => {
     const style = this.cardStyle();
