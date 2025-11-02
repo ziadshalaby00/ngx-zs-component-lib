@@ -1,0 +1,26 @@
+<footer class="zs:bg-gray-700 zs:dark:bg-gray-950 zs:dark:text-gray-300 zs:text-white zs:p-6">
+    <div class="zs:text-center zs:flex zs:flex-col zs:gap-8">
+        <p class="zs:text-sm">
+            <ng-content select="[rights]"></ng-content>
+
+            @if(showDefultContent()) {
+                &copy;
+                <span class="zs:font-semibold">2026 Ziad Ahmed Shalaby</span>.
+                All rights reserved.
+            }
+        </p>
+
+        @if(pages().length) {
+            <nav class="zs:grid zs:gap-4
+            zs:grid-cols-2 zs:sm:grid-cols-3 zs:md:grid-cols-4 zs:lg:grid-cols-5
+            zs:px-0 zs:sm:px-4 zs:md:px-8 zs:lg:px-12
+            ">
+                @for(page of pages(); track $index) {
+                    <a class="zs:text-sm zs:hover:underline" [routerLink]="page.routerLink">
+                        {{ page.label }}
+                    </a>
+                }
+            </nav>
+        }
+    </div>
+</footer>

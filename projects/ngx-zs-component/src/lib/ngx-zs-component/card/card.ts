@@ -71,15 +71,15 @@ export class Card {
     const visible = this.isVisible();
 
     const animateMap: Record<AnimationType, string> = {
-      'top': 'zs:translate-y-8',
-      'bottom': 'zs:-translate-y-8',
+      'top': 'zs:-translate-y-8',
+      'bottom': 'zs:translate-y-8',
       'left': 'zs:-translate-x-8',
       'right': 'zs:translate-x-8',
-      'top-left': 'zs:translate-y-8 zs:-translate-x-8',
-      'top-right': 'zs:translate-y-8 zs:translate-x-8',
-      'bottom-left': 'zs:-translate-y-8 zs:-translate-x-8',
-      'bottom-right': 'zs:-translate-y-8 zs:translate-x-8',
-      'none': '',
+      'top-left': 'zs:-translate-y-8 zs:-translate-x-8',
+      'top-right': 'zs:-translate-y-8 zs:translate-x-8',
+      'bottom-left': 'zs:translate-y-8 zs:-translate-x-8',
+      'bottom-right': 'zs:translate-y-8 zs:translate-x-8',
+      'none': ''
     };
 
     if (visible) {
