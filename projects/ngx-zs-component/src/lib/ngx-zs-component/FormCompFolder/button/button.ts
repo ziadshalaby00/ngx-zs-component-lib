@@ -15,7 +15,7 @@ import {
   computed,
   output,
 } from '@angular/core';
-import { FormPaletteMap, FormStyle, BaseSize } from '../../palette-service';
+import { FormStyle, BaseSize, buttonSolidPaletteMap, ringPaletteMap, buttonOutlinePaletteMap } from '../../palette-service';
 import { CommonModule } from '@angular/common';
 
 
@@ -55,8 +55,6 @@ export class Button {
   // Computed Properties
   // ==============================================
 
-  readonly palette = computed(() => FormPaletteMap.get(this.btnStyle())!);
-
   readonly solidTextColor = computed<string>(() => {
     if(['primary', 'dark', 'violet', 'secondary'].includes(this.btnStyle())) 
       return 'zs:text-slate-100'
@@ -66,56 +64,68 @@ export class Button {
   readonly baseClasses = computed(() => {
     const size = this.size();
     const variant = this.variant();
-    const p = this.palette();
+    const solidPalette = buttonSolidPaletteMap.get(this.btnStyle())!;
+    const outlinePalette = buttonOutlinePaletteMap.get(this.btnStyle())!;
+    const ringConfig = ringPaletteMap.get(this.btnStyle())!;
 
-    const sizes: Record<BtnSizeType, string> = {
-      xs: 'zs:text-[10px] zs:px-2 zs:py-1',
-      sm: 'zs:text-xs zs:px-3.5 zs:py-1.75',
-      md: 'zs:text-sm zs:px-5 zs:py-2.5',
-      lg: 'zs:text-base zs:px-6.5 zs:py-3.25',
-      xl: 'zs:text-lg zs:px-8 zs:py-4',
-    };
+    const solidPadding = {
+      xs: 'zs:px-2 zs:py-1',
+      sm: 'zs:px-3.5 zs:py-1.75',
+      md: 'zs:px-5 zs:py-2.5',
+      lg: 'zs:px-6.5 zs:py-3.25',
+      xl: 'zs:px-8 zs:py-4',
+    }[size];
+
+    const outlinePadding = {
+      xs: 'zs:px-[calc(--spacing(2)-1px)] zs:py-[calc(--spacing(2)-1px)]',
+      sm: 'zs:px-[calc(--spacing(3.5)-1px)] zs:py-[calc(--spacing(1.75)-1px)]',
+      md: 'zs:px-[calc(--spacing(5)-1px)] zs:py-[calc(--spacing(2.5)-1px)]',
+      lg: 'zs:px-[calc(--spacing(6.5)-1px)] zs:py-[calc(--spacing(3.25)-1px)]',
+      xl: 'zs:px-[calc(--spacing(8)-1px)] zs:py-[calc(--spacing(4)-1px)]',
+    }[size];
 
     const solidClasses = this.join(
-      p.btnBG,
-      p.btnBGHover,
+      solidPalette.btnBG,
+      solidPalette.btnBGHover,
+      'zs:hover:scale-[1.02]',
       'zs:shadow-md zs:dark:shadow-slate-700/50',
       'zs:hover:shadow-lg',
       'zs:active:shadow-sm',
-      ['dark'].includes(this.btnStyle()) ? 'zs:dark:hover:shadow-sm' : '',
+      ['dark', 'secondary'].includes(this.btnStyle()) ? 'zs:dark:hover:shadow-sm' : '',
       this.solidTextColor(),
     );
 
     const outlineClasses = this.join(
       'zs:bg-transparent',
-      'zs:border',
-      p.border,
-      p.borderHover,
-      p.text,
-      p.textHover,
+      'zs:border-[1px]',
+      outlinePalette.border,
+      outlinePalette.btnBGHover,
+      outlinePalette.text,
+      'zs:hover:text-gray-50',
       'zs:hover:shadow-sm',
     )
 
     const stateClasses = this.disabled()
       ? 'zs:opacity-60 zs:cursor-not-allowed zs:shadow-none'
       : this.join(
-        'zs:hover:scale-[1.02]',
         'zs:active:scale-[0.97]',
+
         'zs:transition-[background-color,color,border-color,box-shadow,opacity]',
         'zs:duration-200',
         'zs:ease-in-out',
+
+        'zs:inline-flex zs:items-center zs:justify-center',
+        'zs:focus-visible:ring-2',
+        'zs:select-none',
+        'zs:outline-hidden',
+        ['xl'].includes(size) ? 'zs:rounded-xl' : 'zs:rounded-lg',
       )
 
     return this.join(
-      'zs:inline-flex zs:items-center zs:justify-center',
-      ['xl'].includes(size) ? 'zs:rounded-xl' : 'zs:rounded-lg',
-      'zs:focus-visible:ring-2',
-      'zs:select-none',
-      'zs:outline-hidden',
-      sizes[size],
+      variant === 'solid' ? solidPadding : outlinePadding,
       variant === 'solid' ? solidClasses : outlineClasses,
       stateClasses,
-      p.ring,
+      ringConfig.ring,
     )
   });
 

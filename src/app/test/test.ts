@@ -1,13 +1,18 @@
+import { Checkbox } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/checkbox/checkbox';
+import { Modal } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/modal/modal';
+import { Select } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/select/select';
 import { AnimationType, Card } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/card/card';
 import { Component, computed, inject, signal } from '@angular/core';
 import { AuthButtonsType, Navbar, NavbarItemExport, navItemsType, SiteNameConfigType, UserProfile } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/navbar/navbar';
 import { Input } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/input/input";
 import { Alert } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert/alert";
 import { AlertService } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert-service/alert-service';
+import { FormStyle } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/palette-service';
+import { Button } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button";
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Input, Alert, Card],
+  imports: [Navbar, Checkbox],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -27,10 +32,10 @@ export class Test {
   authButtons: AuthButtonsType = {
     showAuthButtons: true,
     signup: {
-      btnStyle: 'teal'
+      btnStyle: 'primary'
     },
     login: {
-      btnStyle: 'dark'
+      btnStyle: 'violet'
     }
   }
 
@@ -118,5 +123,13 @@ export class Test {
     // 
   }
 
-  
+  readonly styles: FormStyle[] = ['primary'
+ , 'secondary'
+ , 'warning'
+ , 'success'
+ , 'danger'
+ , 'dark'
+ , 'info'
+ , 'violet'
+ , 'teal']
 }

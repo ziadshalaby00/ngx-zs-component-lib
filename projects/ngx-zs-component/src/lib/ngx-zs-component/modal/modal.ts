@@ -1,5 +1,5 @@
 import { Component, computed, effect, HostListener, input, model, output, signal, untracked } from '@angular/core';
-import { FormPaletteMap, BaseSize, FormStyle } from '../palette-service';
+import { BaseSize, FormStyle, modalPaletteMap } from '../palette-service';
 import { Button, ButtonVariant } from '../FormCompFolder/button/button';
 import { CommonModule } from '@angular/common';
 import { zIndices, ZIndicesType } from '../z-index';
@@ -82,7 +82,7 @@ export class Modal {
     text: 'Cancel',
 
     btnStyle: 'secondary',
-    variant: 'solid',
+    variant: 'outline',
     size: 'md',
     icon: null,
     disabled: false
@@ -121,7 +121,7 @@ export class Modal {
   // Computed Signals
   // ==============================================
 
-  readonly palette = computed(() => FormPaletteMap.get(this.modalStyle())!);
+  readonly palette = computed(() => modalPaletteMap.get(this.modalStyle())!)
   readonly isOpen = signal<boolean>(false);
   readonly positionClass = computed(() => positionMap[this.position()])
 

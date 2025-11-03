@@ -1,5 +1,5 @@
 import { Component, computed, ElementRef, inject, input, signal, viewChild } from '@angular/core';
-import { FormPaletteMap, FormStyle } from '../palette-service';
+import { cardPaletteMap, FormStyle, ringPaletteMap } from '../palette-service';
 import { VisibilityObserverService } from '../visibility-observer/visibility-observer-service';
 import { CommonModule } from '@angular/common';
 
@@ -110,18 +110,15 @@ export class Card {
     const clickable = this.clickable();
     const bodyClass = this.bodyClass();
 
-    const palette = FormPaletteMap.get(style) ?? {
-      border: '',
-      borderHover: '',
-      ring: '',
-    };
+    const ringPalette = ringPaletteMap.get(style)!;
+    const cardPalette = cardPaletteMap.get(style)!;
 
     const base = 'zs:w-full zs:h-full zs:overflow-hidden zs:flex zs:flex-col zs:gap-4 zs:rounded-lg zs:transition-all zs:duration-300';
 
     // ---------------------
     // Border Handling
     // ---------------------
-    const border = (variant?.border ?? true) ? `zs:border ${palette.border}` : 'zs:border-0';
+    const border = (variant?.border ?? true) ? `zs:border ${cardPalette.border}` : 'zs:border-0';
 
     // ---------------------
     // Shadow Handling
@@ -133,13 +130,13 @@ export class Card {
     // ---------------------
     // Hover Border Handling
     // ---------------------
-    const hoverBorder = (variant?.border_hover ?? true) ? palette.borderHover : '';
+    const hoverBorder = (variant?.border_hover ?? true) ? cardPalette.borderHover : '';
 
     // ---------------------
     // Clickable / Focus Effects
     // ---------------------
     const clickEffects = clickable
-      ? `zs:cursor-pointer zs:hover:scale-[1.02] zs:active:scale-[0.97] zs:focus-visible:ring-2 ${palette.ring}`
+      ? `zs:cursor-pointer zs:hover:scale-[1.02] zs:active:scale-[0.97] zs:focus-visible:ring-2 ${ringPalette.ring}`
       : '';
 
     // ---------------------

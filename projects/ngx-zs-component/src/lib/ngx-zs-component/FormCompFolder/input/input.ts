@@ -9,7 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { FormPaletteMap, BaseSize, FormStyle } from '../../palette-service';
+import { inputPaletteMap, BaseSize, FormStyle, ringPaletteMap } from '../../palette-service';
 import { Label } from '../label/label';
 import { InputErrors } from '../input-errors/input-errors';
 
@@ -190,9 +190,10 @@ export class Input {
     const baseClasses = 'zs:border zs:transition-all zs:duration-150 zs:focus-within:ring-2';
     const hasError = this.error().length;
 
-    let styleConfig = FormPaletteMap.get(this.inputStyle()) ?? FormPaletteMap.get('secondary')!;
+    let styleConfig = inputPaletteMap.get(this.inputStyle())!;
+    const ringConfig = ringPaletteMap.get(this.inputStyle())!;
     if (hasError) {
-      styleConfig = FormPaletteMap.get('danger')!;
+      styleConfig = inputPaletteMap.get('danger')!;
     }
 
     const disabledClass = this.disabled() ? 'zs:opacity-60' : '';
@@ -206,7 +207,7 @@ export class Input {
       styleConfig.borderHover,
       styleConfig.inputBg,
       styleConfig.text,
-      styleConfig.ring,
+      ringConfig.ring,
       disabledClass,
       interactionClass,
     ]

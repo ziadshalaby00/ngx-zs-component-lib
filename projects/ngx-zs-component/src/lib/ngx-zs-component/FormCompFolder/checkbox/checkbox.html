@@ -22,9 +22,9 @@
       [attr.aria-labelledby]="Id() + '-label'"
       [ngClass]="[
         sizeClass(),
-        palette().checkBoxText,
-        palette().checkBoxTextHover,
-        palette().ring,
+        palette().checkboxTextPalette.checkBoxText,
+        palette().checkboxTextPalette.checkBoxTextHover,
+        palette().ringPalette.ring,
         'zs:leading-none zs:inline-flex zs:items-center zs:justify-center zs:focus:outline-hidden zs:focus-visible:ring-2'
       ]"
       (click)="toggleChecked()"

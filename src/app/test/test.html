@@ -9,10 +9,10 @@
       [searchPlaceholder]="'Search for a product...'"
       [navItems]="navItems"
     
-      [isLoggedIn]="true"
+      [isLoggedIn]="false"
       [userProfile]="userProfile()"
       [userMenuItems]="userMenuItems"
-    
+
       (loginClickedEv)="onLogin()"
       (signupClickedEv)="onSignup()"
       (searchSubmittedEv)="onSearch($event)"
@@ -20,5 +20,29 @@
     ></ZS-navbar>
 
 
+
+    <div class="zs:flex zs:gap-4 zs:justify-center zs:items-center zs:mt-8">
+      <div class="zs:flex zs:flex-col zs:gap-4 zs:items-center zs:justify-center">
+        @for(item of styles; track item) { 
+            <ZS-checkbox
+            [label]="item"
+            [inputStyle]="item"
+            variant="solid"
+            >
+            </ZS-checkbox>
+        }
+      </div>
   
+      <!-- <div class="zs:flex zs:flex-col zs:gap-4 zs:items-center zs:justify-center">
+        @for(item of styles; track item) {
+            <ZS-button
+            [btnStyle]="item"
+            [variant]="'solid'"
+            [size]="'lg'"
+            >
+            {{ item }}
+            </ZS-button>
+        }
+      </div> -->
+    </div>
 </div>

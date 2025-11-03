@@ -37,8 +37,10 @@
             </h3>
             @if(showCancelIcon()) {
                 <button 
-                class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer zs:transition-colors zs:duration-200 zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-visible:ring-offset-2 zs:focus-visible:ring-blue-500 zs:rounded-md"
-                [class]="palette().textHover"
+                class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer zs:transition-colors 
+                zs:duration-200 zs:focus:outline-hidden zs:focus-visible:ring-2 
+                zs:focus-visible:ring-offset-2 zs:focus-visible:ring-blue-500 
+                zs:rounded-md zs:hover:scale-[1.02] zs:active:scale-[0.97]"
                 (click)="close()"
                 aria-label="Close dialog"
                 >

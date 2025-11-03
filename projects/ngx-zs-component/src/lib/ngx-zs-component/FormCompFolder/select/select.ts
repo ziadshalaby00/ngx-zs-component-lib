@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ChangeEventType, Input, ValidatorFn } from '../input/input';
 import { Label } from '../label/label';
-import { FormPaletteEntry, FormPaletteMap, FormStyle } from '../../palette-service';
+import { FormStyle, inputPaletteMap, selectPaletteMap } from '../../palette-service';
 import { InputErrors } from '../input-errors/input-errors';
 import { zIndices, ZIndicesType } from '../../z-index';
 
@@ -95,15 +95,28 @@ export class Select<T> {
   // =================================================================================================
   // Computed Signals
   // =================================================================================================
-  readonly styleEntry = computed<FormPaletteEntry>(() => {
+  readonly styleEntry = computed(() => {
     const hasError = this.error().length;
 
-    let styleEntry = FormPaletteMap.get(this.inputStyle()) ?? FormPaletteMap.get('secondary')!;
+    let inputEntry: {
+      border: string;
+      borderHover: string;
+      inputBg: string;
+      text: string;
+    } = inputPaletteMap.get(this.inputStyle())!;
+
+    let selectEntry: {
+      bgSelect: string,
+      cleartext: string,
+      cleartexthover: string,
+    } = selectPaletteMap.get(this.inputStyle())!;
+
     if(hasError) {
-      styleEntry = FormPaletteMap.get('danger')!;
+      selectEntry = selectPaletteMap.get('danger')!;
+      inputEntry = inputPaletteMap.get('danger')!;
     }
 
-    return styleEntry
+    return {inputEntry, selectEntry}
   })
 
   readonly disabledOrReadonly = computed<boolean>(
@@ -133,12 +146,13 @@ export class Select<T> {
       ? 'zs:cursor-not-allowed'
       : 'zs:cursor-text';
 
+    const inputEntry = this.styleEntry().inputEntry;
     return [
       base,
-      this.styleEntry().border,
-      this.styleEntry().inputBg,
-      this.styleEntry().text,
-      this.styleEntry().borderHover,
+      inputEntry.border,
+      inputEntry.borderHover,
+      inputEntry.inputBg,
+      inputEntry.text,
       disabledCls,
       cursorCls
     ].filter(Boolean).join(' ');
@@ -146,11 +160,15 @@ export class Select<T> {
 
   readonly clearClass = computed<string>(() => {
     const base = 'zs:mt-2 zs:text-sm zs:flex zs:items-center zs:transition-colors';
-    return [base, this.styleEntry().text, this.styleEntry().textHover].filter(Boolean).join(' ');
+    return [
+      base,
+      this.styleEntry().selectEntry.cleartext,
+      this.styleEntry().selectEntry.cleartexthover
+    ].filter(Boolean).join(' ');
   });
 
   readonly showItemsClass = computed<string>(() => {
-    return this.styleEntry()?.bgSelect ?? '';
+    return this.styleEntry().selectEntry.bgSelect ?? '';
   });
 
   readonly error = computed<string[]>(() => {
@@ -182,7 +200,7 @@ export class Select<T> {
   // =================================================================================================
   readonly getBgSelectClasses = (selected: boolean): string => {
     return selected
-      ? `${this.styleEntry().bgSelect} zs:hover:opacity-80`
+      ? `${this.styleEntry().selectEntry.bgSelect} zs:hover:opacity-80`
       : 'zs:hover:bg-gray-200/50 zs:dark:hover:bg-gray-600/40';
   };
 

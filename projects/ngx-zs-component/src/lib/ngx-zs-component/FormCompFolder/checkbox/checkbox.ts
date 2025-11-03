@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, input, model } from '@angular/core';
-import { BaseSize, FormPaletteMap, FormStyle } from '../../palette-service';
+import { BaseSize, checkboxTextPaletteMap, ringPaletteMap, FormStyle } from '../../palette-service';
 import { Label } from '../label/label';
 
 // ==============================================
@@ -49,8 +49,15 @@ export class Checkbox {
   // Computed Signals
   // ==============================================
 
-  readonly palette = computed(
-    () => FormPaletteMap.get(this.inputStyle()) ?? FormPaletteMap.get('secondary')!
+  readonly palette = computed<{
+    checkboxTextPalette: { checkBoxText: string, checkBoxTextHover: string },
+    ringPalette: { ring: string }
+  }>(
+    () => {
+      const checkboxTextPalette = checkboxTextPaletteMap.get(this.inputStyle())!;
+      const ringPalette = ringPaletteMap.get(this.inputStyle())!;
+      return { checkboxTextPalette, ringPalette }
+    }
   );
 
   readonly iconClasses = computed<string>(() => {

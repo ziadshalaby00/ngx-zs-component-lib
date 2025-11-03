@@ -1,7 +1,13 @@
 import { RouterModule } from '@angular/router';
 import { Component, computed, input, output } from '@angular/core';
-import { FormPaletteEntry, FormPaletteMap, FormStyle } from '../palette-service';
+import { FormStyle, page404PaletteMap } from '../palette-service';
 import { CommonModule } from '@angular/common';
+
+interface Page404StyleType {
+  btnBG: string;
+  btnBGHover: string;
+  iconText: string;
+}
 
 @Component({
   selector: 'ZS-page404',
@@ -25,22 +31,19 @@ export class Page404 {
   // ========================================================================
   // Outputs
   // ========================================================================
-  readonly style = computed<{
-    btnBG: string;
-    btnBgHover: string;
-    iconText: string;
-  }>(() => {
-    if(this.pageStyle() === 'normal') return {
-      btnBG: 'zs:bg-sky-500 zs:dark:bg-sky-600',
-      btnBgHover: 'zs:hover:bg-sky-600 zs:dark:hover:bg-sky-500',
-      iconText: 'zs:text-sky-600 zs:dark:text-sky-500'
-    }
+  readonly style = computed<Page404StyleType>(() => {
+    if(this.pageStyle() === 'normal') 
+      return {
+        btnBG: 'zs:bg-sky-500 zs:dark:bg-sky-600',
+        btnBGHover: 'zs:hover:bg-sky-600 zs:dark:hover:bg-sky-500',
+        iconText: 'zs:text-sky-600 zs:dark:text-sky-500'
+      }
 
-    const pallete: FormPaletteEntry = FormPaletteMap.get(this.pageStyle() as FormStyle ?? 'violet')!
+    const pallete: Page404StyleType = page404PaletteMap.get(this.pageStyle() as FormStyle)!
     return {
       btnBG: pallete.btnBG,
-      btnBgHover: pallete.btnBGHover,
-      iconText: pallete.checkBoxText
+      btnBGHover: pallete.btnBGHover,
+      iconText: pallete.iconText
     }
   });
 
