@@ -27,11 +27,16 @@ export class ThemeToggle {
   readonly currentTheme = signal<themeTypes>('light');
   readonly isOpen = signal<boolean>(false);
   private readonly userSelectedTheme = signal<boolean>(false);
-
+  
+  private lastEmittedTheme: themeTypes | null = null;
+  private lastManualTheme: themeTypes | null = null;
+  
   // ==============================================
   // Inputs
   // ==============================================
   readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100');
+  readonly showDefaultUI = input<boolean>(true);
+  readonly setManualTheme = input<themeTypes | null>(null);
 
 
   // ==============================================
@@ -71,10 +76,30 @@ export class ThemeToggle {
     effect(() => {
       const theme = this.currentTheme();
       document.documentElement.classList.toggle('dark', theme === 'dark');
-      document.body.className = this.bodyClass();
+
+      const classes = this.bodyClass().split(' ');
+      document.body.classList.value = '';   // clear only what YOU set  
+      classes.forEach(c => document.body.classList.add(c));
 
       if (this.userSelectedTheme()) {
         localStorage.setItem('theme', theme);
+      }
+    });
+
+    effect(() => {
+      const manual = this.setManualTheme();
+
+      if (manual && manual !== this.lastManualTheme) {
+        this.lastManualTheme = manual;
+        this.setTheme(manual);
+      }
+    });
+
+    effect(() => {
+      const theme = this.currentTheme();
+      if (theme !== this.lastEmittedTheme) {
+        this.lastEmittedTheme = theme;
+        this.themeChangeEv.emit(theme);
       }
     });
   }
@@ -87,10 +112,11 @@ export class ThemeToggle {
   }
 
   setTheme(theme: themeTypes): void {
-    this.currentTheme.set(theme);
+    if (this.currentTheme() !== theme) {
+      this.currentTheme.set(theme);
+      this.userSelectedTheme.set(true);
+    }
     this.isOpen.set(false);
-    this.themeChangeEv.emit(theme);
-    this.userSelectedTheme.set(true);
   }
 
   // ==============================================

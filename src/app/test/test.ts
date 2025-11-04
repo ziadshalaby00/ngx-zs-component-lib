@@ -9,10 +9,11 @@ import { Alert } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-compone
 import { AlertService } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert-service/alert-service';
 import { FormStyle } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/palette-service';
 import { Button } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button";
+import { themeTypes } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Checkbox],
+  imports: [Navbar, Checkbox, Modal, Button],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -21,6 +22,7 @@ export class Test {
 
   // readonly isMobileMenuOpen = model<boolean>(false)
   
+
   readonly alertService = inject(AlertService)
 
   siteNameConfig: SiteNameConfigType = {

@@ -49,7 +49,7 @@ export class Card {
   // Local State
   // ==========================================================================
   readonly cardRef = viewChild<ElementRef>('cardRef');
-  readonly isVisible = signal(false);
+  readonly isVisible = signal<boolean>(false);
 
   constructor() {
     queueMicrotask(() => {
@@ -66,7 +66,7 @@ export class Card {
   // Computed Classes
   // ==========================================================================
 
-  readonly animationClasses = computed(() => {
+  readonly animationClasses = computed<string>(() => {
     const animation = this.animation();
     const visible = this.isVisible();
 

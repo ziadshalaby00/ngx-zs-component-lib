@@ -3,7 +3,8 @@ import { ScrollToTop } from './../../projects/ngx-zs-component/src/lib/ngx-zs-co
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Test } from './test/test';
-import { ThemeToggle } from "../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle";
+import { ThemeToggle, themeTypes } from "../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle";
+import { Button } from '../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,13 @@ import { ThemeToggle } from "../../projects/ngx-zs-component/src/lib/ngx-zs-comp
     Test,
     ThemeToggle,
     ScrollToTop,
-    Footer
+    Footer,
+    Button
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('ngx-zs-component-project');
+  readonly setTheme = signal<themeTypes | null>(null)
 }

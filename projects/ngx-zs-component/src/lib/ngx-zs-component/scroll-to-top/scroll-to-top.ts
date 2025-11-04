@@ -53,8 +53,8 @@ export class ScrollToTop {
   // Constants
   // ========================================================================
 
-  private readonly circleRadius = 22;
-  readonly circleCircumference = 2 * Math.PI * this.circleRadius;
+  private readonly circleRadius: number = 22;
+  readonly circleCircumference: number = 2 * Math.PI * this.circleRadius;
 
 
   // ========================================================================
@@ -74,7 +74,7 @@ export class ScrollToTop {
   /**
    * Computes the stroke-dashoffset for the progress circle based on scroll position.
    */
-  readonly progressOffset = computed(() => {
+  readonly progressOffset = computed<number>(() => {
     const _ = this.scrollY();
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
     const progress = maxScroll > 0 ? this.scrollY() / maxScroll : 0;
@@ -84,7 +84,10 @@ export class ScrollToTop {
   /**
    * Returns Tailwind classes to position the button horizontally.
    */
-  readonly positionClass = computed(() => ({
+  readonly positionClass = computed<{
+    'zs:right-4': boolean;
+    'zs:left-4': boolean;
+  }>(() => ({
     'zs:right-4': this.position() === 'right',
     'zs:left-4': this.position() === 'left',
   }));

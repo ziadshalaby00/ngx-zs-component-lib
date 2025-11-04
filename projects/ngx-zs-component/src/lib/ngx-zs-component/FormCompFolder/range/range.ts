@@ -12,7 +12,7 @@ import {
   viewChild,
   effect,
 } from '@angular/core';
-import { FormPaletteMap, BaseSize, FormStyle } from '../../palette-service';
+import { BaseSize, buttonSolidPaletteMap, FormStyle, inputPaletteMap } from '../../palette-service';
 import { Label } from '../label/label';
 import { CommonModule } from '@angular/common';
 
@@ -35,9 +35,9 @@ export class Range {
   readonly label = input<string | null>(null);
   readonly hint = input<string | null>(null);
 
-  readonly min = input(10);
-  readonly max = input(400);
-  readonly step = input(10);
+  readonly min = input<number>(10);
+  readonly max = input<number>(400);
+  readonly step = input<number>(10);
 
   readonly inputStyle = input<FormStyle>('secondary');
   readonly size = input<BaseSize>('md');
@@ -45,7 +45,7 @@ export class Range {
   readonly disabled = input<boolean>(false);
   readonly isReadonly = input<boolean>(false);
 
-  readonly showValue = input(true);
+  readonly showValue = input<boolean>(true);
 
   // ==============================================
   // Model
@@ -56,18 +56,14 @@ export class Range {
   // References & Internal State
   // ==============================================
   readonly trackRef = viewChild<ElementRef<HTMLDivElement>>('track');
-  readonly dragging = signal(false);
+  readonly dragging = signal<boolean>(false);
 
   // ==============================================
   // Computed Properties
   // ==============================================
   readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
 
-  readonly palette = computed(() => {
-    return FormPaletteMap.get(this.inputStyle()) ?? FormPaletteMap.get('secondary')!;
-  });
-
-  readonly percent = computed(() => {
+  readonly percent = computed<number>(() => {
     const range = this.max() - this.min();
     return ((this.value() - this.min()) / range) * 100;
   });
@@ -106,6 +102,23 @@ export class Range {
     return sizeClasses[this.size()]
   })
 
+  readonly palette = computed<{
+    buttonSolidPalette: {
+      btnBG: string;
+      btnBGHover: string;
+    };
+    inputPalette: {
+      border: string;
+      borderHover: string;
+      inputBg: string;
+      text: string;
+    };
+  }>(() => {
+    const buttonSolidPalette = buttonSolidPaletteMap.get(this.inputStyle())!;
+    const inputPalette = inputPaletteMap.get(this.inputStyle())!;
+    return { buttonSolidPalette, inputPalette }
+  })
+
   readonly rangeClasses = computed<string>(() => {
     const base = 'zs:relative zs:w-full zs:rounded-full zs:cursor-pointer';
     const sizeClasses = this.rangeSizeClasses('height');
@@ -114,9 +127,9 @@ export class Range {
 
     return [
       sizeClasses,
-      this.palette().border,
-      this.palette().inputBg,
-      this.palette().text,
+      this.palette().inputPalette.border,
+      this.palette().inputPalette.inputBg,
+      this.palette().inputPalette.text,
       base,
       disabledClass,
       interactionClass
@@ -125,8 +138,8 @@ export class Range {
 
   readonly ThumbClasses = computed<string>(() => {
     return [
-      this.palette().btnBG,
-      this.palette().btnBGHover,
+      this.palette().buttonSolidPalette.btnBG,
+      this.palette().buttonSolidPalette.btnBGHover,
       this.dragging() ? 'zs:scale-110 zs:shadow-lg' : '',
       this.rangeSizeClasses('size')
     ].join(' ')

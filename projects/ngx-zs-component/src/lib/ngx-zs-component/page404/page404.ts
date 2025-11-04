@@ -19,13 +19,13 @@ export class Page404 {
   // ========================================================================
   // Inputs
   // ========================================================================
-  readonly title = input('Page Not Found');
-  readonly message = input('Hmm… this page doesn’t seem to exist. Try checking the URL or going back home.');
-  readonly icon = input('fa-ghost');
+  readonly title = input<string>('Page Not Found');
+  readonly message = input<string>('Hmm… this page doesn’t seem to exist. Try checking the URL or going back home.');
+  readonly icon = input<string>('fa-ghost');
   readonly pageStyle = input<FormStyle | 'normal'>('normal')
 
-  readonly showButton = input(true);
-  readonly buttonText = input('Go Home');
+  readonly showButton = input<boolean>(true);
+  readonly buttonText = input<string>('Go Home');
   readonly routerLink = input<string>('/');
 
   // ========================================================================

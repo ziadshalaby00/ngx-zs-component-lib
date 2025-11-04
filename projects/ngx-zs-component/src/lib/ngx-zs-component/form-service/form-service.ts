@@ -51,7 +51,7 @@ export class Form<T extends Record<string, any>> {
   // Form State & Validation
   // ==============================================
 
-  public readonly allFilled = computed(() => {
+  public readonly allFilled = computed<boolean>(() => {
     return Object.values(this.fields).every(f => {
       const v = f();
       return v.value !== null && v.value !== '' && v.valid === true;

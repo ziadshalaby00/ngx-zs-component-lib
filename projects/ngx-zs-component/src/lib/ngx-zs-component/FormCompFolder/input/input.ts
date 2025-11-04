@@ -186,7 +186,7 @@ export class Input {
 
   readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
 
-  readonly containerClasses = computed(() => {
+  readonly containerClasses = computed<string>(() => {
     const baseClasses = 'zs:border zs:transition-all zs:duration-150 zs:focus-within:ring-2';
     const hasError = this.error().length;
 
@@ -221,12 +221,12 @@ export class Input {
     return dateTypes.includes(this.type() as DateType);
   });
   
-  readonly dateIcon = computed(() => {
+  readonly dateIcon = computed<string>(() => {
     if (this.icon()) return '';
     return DATE_ICON_MAP[this.type() as DateType] || 'fas fa-calendar';
   });
 
-  readonly showClear = computed(() => this.type() !== 'password' && !!this.value());
+  readonly showClear = computed<boolean>(() => this.type() !== 'password' && !!this.value());
 
   readonly error = computed<string[]>(() => {
     const val = this.value();

@@ -3,7 +3,7 @@
 // ==============================================================================
 
 import { Component, computed, ElementRef, input, model, output, viewChild } from '@angular/core';
-import { FormPaletteMap, FormStyle } from '../../palette-service';
+import { FormStyle, inputPaletteMap, ringPaletteMap } from '../../palette-service';
 import { ChangeEventType, ValidatorFn } from '../input/input';
 import { Label } from '../label/label';
 import { InputErrors } from '../input-errors/input-errors';
@@ -81,11 +81,25 @@ export class FileInput {
   // Computed Properties
   // ==============================================================================
 
-  readonly palette = computed(() => FormPaletteMap.get(this.inputStyle())!);
+  readonly palette = computed<{
+    inputPalette: {
+      border: string;
+      borderHover: string;
+      inputBg: string;
+      text: string;
+    };
+    ringPalette: {
+      ring: string;
+    };
+  }>(() => {
+    const inputPalette = inputPaletteMap.get(this.inputStyle())!;
+    const ringPalette = ringPaletteMap.get(this.inputStyle())!;
+    return { inputPalette, ringPalette};
+  });
 
-  readonly hasFiles = computed(() => this.files().size > 0);
+  readonly hasFiles = computed<boolean>(() => this.files().size > 0);
 
-  readonly totalSize = computed(() =>
+  readonly totalSize = computed<number>(() =>
     this.filesMapToList().reduce((sum, f) => sum + f.size, 0)
   );
 
@@ -136,7 +150,7 @@ export class FileInput {
     return errors.length > 0 ? errors : [];
   });
 
-  readonly filesMapToList = computed(() => {
+  readonly filesMapToList = computed<FileData[]>(() => {
     const files = this.files();
     return files.size ? Array.from(files.values()) : [];
   });

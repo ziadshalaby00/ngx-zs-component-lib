@@ -95,7 +95,19 @@ export class Select<T> {
   // =================================================================================================
   // Computed Signals
   // =================================================================================================
-  readonly styleEntry = computed(() => {
+  readonly styleEntry = computed<{
+    inputEntry: {
+      border: string;
+      borderHover: string;
+      inputBg: string;
+      text: string;
+    };
+    selectEntry: {
+      bgSelect: string;
+      cleartext: string;
+      cleartexthover: string;
+    };
+  }>(() => {
     const hasError = this.error().length;
 
     let inputEntry: {
@@ -116,7 +128,7 @@ export class Select<T> {
       inputEntry = inputPaletteMap.get('danger')!;
     }
 
-    return {inputEntry, selectEntry}
+    return { inputEntry, selectEntry }
   })
 
   readonly disabledOrReadonly = computed<boolean>(

@@ -61,7 +61,7 @@ export class Button {
     return 'zs:text-slate-800 zs:dark:text-slate-100'
   });
 
-  readonly baseClasses = computed(() => {
+  readonly baseClasses = computed<string>(() => {
     const size = this.size();
     const variant = this.variant();
     const solidPalette = buttonSolidPaletteMap.get(this.btnStyle())!;
@@ -113,12 +113,6 @@ export class Button {
         'zs:transition-[background-color,color,border-color,box-shadow,opacity]',
         'zs:duration-200',
         'zs:ease-in-out',
-
-        'zs:inline-flex zs:items-center zs:justify-center',
-        'zs:focus-visible:ring-2',
-        'zs:select-none',
-        'zs:outline-hidden',
-        ['xl'].includes(size) ? 'zs:rounded-xl' : 'zs:rounded-lg',
       )
 
     return this.join(
@@ -126,6 +120,11 @@ export class Button {
       variant === 'solid' ? solidClasses : outlineClasses,
       stateClasses,
       ringConfig.ring,
+      'zs:inline-flex zs:items-center zs:justify-center',
+      ['xl'].includes(size) ? 'zs:rounded-xl' : 'zs:rounded-lg',
+      'zs:focus-visible:ring-2',
+      'zs:select-none',
+      'zs:outline-hidden',
     )
   });
 

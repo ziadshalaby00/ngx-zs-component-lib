@@ -97,12 +97,28 @@ export class Modal {
     icon: null,
     disabled: false
   }
-  readonly cancelMerged = computed(() => ({
+  readonly cancelMerged = computed<{
+    show: boolean;
+    text: string;
+    btnStyle: FormStyle;
+    variant: ButtonVariant;
+    size: BaseSize;
+    icon: string | null;
+    disabled: boolean;
+  }>(() => ({
     ...this.cancelConfigDefault,
     ...(this.cancelConfig() ?? {})
   }));
 
-  readonly confirmMerged = computed(() => ({
+  readonly confirmMerged = computed<{
+    show: boolean;
+    text: string;
+    btnStyle: FormStyle;
+    variant: ButtonVariant;
+    size: BaseSize;
+    icon: string | null;
+    disabled: boolean;
+  }>(() => ({
     ...this.confirmConfigDefault,
     ...(this.confirmConfig() ?? {})
   }));
@@ -121,9 +137,13 @@ export class Modal {
   // Computed Signals
   // ==============================================
 
-  readonly palette = computed(() => modalPaletteMap.get(this.modalStyle())!)
+  readonly palette = computed<{
+    border: string;
+    text: string;
+  }>(() => modalPaletteMap.get(this.modalStyle())!)
+
   readonly isOpen = signal<boolean>(false);
-  readonly positionClass = computed(() => positionMap[this.position()])
+  readonly positionClass = computed<string>(() => positionMap[this.position()])
 
   private setTimeId?: ReturnType<typeof setTimeout>;
   constructor() {

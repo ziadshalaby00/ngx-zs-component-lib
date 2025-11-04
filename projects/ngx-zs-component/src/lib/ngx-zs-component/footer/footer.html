@@ -1,6 +1,6 @@
-<footer class="zs:bg-gray-700 zs:dark:bg-gray-950 zs:dark:text-gray-300 zs:text-white zs:p-6">
+<footer class="zs:bg-gray-700 zs:dark:bg-gray-950 zs:dark:text-gray-300 zs:text-white zs:py-8">
     <div class="zs:text-center zs:flex zs:flex-col zs:gap-8">
-        <p class="zs:text-sm">
+        <p class="zs:text-xs zs:sm:text-sm zs:px-6">
             <ng-content select="[rights]"></ng-content>
 
             @if(showDefultContent()) {
@@ -11,12 +11,12 @@
         </p>
 
         @if(pages().length) {
-            <nav class="zs:grid zs:gap-4
-            zs:grid-cols-2 zs:sm:grid-cols-3 zs:md:grid-cols-4 zs:lg:grid-cols-5
-            zs:px-0 zs:sm:px-4 zs:md:px-8 zs:lg:px-12
-            ">
-                @for(page of pages(); track $index) {
-                    <a class="zs:text-sm zs:hover:underline" [routerLink]="page.routerLink">
+            <nav class="zs:flex zs:flex-wrap zs:justify-center zs:items-center
+            zs:gap-y-6 zs:gap-x-4 zs:sm:gap-x-6 zs:md:gap-x-8 zs:lg:gap-x-10 zs:w-full">
+                @for (page of pages(); track $index) {
+                    <a class="zs:text-[10px] zs:sm:text-xs 
+                    zs:hover:underline zs:text-center zs:min-w-30" 
+                    [routerLink]="page.routerLink">
                         {{ page.label }}
                     </a>
                 }
