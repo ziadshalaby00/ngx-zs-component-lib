@@ -1372,9 +1372,6 @@
   .zs\:py-6 {
     padding-block: calc(var(--zs-spacing) * 6);
   }
-  .zs\:py-8 {
-    padding-block: calc(var(--zs-spacing) * 8);
-  }
   .zs\:py-\[calc\(--spacing\(1\.75\)-1px\)\] {
     padding-block: calc(calc(var(--zs-spacing) * 1.75) - 1px);
   }
