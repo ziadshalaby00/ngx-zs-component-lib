@@ -77,8 +77,12 @@ export class ThemeToggle {
       const theme = this.currentTheme();
       document.documentElement.classList.toggle('dark', theme === 'dark');
 
-      const classes = this.bodyClass().split(' ');
-      document.body.classList.value = '';   // clear only what YOU set  
+      const classes = this.bodyClass()
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+
+      document.body.classList.value = '';
       classes.forEach(c => document.body.classList.add(c));
 
       if (this.userSelectedTheme()) {
