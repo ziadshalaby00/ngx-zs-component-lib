@@ -13,7 +13,7 @@ import { themeTypes } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-co
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Checkbox, Modal, Button],
+  imports: [Navbar, Checkbox, Modal, Button, Input],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
