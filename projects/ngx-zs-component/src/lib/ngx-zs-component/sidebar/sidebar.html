@@ -1,0 +1,104 @@
+<div class="zs:relative zs:h-full zs:w-fit {{ zIndices.sideBar }}">
+  <!-- Sidebar -->
+  <div
+    id="sidebar"
+    role="complementary"
+    aria-labelledby="sidebar-header"
+    class="
+      zs:h-full 
+      zs:w-[75vw] zs:sm:w-[55vw] zs:md:w-[40vw] zs:lg:w-[25vw] zs:xl:w-[15vw]
+      zs:relative
+      zs:bg-white/90 zs:dark:bg-slate-800/90 zs:backdrop-blur-md 
+      zs:transition-all zs:duration-500 sidebar-shadow-right 
+      motion-reduce:zs:transition-none
+    "
+    [attr.aria-hidden]="!openSide()"
+    [ngClass]="
+      openSide()
+        ? 'zs:translate-x-0 zs:opacity-100'
+        : 'zs:-translate-x-full zs:opacity-0'
+    "
+  >
+    <!-- Close Sidebar Button -->
+    <button
+      class="
+        zs:absolute zs:rounded-lg zs:p-1 zs:cursor-pointer
+        zs:top-3 zs:right-2
+        zs:bg-gray-200 zs:dark:bg-gray-700 zs:hover:bg-gray-300
+        zs:dark:hover:bg-gray-600
+        zs:transition-all zs:duration-300 zs:ease-in-out
+      "
+      aria-label="Close sidebar"
+      aria-controls="sidebar"
+      [attr.aria-expanded]="openSide()"
+      [ngClass]="openSide() ? 'zs:opacity-100' : 'zs:opacity-0'"
+      (click)="toggleSide()"
+    >
+      <svg
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
+        />
+        <path d="M9 4l0 16" />
+      </svg>
+    </button>
+
+    <h2
+      id="sidebar-header"
+      class="zs:font-semibold zs:text-xl zs:transition-colors zs:duration-300 
+      zs:text-slate-900 zs:dark:text-slate-100 zs:p-2 zs:pt-4"
+    >
+      {{ header() }}
+    </h2>
+
+    <hr class="zs:w-full" />
+
+    <div class="zs:mt-4 zs:space-y-2 zs:p-2">
+      <ng-content select="[main]"></ng-content>
+    </div>
+  </div>
+
+  <!-- Open Sidebar Button -->
+  <button
+    class="
+      zs:absolute zs:rounded-lg zs:p-1 zs:cursor-pointer
+      zs:top-3 zs:left-2
+      zs:bg-gray-200 zs:dark:bg-gray-700 zs:hover:bg-gray-300
+      zs:dark:hover:bg-gray-600
+      zs:transition-all zs:duration-300 zs:ease-in-out
+    "
+    aria-label="Open sidebar"
+    aria-controls="sidebar"
+    [attr.aria-expanded]="openSide()"
+    [ngClass]="openSide() ? 'zs:opacity-0 zs:pointer-events-none' : 'zs:opacity-100 zs:pointer-events-auto'"
+    (click)="toggleSide()"
+  >
+    <svg
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path
+        d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
+      />
+      <path d="M9 4l0 16" />
+    </svg>
+  </button>
+</div>

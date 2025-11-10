@@ -1,3 +1,4 @@
+import { Sidebar } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/sidebar/sidebar';
 import { Checkbox } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/checkbox/checkbox';
 import { Modal } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/modal/modal';
 import { Select } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/select/select';
@@ -14,7 +15,7 @@ import { FileInput } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-com
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Checkbox, Modal, Button, FileInput],
+  imports: [Navbar, Sidebar],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -44,26 +45,26 @@ export class Test {
 
   navItems: navItemsType = {
     navItems: [
-      { 
-        label: 'Test', 
-        routerLink: '/test', 
-        icon: 'fa-solid fa-vial',
-        iconClass: 'zs:text-lg', 
-        colorClass: `zs:text-green-600 zs:hover:text-green-700 zs:dark:hover:text-green-500`, 
-      },
-      { label: 'Products', routerLink: '/products', icon: 'fas fa-tag', iconClass: 'zs:text-lg'},
-      { label: 'Cart', routerLink: '/cart', 
-        icon: 'fas fa-shopping-cart', 
-        iconClass: 'zs:text-blue-700 zs:dark:text-blue-500 zs:text-lg'},
-      { label: 'About Us', routerLink: '/about'},
-      { label: 'Contact Us', routerLink: '/contact'},
-      {
-        label: 'Legal Pages',
-        children: [
-          { label: 'Privacy Policy', routerLink: '/privacyPolicy', useDefaultColorClass: 'bg' },
-          { label: 'Terms & Conditions', routerLink: '/termsConditions', useDefaultColorClass: 'bg'},
-        ]
-      },
+      // { 
+      //   label: 'Test', 
+      //   routerLink: '/test', 
+      //   icon: 'fa-solid fa-vial',
+      //   iconClass: 'zs:text-lg', 
+      //   colorClass: `zs:text-green-600 zs:hover:text-green-700 zs:dark:hover:text-green-500`, 
+      // },
+      // { label: 'Products', routerLink: '/products', icon: 'fas fa-tag', iconClass: 'zs:text-lg'},
+      // { label: 'Cart', routerLink: '/cart', 
+      //   icon: 'fas fa-shopping-cart', 
+      //   iconClass: 'zs:text-blue-700 zs:dark:text-blue-500 zs:text-lg'},
+      // { label: 'About Us', routerLink: '/about'},
+      // { label: 'Contact Us', routerLink: '/contact'},
+      // {
+      //   label: 'Legal Pages',
+      //   children: [
+      //     { label: 'Privacy Policy', routerLink: '/privacyPolicy', useDefaultColorClass: 'bg' },
+      //     { label: 'Terms & Conditions', routerLink: '/termsConditions', useDefaultColorClass: 'bg'},
+      //   ]
+      // },
     ]
   }
 
@@ -135,4 +136,19 @@ export class Test {
  , 'info'
  , 'violet'
  , 'teal']
+
+
+ constructor() {
+  this.alertService.bulkAlert([
+    'ziad ahmed shalaby',
+    'ziad ahmed shalaby',
+    'ziad ahmed shalaby',
+    'ziad ahmed shalaby',
+    'ziad ahmed shalaby',
+    'ziad ahmed shalaby',
+  ], {
+    autoClose: false,
+    type: 'danger'
+  })
+ }
 }

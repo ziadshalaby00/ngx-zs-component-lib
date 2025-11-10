@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "publish:lib": "rm -rf dist && npx @tailwindcss/cli -i projects/ngx-zs-component/src/lib/ngx-zs-component/global.css -o projects/ngx-zs-component/output.css && ng build ngx-zs-component && cd dist/ngx-zs-component && npm publish --access public"
   },
   "prettier": {
     "printWidth": 100,

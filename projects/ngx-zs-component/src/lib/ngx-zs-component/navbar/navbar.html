@@ -21,7 +21,7 @@
               <img
                 [src]="logoUrl()"
                 alt="{{ siteNameConfig()?.siteName ?? 'Site Logo' }}"
-                class="zs:h-8 zs:w-auto"
+                class="zs:h-9 zs:w-auto"
               />
             }
             @if (siteNameConfig()) {
@@ -125,11 +125,11 @@
                 <img
                   [src]="userProfile()?.imageUrl"
                   alt="{{ userProfile()?.name ?? 'User profile image' }}"
-                  class="zs:h-8 zs:w-8 zs:rounded-full zs:object-cover"
+                  class="zs:size-9 zs:rounded-full zs:object-cover"
                 />
               } @else {
                 <div
-                  class="zs:h-8 zs:w-8 zs:rounded-full zs:bg-blue-500 zs:flex zs:items-center zs:justify-center zs:text-white zs:font-semibold"
+                  class="zs:size-9 zs:rounded-full zs:bg-blue-500 zs:flex zs:items-center zs:justify-center zs:text-white zs:font-semibold"
                   aria-hidden="true"
                 >
                   {{ userProfile()?.name?.charAt(0) || 'U' }}
@@ -209,20 +209,22 @@
         }
 
         <!-- Mobile Menu Toggle -->
-        <div class="zs:lg:hidden">
-          <button
-            (click)="toggleMobileMenu()"
-            class="zs:p-2 zs:rounded-md zs:text-gray-600 zs:dark:text-gray-300
-                   zs:hover:text-gray-900 zs:dark:hover:text-gray-100
-                   zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-inset
-                   zs:focus:ring-gray-200 zs:dark:focus:ring-gray-700"
-            aria-controls="mobile-menu"
-            aria-expanded="{{ isMobileMenuOpen() }}"
-            aria-label="Toggle mobile menu"
-          >
-            <i class="fas fa-bars zs:px-1"></i>
-          </button>
-        </div>
+        @if(mobileNavItems().length || showSearchBar() || (authButtons().showAuthButtons && !isLoggedIn())) {
+          <div class="zs:lg:hidden">
+            <button
+              (click)="toggleMobileMenu()"
+              class="zs:p-2 zs:rounded-md zs:text-gray-600 zs:dark:text-gray-300
+                    zs:hover:text-gray-900 zs:dark:hover:text-gray-100
+                    zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-inset
+                    zs:focus:ring-gray-200 zs:dark:focus:ring-gray-700"
+              aria-controls="mobile-menu"
+              aria-expanded="{{ isMobileMenuOpen() }}"
+              aria-label="Toggle mobile menu"
+            >
+              <i class="fas fa-bars zs:px-1"></i>
+            </button>
+          </div>
+        }
       </div>
     </div>
   </div>

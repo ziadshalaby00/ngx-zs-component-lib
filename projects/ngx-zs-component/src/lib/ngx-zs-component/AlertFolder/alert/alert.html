@@ -1,8 +1,8 @@
 <!-- ========================= Alert Container ========================= -->
 <div
   class="zs:fixed zs:ml-4 zs:break-all {{ zIndices.alert }} zs:flex zs:flex-col 
-  zs:overflow-y-auto custom-scrollbar zs:p-2 zs:gap-3 zs:max-h-[calc(100vh-1rem)]"
-  [ngClass]="positionClasses()"
+  zs:overflow-y-auto scroll scroll-secondary zs:p-2 zs:gap-3"
+  [ngClass]="[positionClass(), maxh()]"
   role="region"
   aria-label="Notification area"
   aria-live="polite"
@@ -65,9 +65,6 @@
           ></div>
         </div>
       }
-
     </div>
-
   }
-
 </div>

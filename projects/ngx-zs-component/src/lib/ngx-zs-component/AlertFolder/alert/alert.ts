@@ -63,13 +63,7 @@ export const ALERT_CONFIG: Record<
   }
 };
 
-export type PositionClassType = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
-const PositionClasses: Record<PositionClassType, string> = {
-  'top-left': 'zs:top-4 zs:left-4',
-  'top-right': 'zs:top-4 zs:right-4',
-  'bottom-left': 'zs:bottom-4 zs:left-4',
-  'bottom-right': 'zs:bottom-4 zs:right-4',
-}
+export type DirectionType = 'top' | 'bottom';
 
 // ==============================================
 // Component Decorator
@@ -93,7 +87,10 @@ export class Alert {
   // Inputs
   // ==============================================
 
-  readonly positionClass = input<PositionClassType>('top-right');
+  readonly positionClass = input<string>('zs:top-4 zs:right-4');
+  readonly direction = input<DirectionType>('top');
+  readonly maxh = input<string>('zs:max-h-[calc(100vh-1.2rem)]')
+  
   readonly defaultShowCloseButton = input<boolean>(true);
   readonly defaultAutoClose = input<boolean>(true);
   readonly defaultDuration = input<number>(5000);
@@ -103,14 +100,6 @@ export class Alert {
   // ==============================================
 
   private readonly oldAlerts = signal<OldAlertsType>(new Set());
-
-  private readonly direction = computed<'top' | 'bottom'>(() => 
-    this.positionClass().startsWith('top') ? 'top' : 'bottom'
-  );
-
-  readonly positionClasses = computed<string>(() => 
-    PositionClasses[this.positionClass()]
-  );
 
   readonly alerts = computed<AlertType[]>(() => {
     const list = this.alertService.alerts();

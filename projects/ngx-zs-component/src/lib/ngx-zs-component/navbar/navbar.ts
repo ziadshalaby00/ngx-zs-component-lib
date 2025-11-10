@@ -116,17 +116,32 @@ export class Navbar {
   readonly visibleNavItems = computed<NavbarItem[]>(() => {
     const items = this.navItems()?.navItems ?? [];
     const limit = this.showSearchBar() ? 2 : 5;
-    return items.slice(0, limit).map(item => this.toNavbarItem(item, true));
+    return items.slice(0, limit).map(item => this.toNavbarItem(
+      item,
+      true,
+      this.navItems()?.routerLinkActive, 
+      this.navItems()?.colorClass
+    ));
   });
 
   readonly moreNavItems = computed<NavbarItem[]>(() => {
     const items = this.navItems()?.navItems ?? [];
     const start = this.showSearchBar() ? 2 : 5;
-    return items.slice(start).map(item => this.toNavbarItem(item, true));
+    return items.slice(start).map(item => this.toNavbarItem(
+      item,
+      true,
+      this.navItems()?.routerLinkActive, 
+      this.navItems()?.colorClass
+    ));
   });
 
   readonly mobileNavItems = computed<NavbarItem[]>(() =>
-    (this.navItems()?.navItems ?? []).map(item => this.toNavbarItem(item, false))
+    (this.navItems()?.navItems ?? []).map(item => this.toNavbarItem(
+      item,
+      false,
+      this.navItems()?.routerLinkActive, 
+      this.navItems()?.colorClass
+    ))
   );
 
   readonly getUserMenuItems = computed<NavbarItem[]>(() =>
@@ -137,14 +152,16 @@ export class Navbar {
   // Private Helper Methods
   // ==============================================
 
-  private toNavbarItem(item: NavbarItemExport, childrenOpenWindow = false): NavbarItem {
-    const routerLinkActive = this.navItems()?.routerLinkActive;
-    const colorClass = this.navItems()?.colorClass;
-
+  private toNavbarItem(
+    item: NavbarItemExport,
+    childrenOpenWindow = false,
+    generalRouterLinkActive?: string,
+    generalColorClass?: string,
+  ): NavbarItem {
     return {
       ...item,
-      colorClass: item.colorClass ?? colorClass,
-      routerLinkActive: item.routerLinkActive ?? routerLinkActive,
+      colorClass: item.colorClass ?? generalColorClass,
+      routerLinkActive: item.routerLinkActive ?? generalRouterLinkActive,
       childrenOpenWindow,
       children: item.children?.map(child => this.toNavbarItem(child, childrenOpenWindow)) ?? []
     };

@@ -1,9 +1,9 @@
 <!-- ========================= Theme Switcher Panel ========================= -->
 @if(showDefaultUI()) {
   <div 
-    class="zs:fixed zs:left-0 zs:top-1/6 {{ zIndices.themeToggle }} zs:transform 
+    class="zs:fixed zs:left-0 {{ zIndices.themeToggle }} zs:transform 
     zs:-translate-y-1/2 zs:transition-all zs:duration-300"
-    [ngClass]="!isOpen() ? 'zs:-translate-x-24' : ''"
+    [ngClass]="[!isOpen() ? 'zs:-translate-x-24' : '', fromTop()]"
     role="complementary"
     aria-label="Theme switcher panel"
   >

@@ -62,7 +62,7 @@
       [routerLink]="item().routerLink"
       [routerLinkActive]="item().routerLinkActive ?? ''"
       #rla="routerLinkActive"
-      [ngClass]="rla.isActive ? '' : getItemClasses(item())"
+      [ngClass]="rla.isActive && item().routerLinkActive ? '' : getItemClasses(item())"
       class="zs:flex zs:items-center zs:rounded-md zs:px-3 zs:py-2 
       zs:text-sm zs:font-medium zs:md:text-base"
       (click)="onItemClick()"
@@ -71,7 +71,7 @@
       @if (item().icon) {
         <i [ngClass]="[
           item().icon,
-          rla.isActive ? '' : item().iconClass ?? '',
+          rla.isActive && item().routerLinkActive ? '' : (item().iconClass ?? ''),
           (item().icon && item().label) ? 'zs:mr-2' : ''
         ]"
         aria-hidden="true"></i>

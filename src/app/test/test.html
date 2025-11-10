@@ -1,4 +1,4 @@
-<div class="min-h-screen">
+<div class="">
     <ZS-navbar
       [siteNameConfig]="siteNameConfig"
     
@@ -21,28 +21,10 @@
 
 
 
-    <div class="zs:flex zs:gap-4 zs:justify-center zs:items-center zs:mt-8">
-      <div class="zs:flex zs:flex-col zs:gap-4 zs:items-center zs:justify-center">
-        <!-- @for(item of styles; track item) {  -->
-            <ZS-file
-            [required]="true"
-            inputStyle="primary"
-            >
-            </ZS-file>
+  <div class="zs:h-[88vh]">
+    <ZS-sidebar
 
-        <!-- } -->
-      </div>
-  
-      <!-- <div class="zs:flex zs:flex-col zs:gap-4 zs:items-center zs:justify-center">
-        @for(item of styles; track item) {
-            <ZS-button
-            [btnStyle]="item"
-            [variant]="'solid'"
-            [size]="'lg'"
-            >
-            {{ item }}
-            </ZS-button>
-        }
-      </div> -->
-    </div>
+    >
+    </ZS-sidebar>
+  </div>
 </div>

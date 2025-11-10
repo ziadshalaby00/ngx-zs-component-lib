@@ -39,7 +39,7 @@
   animation: modalIn 0.25s ease-out forwards;
 }
 
-/* Optional if you want to support smooth closing animation */
+/* Classes applied when modal close */
 .animate-fadeOut {
   animation: fadeOut 0.25s ease-in forwards;
 }

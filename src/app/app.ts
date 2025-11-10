@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { Test } from './test/test';
 import { ThemeToggle, themeTypes } from "../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle";
 import { Button } from '../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button';
+import { Alert } from '../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert/alert';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ import { Button } from '../../projects/ngx-zs-component/src/lib/ngx-zs-component
     ThemeToggle,
     ScrollToTop,
     Footer,
-    Button
+    Button,
+    Alert
 ],
   templateUrl: './app.html',
   styleUrl: './app.css'

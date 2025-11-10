@@ -37,6 +37,7 @@ export class ThemeToggle {
   readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100');
   readonly showDefaultUI = input<boolean>(true);
   readonly setManualTheme = input<themeTypes | null>(null);
+  readonly fromTop = input<string>('zs:top-1/4')
 
 
   // ==============================================
