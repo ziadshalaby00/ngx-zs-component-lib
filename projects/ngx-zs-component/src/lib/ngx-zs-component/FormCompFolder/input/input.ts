@@ -191,9 +191,10 @@ export class Input {
     const hasError = this.error().length;
 
     let styleConfig = inputPaletteMap.get(this.inputStyle())!;
-    const ringConfig = ringPaletteMap.get(this.inputStyle())!;
+    let ringConfig = ringPaletteMap.get(this.inputStyle())!;
     if (hasError) {
       styleConfig = inputPaletteMap.get('danger')!;
+      ringConfig = ringPaletteMap.get('danger')!;
     }
 
     const disabledClass = this.disabled() ? 'zs:opacity-60' : '';

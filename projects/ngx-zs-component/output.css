@@ -1303,6 +1303,9 @@
   .zs\:p-5 {
     padding: calc(var(--zs-spacing) * 5);
   }
+  .zs\:p-6 {
+    padding: calc(var(--zs-spacing) * 6);
+  }
   .zs\:px-1 {
     padding-inline: calc(var(--zs-spacing) * 1);
   }

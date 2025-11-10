@@ -10,10 +10,11 @@ import { AlertService } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-
 import { FormStyle } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/palette-service';
 import { Button } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button";
 import { themeTypes } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle';
+import { FileInput } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/file/file'
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Checkbox, Modal, Button, Input],
+  imports: [Navbar, Checkbox, Modal, Button, FileInput],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })

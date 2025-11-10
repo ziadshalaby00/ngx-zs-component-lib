@@ -9,7 +9,7 @@
       [searchPlaceholder]="'Search for a product...'"
       [navItems]="navItems"
     
-      [isLoggedIn]="false"
+      [isLoggedIn]="true"
       [userProfile]="userProfile()"
       [userMenuItems]="userMenuItems"
 
@@ -24,11 +24,11 @@
     <div class="zs:flex zs:gap-4 zs:justify-center zs:items-center zs:mt-8">
       <div class="zs:flex zs:flex-col zs:gap-4 zs:items-center zs:justify-center">
         <!-- @for(item of styles; track item) {  -->
-            <ZS-input
+            <ZS-file
             [required]="true"
             inputStyle="primary"
             >
-            </ZS-input>
+            </ZS-file>
 
         <!-- } -->
       </div>
