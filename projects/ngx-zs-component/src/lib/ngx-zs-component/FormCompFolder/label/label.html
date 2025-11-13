@@ -2,12 +2,12 @@
 @if (label() || hint()) {
   <label 
     [for]="for()" 
-    class="zs:flex zs:items-center zs:gap-2"
+    class="zs:flex zs:flex-wrap zs:items-center zs:gap-1.5"
   >
 
     <!-- ========== Label Text ========== -->
     @if (label()) {
-      <span class="zs:font-semibold zs:truncate" [ngClass]="sizeClasses().label">
+      <span class="zs:font-semibold" [ngClass]="sizeClasses().label">
         {{ label() }}
 
         <!-- Required Indicator -->

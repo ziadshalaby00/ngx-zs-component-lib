@@ -482,6 +482,9 @@
   .zs\:ml-1 {
     margin-left: calc(var(--zs-spacing) * 1);
   }
+  .zs\:ml-1\.5 {
+    margin-left: calc(var(--zs-spacing) * 1.5);
+  }
   .zs\:ml-2 {
     margin-left: calc(var(--zs-spacing) * 2);
   }

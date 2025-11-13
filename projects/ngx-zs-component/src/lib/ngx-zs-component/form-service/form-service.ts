@@ -51,12 +51,13 @@ export class Form<T extends Record<string, any>> {
   // Form State & Validation
   // ==============================================
 
-  public readonly allFilled = computed<boolean>(() => {
-    return Object.values(this.fields).every(f => {
-      const v = f();
-      return v.value !== null && v.value !== '' && v.valid === true;
+  public allFilled(allowEmptyFields: (keyof T)[] = []): boolean {
+    return Object.keys(this.fields).every((key) => {
+      if (allowEmptyFields.includes(key as keyof T)) return true;
+      const val = this.fields[key as keyof T]()?.value;
+      return val !== null && val !== undefined && val !== '';
     });
-  });
+  }
 
   private markAllTouched(): void {
     this.touched.set(true);
@@ -86,11 +87,11 @@ export class Form<T extends Record<string, any>> {
     return result as Record<keyof T, boolean>;
   }
 
-  public submit(callback: (values: T) => void): void {
+  public submit(callback: (values: T) => void, allowEmptyFields: (keyof T)[] = []): void {
     this.markAllTouched();
 
-    const allFilled = this.allFilled()
-    const allValid = Object.values(this.getValidations()).every(v => v === true);
+    const allValid = Object.values(this.getValidations()).every(Boolean);
+    const allFilled = this.allFilled(allowEmptyFields);
 
     if (!allFilled || !allValid) return;
 
