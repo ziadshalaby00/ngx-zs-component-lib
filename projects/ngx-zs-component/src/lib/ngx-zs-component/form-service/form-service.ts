@@ -2,7 +2,7 @@
 // Types
 // ==============================================
 
-import { signal, computed, WritableSignal } from '@angular/core';
+import { signal, WritableSignal } from '@angular/core';
 
 // نوع الحقل الواحد: يحتوي على value و valid
 export type ZFormField<T> = WritableSignal<{ value: T | null; valid: boolean }>;
@@ -51,12 +51,17 @@ export class Form<T extends Record<string, any>> {
   // Form State & Validation
   // ==============================================
 
-  public allFilled(allowEmptyFields: (keyof T)[] = []): boolean {
-    return Object.keys(this.fields).every((key) => {
-      if (allowEmptyFields.includes(key as keyof T)) return true;
-      const val = this.fields[key as keyof T]()?.value;
-      return val !== null && val !== undefined && val !== '';
-    });
+  public allFilled(): Record<keyof T, boolean> {
+    const result: Partial<Record<keyof T, boolean>> = {};
+
+    for (const key in this.fields) {
+      if (this.fields.hasOwnProperty(key)) {
+        const val = this.fields[key as keyof T]().value;
+        result[key as keyof T] = val !== null && val !== undefined && val !== '';
+      }
+    }
+
+    return result as Record<keyof T, boolean>;
   }
 
   private markAllTouched(): void {
@@ -87,11 +92,31 @@ export class Form<T extends Record<string, any>> {
     return result as Record<keyof T, boolean>;
   }
 
-  public submit(callback: (values: T) => void, allowEmptyFields: (keyof T)[] = []): void {
+  public submit(
+    callback: (values: T) => void,
+    allowEmptyFields: (keyof T)[] = [],
+    allowInvalidFields: (keyof T)[] = []
+  ): void {
     this.markAllTouched();
 
-    const allValid = Object.values(this.getValidations()).every(Boolean);
-    const allFilled = this.allFilled(allowEmptyFields);
+    const filled = this.allFilled();
+    const validations = this.getValidations();
+
+    // =============================
+    // Check FILL
+    // =============================
+    const allFilled = Object.keys(filled).every((key) => {
+      if (allowEmptyFields.includes(key as keyof T)) return true;
+      return filled[key as keyof T];
+    });
+
+    // =============================
+    // Check VALID
+    // =============================
+    const allValid = Object.keys(validations).every((key) => {
+      if (allowInvalidFields.includes(key as keyof T)) return true;
+      return validations[key as keyof T];
+    });
 
     if (!allFilled || !allValid) return;
 

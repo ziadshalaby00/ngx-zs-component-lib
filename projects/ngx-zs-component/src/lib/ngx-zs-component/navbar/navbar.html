@@ -132,7 +132,7 @@
                   class="zs:size-9 zs:rounded-full zs:bg-blue-500 zs:flex zs:items-center zs:justify-center zs:text-white zs:font-semibold"
                   aria-hidden="true"
                 >
-                  {{ userProfile()?.name?.charAt(0) || 'U' }}
+                  {{ userProfile()?.name?.charAt(0)?.toUpperCase() }}
                 </div>
               }
               <i class="fas fa-chevron-down zs:text-xs zs:text-gray-600 zs:dark:text-gray-400

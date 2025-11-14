@@ -15,7 +15,7 @@ import { FileInput } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-com
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Sidebar],
+  imports: [Navbar, Sidebar, Checkbox, Input],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })

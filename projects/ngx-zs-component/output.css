@@ -603,11 +603,11 @@
   .zs\:h-16 {
     height: calc(var(--zs-spacing) * 16);
   }
-  .zs\:h-\[88vh\] {
-    height: 88vh;
-  }
   .zs\:h-full {
     height: 100%;
+  }
+  .zs\:h-screen {
+    height: 100vh;
   }
   .zs\:max-h-60 {
     max-height: calc(var(--zs-spacing) * 60);
@@ -665,6 +665,9 @@
   }
   .zs\:w-\[75vw\] {
     width: 75vw;
+  }
+  .zs\:w-\[360px\] {
+    width: 360px;
   }
   .zs\:w-auto {
     width: auto;

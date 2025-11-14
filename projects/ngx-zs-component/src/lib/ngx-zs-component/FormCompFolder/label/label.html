@@ -2,17 +2,20 @@
 @if (label() || hint()) {
   <label 
     [for]="for()" 
-    class="zs:flex zs:flex-wrap zs:items-center zs:gap-1.5"
+    class="zs:flex zs:items-center zs:flex-wrap"
   >
-
-    <!-- ========== Label Text ========== -->
+  <!-- ========== Label Text ========== -->
     @if (label()) {
-      <span class="zs:font-semibold" [ngClass]="sizeClasses().label">
+      <span class="zs:font-semibold" 
+      [ngClass]="[
+        sizeClasses().label,
+        hint() ? 'zs:mr-1.5' : ''
+      ]">
         {{ label() }}
 
         <!-- Required Indicator -->
-        @if (required()) {
-          <span class="zs:text-red-500" aria-hidden="true">*</span>
+        @if (true) {
+          <span class="zs:text-red-500 zs:ml-1" aria-hidden="true">*</span>
           <span class="sr-only">(required)</span>
         }
       </span>
@@ -29,7 +32,6 @@
       </small>
     }
     <!-- ========== End Hint Text ========== -->
-
   </label>
 }
 <!-- ================= End Label Wrapper ================= -->
