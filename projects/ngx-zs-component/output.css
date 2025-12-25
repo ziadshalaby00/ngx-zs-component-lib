@@ -338,9 +338,6 @@
   .zs\:top-1\/2 {
     top: calc(1/2 * 100%);
   }
-  .zs\:top-1\/4 {
-    top: calc(1/4 * 100%);
-  }
   .zs\:top-3 {
     top: calc(var(--zs-spacing) * 3);
   }
@@ -358,6 +355,9 @@
   }
   .zs\:right-4 {
     right: calc(var(--zs-spacing) * 4);
+  }
+  .zs\:-bottom-1\/2 {
+    bottom: calc(calc(1/2 * 100%) * -1);
   }
   .zs\:bottom-0 {
     bottom: calc(var(--zs-spacing) * 0);
@@ -1845,6 +1845,13 @@
   .zs\:select-none {
     -webkit-user-select: none;
     user-select: none;
+  }
+  .zs\:group-hover\:block {
+    &:is(:where(.zs\:group):hover *) {
+      @media (hover: hover) {
+        display: block;
+      }
+    }
   }
   .zs\:group-hover\:scale-105 {
     &:is(:where(.zs\:group):hover *) {

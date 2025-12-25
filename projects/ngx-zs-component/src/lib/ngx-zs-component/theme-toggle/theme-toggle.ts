@@ -1,4 +1,4 @@
-import { Component, signal, HostListener, effect, output, input } from '@angular/core';
+import { Component, signal, HostListener, effect, output, input, computed, linkedSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { zIndices, ZIndicesType } from '../z-index';
 
@@ -37,8 +37,12 @@ export class ThemeToggle {
   readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100');
   readonly showDefaultUI = input<boolean>(true);
   readonly setManualTheme = input<themeTypes | null>(null);
-  readonly fromTop = input<string>('zs:top-1/4')
+  readonly fromTop = input<number>(1/4);
 
+  readonly panelTop = linkedSignal<number>(() => window.innerHeight * this.fromTop());
+  private isDragging = signal<boolean>(false);
+  private startY = 0;
+  private startTop = 0;
 
   // ==============================================
   // Outputs
@@ -50,6 +54,11 @@ export class ThemeToggle {
   // Lifecycle & Side Effects
   // ==============================================
   constructor() {
+    const savedTop = localStorage.getItem('themeToggleTop');
+    if (savedTop) {
+      this.panelTop.set(+savedTop);
+    }
+
     // ① تهيئة الثيم
     const savedTheme = localStorage.getItem('theme') as themeTypes | null;
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
@@ -122,6 +131,32 @@ export class ThemeToggle {
       this.userSelectedTheme.set(true);
     }
     this.isOpen.set(false);
+  }
+
+  onDragStart(event: PointerEvent): void {
+    this.isDragging.set(true);
+    this.startY = event.clientY;
+    this.startTop = this.panelTop();
+
+    (event.target as HTMLElement).setPointerCapture(event.pointerId);
+  }
+
+  onDragMove(event: PointerEvent): void {
+    if (!this.isDragging()) return;
+
+    const deltaY = event.clientY - this.startY;
+    let newTop = this.startTop + deltaY;
+
+    const minTop = 80;
+    const maxTop = window.innerHeight - 120;
+
+    newTop = Math.max(minTop, Math.min(maxTop, newTop));
+    this.panelTop.set(newTop);
+  }
+
+  onDragEnd(event: PointerEvent): void {
+    this.isDragging.set(false);
+    localStorage.setItem('themeToggleTop', String(this.panelTop()));
   }
 
   // ==============================================
