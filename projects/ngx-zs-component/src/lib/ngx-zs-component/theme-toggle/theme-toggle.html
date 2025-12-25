@@ -6,6 +6,13 @@
 
     [style.top.px]="panelTop()"
     [ngClass]="[!isOpen() ? 'zs:-translate-x-24' : '']"
+
+    (pointerdown)="onDragStart($event)"
+    (pointermove)="onDragMove($event)"
+    (pointerup)="onDragEnd($event)"
+    (pointercancel)="onDragEnd($event)"
+
+    style="touch-action: none; cursor: grab;"
   >
     <!-- ========================= Theme Selection Buttons ========================= -->
     <div class="zs:flex zs:items-center">
@@ -51,7 +58,7 @@
   
       <!-- ========================= Toggle Button with Connector ========================= -->
       <div 
-        class="zs:relative zs:group"
+        class="zs:relative"
         [ngClass]="isOpen() ? 'zs:hidden' : ''"
       >
         <!-- Connector Line -->
@@ -83,20 +90,6 @@
             <i class="fas fa-sun zs:text-yellow-500" aria-hidden="true"></i>
           }
         </button>
-
-        <!-- ========================= Theme grabing ========================= -->
-        <div
-          class="zs:absolute zs:w-full zs:-bottom-1/2 zs:right-0 
-          zs:hidden zs:group-hover:block zs:text-center"
-          (pointerdown)="onDragStart($event)"
-          (pointermove)="onDragMove($event)"
-          (pointerup)="onDragEnd($event)"
-          (pointercancel)="onDragEnd($event)"
-
-          style="touch-action: none; cursor: grab;"
-        >
-          <i class="fa-solid fa-arrows-up-down"></i>
-        </div>
       </div>
     </div>
   </div>
