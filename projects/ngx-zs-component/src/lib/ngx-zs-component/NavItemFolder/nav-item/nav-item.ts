@@ -121,10 +121,12 @@ export class NavItem {
   // ==============================================
 
   getItemClasses = (item: NavbarItem): string => {
+    const base = 'zs:text-gray-600 zs:dark:text-gray-300';
+
     const defaultTextClass =
-      'zs:text-gray-600 zs:dark:text-gray-300 zs:hover:text-gray-900 zs:dark:hover:text-gray-100';
+      base + ' zs:hover:text-gray-900 zs:dark:hover:text-gray-100';
     const defaultBgClass =
-      'zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700';
+      base + ' zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700';
 
     if (item.colorClass) {
       return item.colorClass;

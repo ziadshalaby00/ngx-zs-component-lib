@@ -1,4 +1,4 @@
-<div class="zs:h-screen zs:flex zs:items-center zs:justify-center">
+<!-- <div class="zs:h-screen zs:flex zs:items-center zs:justify-center">
     <ZS-navbar
       [siteNameConfig]="siteNameConfig"
     
@@ -22,4 +22,45 @@
     <div class="zs:w-[360px]">
 
     </div>
+</div> -->
+
+
+<div class="zs:h-[85vh] zs:pr-4 zs:dark:text-gray-50">
+    <ZS-sidebar
+    header="Chats"
+    [openSide]="true"
+    >
+    <div main class="zs:flex zs:flex-col zs:h-full zs:gap-6 zs:px-2 zs:pb-2">
+        <ZS-input
+        type="search"
+        inputStyle="primary"
+        >
+        </ZS-input>
+
+        <div class='zs:flex zs:flex-col zs:gap-4 zs:max-h-full zs:pr-2 zs:overflow-y-auto zs:scroll zs:scroll-success'>
+            @for(item of ['ziad', 'ahmed', 'salah', 'mohamed', 'ali', 'ibrahim', 'some one 1', 'some one 2', 'some one 3', 'some one 4', 'some one 5', 'some one 6', 'some one 7', 'some one 8', 'some one 9', 'some one 10']; track item) {
+                @if(item === 'ahmed') {
+                    <ZS-card
+                    [clickable]="true"
+                    cardStyle="success"
+                    bodyClass="zs:bg-green-300 zs:dark:bg-green-700"
+                    >
+                        <div class="zs:py-4 zs:px-6">
+                            {{ item }}
+                        </div>
+                    </ZS-card>
+                }@else {
+                    <ZS-card
+                    [clickable]="true"
+                    cardStyle="success"
+                    >
+                        <div class="zs:py-4 zs:px-6">
+                            {{ item }}
+                        </div>
+                    </ZS-card>
+                }
+            }
+        </div>
+    </div>
+    </ZS-sidebar>
 </div>
