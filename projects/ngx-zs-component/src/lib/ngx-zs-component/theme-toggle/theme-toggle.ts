@@ -40,7 +40,7 @@ export class ThemeToggle {
   readonly fromTop = input<number>(1/4);
 
   readonly panelTop = linkedSignal<number>(() => window.innerHeight * this.fromTop());
-  readonly lastPanelTop = signal<number>(this.panelTop());
+  private readonly pressTop = signal<number>(0);
 
   private isDragging = signal<boolean>(false);
   private startY = 0;
@@ -59,7 +59,6 @@ export class ThemeToggle {
     const savedTop = localStorage.getItem('themeToggleTop');
     if (savedTop) {
       this.panelTop.set(+savedTop);
-      this.lastPanelTop.set(+savedTop);
     }
 
     // ① تهيئة الثيم
@@ -125,14 +124,17 @@ export class ThemeToggle {
   // Component Methods
   // ==============================================
   isDragged(): boolean {
-    const p = this.panelTop;
-    const l = this.lastPanelTop;
-    if(p() !== l()) {
-      l.set(p());
+    const DRAG_THRESHOLD = 6; // px
+
+    const moved =
+      Math.abs(this.panelTop() - this.pressTop()) > DRAG_THRESHOLD;
+
+    if (moved) {
+      this.pressTop.set(this.panelTop());
       return true;
     }
 
-    return false;
+    return false
   }
 
   toggleOpen(): void {
@@ -154,6 +156,8 @@ export class ThemeToggle {
     this.isDragging.set(true);
     this.startY = event.clientY;
     this.startTop = this.panelTop();
+
+    this.pressTop.set(this.panelTop());
 
     (event.target as HTMLElement).setPointerCapture(event.pointerId);
   }
