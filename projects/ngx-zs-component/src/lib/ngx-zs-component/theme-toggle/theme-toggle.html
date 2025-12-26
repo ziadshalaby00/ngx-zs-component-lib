@@ -2,10 +2,10 @@
 @if(showDefaultUI()) {
   <div
     class="zs:fixed zs:left-0 {{ zIndices.themeToggle }} zs:transform 
-    zs:-translate-y-1/2 zs:transition-all zs:duration-300"
+    zs:-translate-y-1/2"
 
     [style.top.px]="panelTop()"
-    [ngClass]="[!isOpen() ? 'zs:-translate-x-24' : '']"
+    [ngClass]="[!isOpen() ? 'zs:-translate-x-24' : '', transition()]"
 
     (pointerdown)="onDragStart($event)"
     (pointermove)="onDragMove($event)"

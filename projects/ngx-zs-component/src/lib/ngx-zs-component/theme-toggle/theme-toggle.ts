@@ -46,6 +46,9 @@ export class ThemeToggle {
   private startY = 0;
   private startTop = 0;
 
+  private readonly transitionValue: string = 'zs:transition-all zs:duration-300'
+  readonly transition = signal<string>('')
+
   // ==============================================
   // Outputs
   // ==============================================
@@ -139,11 +142,14 @@ export class ThemeToggle {
 
   toggleOpen(): void {
     if(this.isDragged()) return;
+    this.transition.set(this.transitionValue);
+
     this.isOpen.set(!this.isOpen());
   }
 
   setTheme(theme: themeTypes): void {
     if(this.isDragged()) return;
+    this.transition.set(this.transitionValue);
 
     if (this.currentTheme() !== theme) {
       this.currentTheme.set(theme);
@@ -157,25 +163,36 @@ export class ThemeToggle {
     this.startY = event.clientY;
     this.startTop = this.panelTop();
 
+    this.transition.set('');
     this.pressTop.set(this.panelTop());
 
     (event.target as HTMLElement).setPointerCapture(event.pointerId);
   }
 
+  private animationFrameId: number | null = null;
   onDragMove(event: PointerEvent): void {
     if (!this.isDragging()) return;
 
     const deltaY = event.clientY - this.startY;
-    let newTop = this.startTop + deltaY;
-
     const minTop = 80;
     const maxTop = window.innerHeight - 120;
+    let targetTop = this.startTop + deltaY;
+    targetTop = Math.max(minTop, Math.min(maxTop, targetTop));
 
-    newTop = Math.max(minTop, Math.min(maxTop, newTop));
-    this.panelTop.set(newTop);
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+
+    this.animationFrameId = requestAnimationFrame(() => {
+      this.panelTop.set(targetTop);
+
+      // تحديث startTop و startY بعد التحديث
+      this.startY = event.clientY;
+      this.startTop = targetTop;
+      this.animationFrameId = null;
+    });
   }
 
-  private settimeId: number | undefined;
   onDragEnd(event: PointerEvent): void {
     this.isDragging.set(false);
     localStorage.setItem('themeToggleTop', String(this.panelTop()));
