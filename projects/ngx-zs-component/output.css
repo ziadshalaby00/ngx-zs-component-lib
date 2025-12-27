@@ -600,6 +600,9 @@
   .zs\:h-16 {
     height: calc(var(--zs-spacing) * 16);
   }
+  .zs\:h-\[calc\(100\%-52px\)\] {
+    height: calc(100% - 52px);
+  }
   .zs\:h-full {
     height: 100%;
   }
@@ -845,13 +848,6 @@
   }
   .zs\:gap-8 {
     gap: calc(var(--zs-spacing) * 8);
-  }
-  .zs\:space-y-2 {
-    :where(& > :not(:last-child)) {
-      --tw-space-y-reverse: 0;
-      margin-block-start: calc(calc(var(--zs-spacing) * 2) * var(--tw-space-y-reverse));
-      margin-block-end: calc(calc(var(--zs-spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));
-    }
   }
   .zs\:gap-x-4 {
     column-gap: calc(var(--zs-spacing) * 4);
@@ -4016,11 +4012,6 @@ zs-carousel {
   syntax: "*";
   inherits: false;
 }
-@property --tw-space-y-reverse {
-  syntax: "*";
-  inherits: false;
-  initial-value: 0;
-}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -4271,7 +4262,6 @@ zs-carousel {
       --tw-rotate-z: initial;
       --tw-skew-x: initial;
       --tw-skew-y: initial;
-      --tw-space-y-reverse: 0;
       --tw-border-style: solid;
       --tw-gradient-position: initial;
       --tw-gradient-from: #0000;
