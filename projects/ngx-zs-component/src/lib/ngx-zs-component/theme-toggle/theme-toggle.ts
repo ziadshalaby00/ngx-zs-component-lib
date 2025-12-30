@@ -1,4 +1,4 @@
-import { Component, signal, HostListener, effect, output, input, computed, linkedSignal } from '@angular/core';
+import { Component, signal, HostListener, effect, output, input, linkedSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { zIndices, ZIndicesType } from '../z-index';
 
@@ -34,7 +34,7 @@ export class ThemeToggle {
   // ==============================================
   // Inputs
   // ==============================================
-  readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100');
+  readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100 zs:transition-colors');
   readonly showDefaultUI = input<boolean>(true);
   readonly setManualTheme = input<themeTypes | null>(null);
   readonly fromTop = input<number>(1/4);

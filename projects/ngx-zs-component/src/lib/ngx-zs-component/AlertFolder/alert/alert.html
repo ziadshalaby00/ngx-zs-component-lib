@@ -37,7 +37,7 @@
           <button
             type="button"
             class="zs:ms-2 zs:inline-flex zs:h-6 zs:w-6 zs:items-center zs:justify-center zs:rounded-full
-                    zs:text-gray-500 zs:dark:text-gray-300
+                    zs:text-gray-500 zs:dark:text-gray-300 zs:transition-colors
                     zs:hover:bg-gray-200 zs:dark:hover:bg-gray-700
                     zs:hover:text-gray-700 zs:dark:hover:text-gray-100
                     zs:focus:outline-hidden zs:focus-visible:ring-2 zs:focus-within:ring-indigo-500"
@@ -53,7 +53,7 @@
       <!-- ========================= Auto-Close Progress Bar ========================= -->
       @if (alert.autoClose ?? defaultAutoClose()) {
         <div
-          class="zs:absolute zs:bottom-0 zs:left-0 zs:h-1 zs:bg-gray-300 zs:dark:bg-gray-700 zs:w-full"
+          class="zs:absolute zs:bottom-0 zs:left-0 zs:h-1 zs:bg-gray-300 zs:dark:bg-gray-700 zs:w-full zs:transition-colors"
           role="progressbar"
           [attr.aria-valuenow]="alert.progress ?? 100"
           aria-valuemin="0"

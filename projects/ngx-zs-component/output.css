@@ -600,6 +600,9 @@
   .zs\:h-16 {
     height: calc(var(--zs-spacing) * 16);
   }
+  .zs\:h-\[92vh\] {
+    height: 92vh;
+  }
   .zs\:h-\[calc\(100\%-52px\)\] {
     height: calc(100% - 52px);
   }
@@ -629,6 +632,9 @@
   }
   .zs\:min-h-\[90vh\] {
     min-height: 90vh;
+  }
+  .zs\:w-0 {
+    width: calc(var(--zs-spacing) * 0);
   }
   .zs\:w-1 {
     width: calc(var(--zs-spacing) * 1);
@@ -726,10 +732,6 @@
   }
   .zs\:-translate-x-24 {
     --tw-translate-x: calc(var(--zs-spacing) * -24);
-    translate: var(--tw-translate-x) var(--tw-translate-y);
-  }
-  .zs\:-translate-x-full {
-    --tw-translate-x: -100%;
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .zs\:translate-x-0 {
@@ -1191,6 +1193,9 @@
   .zs\:bg-green-200 {
     background-color: var(--zs-color-green-200);
   }
+  .zs\:bg-green-300 {
+    background-color: var(--zs-color-green-300);
+  }
   .zs\:bg-green-500 {
     background-color: var(--zs-color-green-500);
   }
@@ -1434,11 +1439,20 @@
   .zs\:pr-2 {
     padding-right: calc(var(--zs-spacing) * 2);
   }
+  .zs\:pr-3 {
+    padding-right: calc(var(--zs-spacing) * 3);
+  }
+  .zs\:pr-4 {
+    padding-right: calc(var(--zs-spacing) * 4);
+  }
   .zs\:pb-3 {
     padding-bottom: calc(var(--zs-spacing) * 3);
   }
   .zs\:pb-4 {
     padding-bottom: calc(var(--zs-spacing) * 4);
+  }
+  .zs\:pb-5 {
+    padding-bottom: calc(var(--zs-spacing) * 5);
   }
   .zs\:pl-3 {
     padding-left: calc(var(--zs-spacing) * 3);
@@ -1779,6 +1793,11 @@
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
   }
+  .zs\:transition-\[width\,opacity\,color\,background-color\] {
+    transition-property: width,opacity,color,background-color;
+    transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
+  }
   .zs\:transition-\[width\] {
     transition-property: width;
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
@@ -1803,6 +1822,12 @@
     transition-property: transform, translate, scale, rotate;
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
+  }
+  .zs\:delay-0 {
+    transition-delay: 0ms;
+  }
+  .zs\:delay-300 {
+    transition-delay: 300ms;
   }
   .zs\:duration-100 {
     --tw-duration: 100ms;

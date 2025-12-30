@@ -4,7 +4,7 @@
   class="zs:w-full"
   [attr.type]="type()"
   [disabled]="disabled()"
-  [ngClass]="['zs:flex zs:gap-2', baseClasses()]"
+  [ngClass]="['zs:flex zs:gap-2 zs:transition-colors', baseClasses()]"
 
   [attr.aria-disabled]="disabled()"
   [attr.aria-label]="icon() ? (icon() + ' button') : undefined"

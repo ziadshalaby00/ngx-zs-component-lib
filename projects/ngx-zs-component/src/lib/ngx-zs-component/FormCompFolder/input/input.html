@@ -17,7 +17,7 @@
 
   <!-- ========================= Input Container ========================= -->
   <div
-    class="zs:relative zs:flex zs:items-center zs:w-full"
+    class="zs:relative zs:flex zs:items-center zs:w-full zs:transition-colors"
     [class]="containerClasses() + ' ' + getSize('container')"
     (click)="focusInput($event)"
   >
@@ -80,7 +80,7 @@
         (click)="togglePassword()"
         [attr.aria-pressed]="showPassword()"
         class="zs:ml-1 zs:px-1 zs:text-slate-500 zs:hover:text-slate-700 
-        zs:dark:text-slate-400 zs:dark:hover:text-slate-200"
+        zs:dark:text-slate-400 zs:dark:hover:text-slate-200 zs:transition-colors"
         [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
       >
         <i
@@ -97,7 +97,7 @@
         type="button"
         (click)="clear()"
         class="zs:ml-1 zs:px-1 zs:text-slate-500 zs:hover:text-slate-700 
-        zs:dark:text-slate-400 zs:dark:hover:text-slate-200"
+        zs:dark:text-slate-400 zs:dark:hover:text-slate-200 zs:transition-colors"
         [attr.aria-label]="'Clear ' + (label() || 'input')"
       >
         <i
@@ -114,7 +114,7 @@
         type="button"
         (click)="onSearch()"
         class="zs:ml-1 zs:px-1 zs:text-slate-500 zs:hover:text-slate-700 
-        zs:dark:text-slate-400 zs:dark:hover:text-slate-200"
+        zs:dark:text-slate-400 zs:dark:hover:text-slate-200 zs:transition-colors"
         aria-label="Search"
       >
         <i

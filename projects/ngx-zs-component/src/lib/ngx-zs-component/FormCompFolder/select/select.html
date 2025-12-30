@@ -18,7 +18,8 @@
     [attr.aria-controls]="Id() + '-options'"
     [attr.aria-describedby]="hint() ? Id() + '-hint' : null"
     [disabled]="disabledOrReadonly()"
-    [class]="containerClasses()"
+    class="zs:transition-colors"
+    [ngClass]="containerClasses()"
     (click)="toggleDropdown()">
 
     @if (selectedItems().length) {
@@ -33,12 +34,12 @@
               [ngClass]="showItemsClass()"
               class="zs:flex zs:gap-1 zs:justify-center zs:items-center zs:text-gray-900 
               zs:dark:text-gray-100 zs:pl-3 zs:pr-2 zs:py-1.5 zs:rounded-full zs:text-sm 
-              zs:max-w-[140px]">
+              zs:max-w-[140px] zs:transition-colors">
               <span class="zs:truncate">{{ item.name }}</span>
               <button
                 type="button"
                 [attr.aria-label]="'Remove ' + item.name"
-                class="zs:px-1 zs:text-gray-950 zs:hover:text-gray-600 zs:dark:text-gray-50 zs:dark:hover:text-gray-300"
+                class="zs:px-1 zs:text-gray-950 zs:hover:text-gray-600 zs:transition-colors zs:dark:text-gray-50 zs:dark:hover:text-gray-300"
                 (click)="selectItem([item]); $event.stopPropagation()">
                 <i class="fas fa-times text-xs"></i>
               </button>
@@ -74,12 +75,12 @@
       role="listbox"
       [attr.aria-multiselectable]="multiple() ? 'true' : null"
       class="zs:absolute {{ zIndices.selectDropdown }} zs:w-full zs:mt-1 zs:rounded-lg 
-      zs:shadow-lg zs:dark:shadow-gray-400/30 zs:overflow-hidden zs:bg-white zs:border 
+      zs:shadow-lg zs:dark:shadow-gray-400/30 zs:overflow-hidden zs:bg-white zs:border zs:transition-colors
       zs:border-gray-300 zs:dark:bg-gray-900 zs:dark:border-gray-600 zs:dark:text-gray-100">
 
       @if (showSearch()) {
         <!-- Search Input -->
-        <div class="zs:relative zs:p-2 zs:border-b zs:border-gray-200 zs:dark:border-gray-700">
+        <div class="zs:relative zs:p-2 zs:border-b zs:border-gray-200 zs:dark:border-gray-700 zs:transition-colors">
           <ZS-input
             role="searchbox"
             aria-label="Search options"
@@ -108,14 +109,14 @@
             (click)="selectItem([item]); $event.stopPropagation()">
             <span class="zs:truncate">{{ item.name }}</span>
             @if (inSelectItems(item)) {
-              <i class="fas fa-check zs:text-gray-950 zs:dark:text-gray-50 zs:ml-2"></i>
+              <i class="fas fa-check zs:text-gray-950 zs:dark:text-gray-50 zs:ml-2 zs:transition-colors"></i>
             }
           </div>
         }
 
         @if (filteredItems().length === 0) {
           <!-- No Results Message -->
-          <div class="zs:px-4 zs:py-3 zs:text-center zs:text-gray-500 zs:dark:text-gray-400">
+          <div class="zs:px-4 zs:py-3 zs:text-center zs:text-gray-500 zs:dark:text-gray-400 zs:transition-colors">
             {{ noResultsText() }}
           </div>
         }

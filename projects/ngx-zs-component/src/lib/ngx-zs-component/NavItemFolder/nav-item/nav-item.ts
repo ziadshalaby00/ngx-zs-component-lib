@@ -121,7 +121,7 @@ export class NavItem {
   // ==============================================
 
   getItemClasses = (item: NavbarItem): string => {
-    const base = 'zs:text-gray-600 zs:dark:text-gray-300';
+    const base = 'zs:text-gray-600 zs:dark:text-gray-300 zs:transition-colors';
 
     const defaultTextClass =
       base + ' zs:hover:text-gray-900 zs:dark:hover:text-gray-100';
