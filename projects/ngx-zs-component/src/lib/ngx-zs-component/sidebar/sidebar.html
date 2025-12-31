@@ -1,4 +1,10 @@
-<div class="zs:relative zs:h-full zs:w-fit {{ zIndices.sideBar }}">
+<div 
+class="zs:h-full {{ zIndices.sideBar }} zs:transition-[max-width]"
+[ngClass]="[
+  floating() ? 'zs:absolute' : 'zs:md:relative zs:absolute',
+  openSide() ? 'zs:max-w-[75vw]' : 'zs:max-w-0'
+]"
+>
   <!-- Sidebar -->
   <div
     id="sidebar"
@@ -6,11 +12,11 @@
     aria-labelledby="sidebar-header"
     class="
       zs:h-full 
-      zs:relative
-      zs:bg-white/90 zs:dark:bg-slate-800/90 zs:backdrop-blur-md 
-      zs:transition-[width,opacity,color,background-color]
-      zs:duration-500 sidebar-shadow-right 
-      motion-reduce:zs:transition-none
+      zs:bg-white zs:dark:bg-slate-800 zs:backdrop-blur-md 
+      zs:w-[75vw] zs:sm:w-[55vw] zs:md:w-[40vw] zs:lg:w-[25vw] zs:xl:w-[15vw]
+      zs:transition-[translate]
+      zs:duration-600 sidebar-shadow-right 
+      motion-reduce:zs:transition-none zs:overflow-hidden
     "
 
     [attr.aria-hidden]="!openSide()"
@@ -18,8 +24,8 @@
 
     [ngClass]="
       openSide()
-        ? 'zs:w-[75vw] zs:sm:w-[55vw] zs:md:w-[40vw] zs:lg:w-[25vw] zs:xl:w-[15vw] zs:opacity-100'
-        : 'zs:w-0 zs:overflow-hidden zs:opacity-0'
+        ? 'zs:translate-x-0'
+        : 'zs:-translate-x-full'
     "
   >
     <!-- Close Sidebar Button -->

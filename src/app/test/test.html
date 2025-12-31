@@ -1,35 +1,29 @@
-<!-- <div class="zs:h-screen zs:flex zs:items-center zs:justify-center">
-    <ZS-navbar
-      [siteNameConfig]="siteNameConfig"
-    
-      [authButtons]="authButtons"
-      [showUserSection]="true"
-    
-      [showSearchBar]="true"
-      [searchPlaceholder]="'Search for a product...'"
-      [navItems]="navItems"
-    
-      [isLoggedIn]="true"
-      [userProfile]="userProfile()"
-      [userMenuItems]="userMenuItems"
+<ZS-navbar
+    [siteNameConfig]="siteNameConfig"
 
-      (loginClickedEv)="onLogin()"
-      (signupClickedEv)="onSignup()"
-      (searchSubmittedEv)="onSearch($event)"
-      (searchValueChange)="onSearch($event)"
-    ></ZS-navbar>
+    [authButtons]="authButtons"
+    [showUserSection]="true"
 
-    <div class="zs:w-[360px]">
+    [showSearchBar]="true"
+    [searchPlaceholder]="'Search for a product...'"
+    [navItems]="navItems()"
 
-    </div>
-</div> -->
+    [isLoggedIn]="true"
+    [userProfile]="userProfile()"
+    [userMenuItems]="userMenuItems"
+
+    (loginClickedEv)="onLogin()"
+    (signupClickedEv)="onSignup()"
+    (searchSubmittedEv)="onSearch($event)"
+    (searchValueChange)="onSearch($event)"
+></ZS-navbar>
 
 
-<div class="zs:h-[92vh] zs:flex zs:pr-4 zs:dark:text-gray-50">
+<div class="zs:flex zs:w-full">
     <ZS-sidebar
     header="Chats"
     [openSide]="true"
-    class='zs:h-[92vh]'
+    class='zs:h-[85vh] zs:bg-blue-500'
     >
         <div main class="zs:flex zs:flex-col zs:h-full zs:gap-6 zs:pt-4 zs:pb-5 zs:px-5">
             <ZS-input
@@ -65,7 +59,9 @@
         </div>
     </ZS-sidebar>
 
-    <div class="zs:h-full zs:w-full zs:bg-blue-500 zs:transition-all zs:duration-500">
-
+    <div class="zs:h-[85vh] zs:w-full zs:bg-blue-500 zs:transition-all zs:duration-500">
+        <p class="zs:p-2">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero vel dolorum maxime illum, perferendis id laboriosam autem repellendus quidem modi cupiditate. Distinctio aut expedita eveniet enim quos laborum reiciendis eaque?
+        </p>
     </div>
 </div>

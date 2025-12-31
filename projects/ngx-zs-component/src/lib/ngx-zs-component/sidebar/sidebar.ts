@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, model } from '@angular/core';
+import { Component, effect, inject, input, model } from '@angular/core';
 import { zIndices, ZIndicesType } from '../z-index';
 
 @Component({
@@ -13,6 +13,7 @@ export class Sidebar {
   readonly zIndices: ZIndicesType = zIndices;
   readonly header = input<string>('Side Bar');
   readonly openSide = model<boolean>(false);
+  readonly floating = input<boolean>(false);
 
   toggleSide() {
     this.openSide.update((v) => !v);

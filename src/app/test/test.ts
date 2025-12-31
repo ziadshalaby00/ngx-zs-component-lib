@@ -43,30 +43,90 @@ export class Test {
     }
   }
 
-  navItems: navItemsType = {
+  readonly logoUrl: string = 'https://i.postimg.cc/Zqwmp84j/android-chrome-512x512.png';
+
+  readonly iconClass: string = 'zs:text-sky-500 zs:dark:text-sky-600';
+
+  readonly navItems = signal<navItemsType>({
+    routerLinkActive: 'zs:bg-sky-500 zs:dark:bg-sky-700 zs:text-gray-100',
+    colorClass: 'zs:hover:bg-sky-100 zs:dark:hover:bg-sky-700/50',
     navItems: [
-      // { 
-      //   label: 'Test', 
-      //   routerLink: '/test', 
-      //   icon: 'fa-solid fa-vial',
-      //   iconClass: 'zs:text-lg', 
-      //   colorClass: `zs:text-green-600 zs:hover:text-green-700 zs:dark:hover:text-green-500`, 
-      // },
-      // { label: 'Products', routerLink: '/products', icon: 'fas fa-tag', iconClass: 'zs:text-lg'},
-      // { label: 'Cart', routerLink: '/cart', 
-      //   icon: 'fas fa-shopping-cart', 
-      //   iconClass: 'zs:text-blue-700 zs:dark:text-blue-500 zs:text-lg'},
-      // { label: 'About Us', routerLink: '/about'},
-      // { label: 'Contact Us', routerLink: '/contact'},
-      // {
-      //   label: 'Legal Pages',
-      //   children: [
-      //     { label: 'Privacy Policy', routerLink: '/privacyPolicy', useDefaultColorClass: 'bg' },
-      //     { label: 'Terms & Conditions', routerLink: '/termsConditions', useDefaultColorClass: 'bg'},
-      //   ]
-      // },
+      {
+        label: 'Home',
+        routerLink: '/home',
+        icon: 'fa-solid fa-house zs:text-lg',
+        iconClass: this.iconClass
+      },
+      {
+        label: 'Azkar',
+        icon: 'fa-solid fa-mosque zs:text-lg',
+        iconClass: this.iconClass,
+        children: [
+          {
+            label: 'Morning Azkar',
+            routerLink: '/azkar/morning',
+            icon: 'fa-solid fa-sun zs:text-lg',
+            iconClass: 'zs:text-yellow-500',
+            closeMenuAfterClick: false
+          },
+          {
+            label: 'Evening Azkar',
+            routerLink: '/azkar/evening',
+            icon: 'fa-solid fa-moon zs:text-lg',
+            iconClass: 'zs:text-gray-900 zs:dark:text-gray-100',
+            closeMenuAfterClick: true
+          },
+          {
+            label: 'After Prayer Azkar',
+            routerLink: '/azkar/afterPrayer',
+            icon: 'fa-solid fa-person-praying zs:text-lg',
+            iconClass: 'zs:text-purple-500',
+            closeMenuAfterClick: true
+          },
+          {
+            label: 'Tasbeeh',
+            routerLink: '/azkar/tasbeeh',
+            icon: 'fa-solid fa-leaf zs:text-lg',
+            iconClass: 'zs:text-orange-500',
+            closeMenuAfterClick: true
+          },
+          {
+            label: 'Comprehensive Supplication',
+            routerLink: '/azkar/comprehensiveSupplication',
+            icon: 'fa-solid fa-star zs:text-lg',
+            iconClass: 'zs:text-emerald-500',
+            closeMenuAfterClick: true
+          },
+          {
+            label: 'The Most Beautiful Names of Allah',
+            routerLink: '/azkar/namesOfAllah',
+            icon: 'fa-solid fa-star zs:text-lg',
+            iconClass: 'zs:text-emerald-500',
+            closeMenuAfterClick: true
+          },
+          {
+            label: 'Favorites',
+            routerLink: '/azkar/favorites',
+            icon: 'fa-solid fa-heart zs:text-lg',
+            iconClass: 'zs:text-red-600 zs:dark:text-red-700',
+            closeMenuAfterClick: true
+          }
+        ]
+      },
+      {
+        label: 'History',
+        routerLink: '/history',
+        icon: 'fa-solid fa-clock-rotate-left zs:text-lg',
+        iconClass: this.iconClass
+      },
+      {
+        label: 'Features',
+        routerLink: '/features',
+        icon: 'fa-solid fa-puzzle-piece zs:text-lg',
+        iconClass: this.iconClass
+      }
     ]
-  }
+  });
 
   userProfile = computed<UserProfile | undefined>(() => {
     return {

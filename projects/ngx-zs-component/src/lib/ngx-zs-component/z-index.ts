@@ -4,6 +4,7 @@ export type KeyType =
 | 'modal'
 | 'themeToggle'
 | 'navbar'
+| 'navbarOverlay'
 | 'sideBar'
 | 'scrollToTop'
 | 'navItemDropdown'
@@ -12,11 +13,12 @@ export type KeyType =
 export type ZIndicesType = Record<KeyType, `zs:z-${number}`>
 
 export const zIndices: ZIndicesType = {
-    alert: 'zs:z-1800',
-    spinner: 'zs:z-1600',
-    modal: 'zs:z-1400',
-    themeToggle: 'zs:z-1200',
-    navbar: 'zs:z-1000',
+    alert: 'zs:z-2000',
+    spinner: 'zs:z-1800',
+    modal: 'zs:z-1600',
+    themeToggle: 'zs:z-1400',
+    navbar: 'zs:z-1200',
+    navbarOverlay: 'zs:z-1100',
     sideBar: 'zs:z-800',
     scrollToTop: 'zs:z-600',
     navItemDropdown: 'zs:z-200',

@@ -327,7 +327,7 @@
 <!-- ========================= Overlay for Menu Closing ========================= -->
 @if (isMobileMenuOpen()) {
   <div
-    class="zs:fixed zs:inset-0 zs:bg-gray-700 zs:dark:bg-black zs:z-700 zs:transition-colors"
+    class="zs:fixed zs:inset-0 zs:bg-gray-700 zs:dark:bg-black {{ zIndices.navbarOverlay }} zs:transition-colors"
     (click)="closeAllMenus()"
     aria-hidden="true"
   ></div>
