@@ -35,11 +35,11 @@
         [ngClass]="{
           'zs:block': isOpen(),
           'zs:hidden': !isOpen(),
-          'zs:absolute zs:left-6 zs:w-50 zs:mt-1 zs:py-1 zs:bg-white zs:dark:bg-gray-800 
-          zs:rounded-md shadow-md-all shadow-md-all-night zs:transition-colors': item().childrenOpenWindow,
+          'zs:absolute zs:left-4 zs:w-54 zs:mt-1 zs:p-2 zs:bg-white zs:dark:bg-gray-800 
+          zs:rounded-md shadow-md-all shadow-md-all-night': item().childrenOpenWindow,
           'zs:px-4 zs:mt-1': !item().childrenOpenWindow
         }"
-        class="{{ zIndices.navItemDropdown }}"
+        class="{{ zIndices.navItemDropdown }} zs:flex zs:flex-col zs:gap-2"
         role="menu"
         [attr.aria-label]="item().label + ' submenu'"
       >

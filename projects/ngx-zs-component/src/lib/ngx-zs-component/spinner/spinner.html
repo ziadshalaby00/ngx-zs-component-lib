@@ -1,12 +1,12 @@
 <!-- ========================= Loader Wrapper ========================= -->
 @if(loading()) {
   <div 
-    [ngClass]="[wrapperClasses(), 'zs:transition-colors']" 
+    [ngClass]="[wrapperClasses()]" 
     role="status" 
     aria-live="polite" 
     aria-busy="true"
   >
-    <div [ngClass]="[boxClasses(), 'zs:transition-colors']">
+    <div [ngClass]="[boxClasses()]">
   
       @switch (type()) {
   

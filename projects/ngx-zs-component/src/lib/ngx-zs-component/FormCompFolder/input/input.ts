@@ -187,7 +187,8 @@ export class Input {
   readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
 
   readonly containerClasses = computed<string>(() => {
-    const baseClasses = 'zs:border zs:transition-all zs:duration-150 zs:focus-within:ring-2';
+    const baseClasses =
+      'zs:border zs:transition-[border-color,background-color,box-shadow,opacity] zs:duration-150 zs:ease-out zs:focus-within:ring-2 motion-reduce:zs:transition-none';
     const hasError = this.error().length;
 
     let styleConfig = inputPaletteMap.get(this.inputStyle())!;

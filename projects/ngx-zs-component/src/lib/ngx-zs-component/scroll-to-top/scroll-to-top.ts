@@ -41,7 +41,7 @@ export class ScrollToTop {
   /**
    * Tailwind CSS class for the circle's color (background ring).
    */
-  readonly circleColorClass = input<string>('zs:text-gray-400/60 zs:dark:text-gray-600/70 zs:group-hover:brightness-110 zs:transition-colors');
+  readonly circleColorClass = input<string>('zs:text-gray-400/60 zs:dark:text-gray-600/70 zs:group-hover:brightness-110');
 
   /**
    * BaseColors class for the arrow and progress indicator color.

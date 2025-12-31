@@ -147,7 +147,7 @@ export class Select<T> {
 
   readonly containerClasses = computed<string>(() => {
     const base = `
-      zs:border zs:transition-all zs:duration-150
+      zs:border zs:transition-opacity zs:duration-150
       zs:flex zs:items-center zs:justify-between
       zs:w-full zs:min-w-48 zs:px-3 zs:py-2
       zs:rounded-lg zs:shadow-sm
@@ -171,7 +171,7 @@ export class Select<T> {
   });
 
   readonly clearClass = computed<string>(() => {
-    const base = 'zs:mt-2 zs:text-sm zs:flex zs:items-center zs:transition-colors';
+    const base = 'zs:mt-2 zs:text-sm zs:flex zs:items-center';
     return [
       base,
       this.styleEntry().selectEntry.cleartext,

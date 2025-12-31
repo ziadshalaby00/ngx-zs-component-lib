@@ -4,7 +4,7 @@
 <!-- ========================= Total Items Count ========================= -->
 @if (showTotalItems()) {
   <div
-    class="zs:text-center zs:text-sm zs:text-gray-500 zs:dark:text-gray-300 zs:mb-2 zs:transition-colors"
+    class="zs:text-center zs:text-sm zs:text-gray-500 zs:dark:text-gray-300 zs:mb-2"
     role="status"
     aria-live="polite"
   >
@@ -23,14 +23,14 @@
     type="button"
     class="zs:flex zs:items-center zs:justify-center zs:size-9 zs:sm:size-10 
     zs:rounded-lg zs:border zs:border-gray-300 zs:dark:border-gray-600 zs:hover:bg-blue-100 
-    zs:dark:hover:bg-blue-700 zs:disabled:opacity-50 zs:disabled:cursor-not-allowed zs:transition-all 
+    zs:dark:hover:bg-blue-700 zs:disabled:opacity-50 zs:disabled:cursor-not-allowed zs:transition-[opacity,color,background-color]
     zs:duration-200"
     (click)="prevPage()"
     [disabled]="currentPage() === 1"
     [attr.aria-disabled]="currentPage() === 1"
     aria-label="Go to previous page"
   >
-    <i class="fas fa-chevron-left zs:text-gray-600 zs:dark:text-gray-200 zs:transition-colors" aria-hidden="true"></i>
+    <i class="fas fa-chevron-left zs:text-gray-600 zs:dark:text-gray-200" aria-hidden="true"></i>
     <span class="sr-only">Previous</span>
   </button>
 
@@ -41,9 +41,9 @@
       (click)="goToPage(page)"
       class="zs:flex zs:items-center zs:justify-center zs:size-9 zs:sm:size-10 zs:rounded-lg 
       zs:border zs:border-gray-300 zs:dark:border-gray-600 zs:hover:bg-blue-100 zs:dark:hover:bg-blue-700 
-      zs:transition-all zs:duration-200"
+      zs:transition-[opacity,color,background-color] zs:duration-200"
       [ngClass]="{
-        'zs:bg-blue-500 zs:text-white zs:dark:bg-blue-400 zs:dark:text-black': page === currentPage()
+        'zs:bg-blue-500 zs:text-white zs:hover:text-black zs:dark:bg-blue-400 zs:dark:text-black': page === currentPage()
       }"
       [attr.aria-current]="page === currentPage() ? 'page' : null"
       [attr.aria-label]="'Go to page ' + page"
@@ -57,13 +57,13 @@
     type="button"
     class="zs:flex zs:items-center zs:justify-center zs:size-9 zs:sm:size-10 zs:rounded-lg zs:border 
     zs:border-gray-300 zs:dark:border-gray-600 zs:hover:bg-blue-100 zs:dark:hover:bg-blue-700 
-    zs:disabled:opacity-50 zs:disabled:cursor-not-allowed zs:transition-all zs:duration-200"
+    zs:disabled:opacity-50 zs:disabled:cursor-not-allowed zs:transition-[opacity,color,background-color] zs:duration-200"
     (click)="nextPage()"
     [disabled]="currentPage() === totalPages()"
     [attr.aria-disabled]="currentPage() === totalPages()"
     aria-label="Go to next page"
   >
-    <i class="fas fa-chevron-right zs:text-gray-600 zs:dark:text-gray-200 zs:transition-colors" aria-hidden="true"></i>
+    <i class="fas fa-chevron-right zs:text-gray-600 zs:dark:text-gray-200" aria-hidden="true"></i>
     <span class="sr-only">Next</span>
   </button>
 </nav>

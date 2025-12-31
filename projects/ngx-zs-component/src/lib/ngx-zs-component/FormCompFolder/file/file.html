@@ -19,7 +19,10 @@
   <!-- ================= Input ================= -->
   <div
     [class]="[
-      'zs:relative zs:rounded-xl zs:flex zs:flex-col zs:justify-center zs:items-center zs:gap-2 zs:border-2 zs:border-dashed zs:transition-all zs:duration-200',
+      'zs:relative zs:rounded-xl zs:flex zs:flex-col zs:justify-center 
+      zs:items-center zs:gap-2 zs:border-2 zs:border-dashed 
+      zs:transition-[border-color,background-color,box-shadow] 
+      zs:duration-200',
       palette().inputPalette.border,
       palette().ringPalette.ring,
       palette().inputPalette.borderHover,
@@ -51,7 +54,7 @@
 
     <div class="zs:flex zs:flex-col zs:items-center zs:justify-center zs:text-center zs:p-6 zs:pointer-events-none zs:select-none">
       <i class="fa-solid fa-upload text-3xl mb-2" [ngClass]="palette().inputPalette.text" aria-hidden="true"></i>
-      <p class="zs:text-sm zs:text-gray-500 zs:dark:text-gray-400 zs:transition-colors">
+      <p class="zs:text-sm zs:text-gray-500 zs:dark:text-gray-400">
         {{ placeholder() }}
       </p>
     </div>
@@ -66,7 +69,7 @@
     >
       @for (entry of files().entries(); track entry[0]) {
         <div
-          class="zs:flex zs:flex-col zs:gap-1 zs:p-2 zs:rounded-lg zs:border zs:transition-colors zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-offset-2"
+          class="zs:flex zs:flex-col zs:gap-1 zs:p-2 zs:rounded-lg zs:border zs:focus:outline-hidden zs:focus:ring-2 zs:focus:ring-offset-2"
           [ngClass]="[palette().inputPalette.border, palette().inputPalette.inputBg]"
           role="listitem"
           tabindex="0"
@@ -77,7 +80,7 @@
 
           <div class="zs:flex zs:items-center zs:justify-between zs:gap-4">
             <div class="zs:flex zs:items-center zs:gap-1">
-              <i class="text-lg fa-solid fa-file zs:transition-colors" [ngClass]="palette().inputPalette.text" aria-hidden="true"></i>
+              <i class="text-lg fa-solid fa-file" [ngClass]="palette().inputPalette.text" aria-hidden="true"></i>
               <span class="zs:text-xs zs:text-gray-500">
                 {{ formatSize(entry[1].size) }}
               </span>

@@ -1,3 +1,4 @@
+import { Pagination } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/pagination/pagination';
 import { Sidebar } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/sidebar/sidebar';
 import { Checkbox } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/checkbox/checkbox';
 import { Modal } from './../../../projects/ngx-zs-component/src/lib/ngx-zs-component/modal/modal';
@@ -12,10 +13,11 @@ import { FormStyle } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-com
 import { Button } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button";
 import { themeTypes } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle';
 import { FileInput } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/file/file'
+import { ScrollToTop } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/scroll-to-top/scroll-to-top";
 
 @Component({
   selector: 'app-test',
-  imports: [Navbar, Sidebar, Checkbox, Input, Card],
+  imports: [Navbar, Sidebar, Checkbox, Input, Card, ScrollToTop, Pagination],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
@@ -23,7 +25,7 @@ export class Test {
   // private router: Router = inject(Router)
 
   // readonly isMobileMenuOpen = model<boolean>(false)
-  
+  readonly ccc = signal(5)
 
   readonly alertService = inject(AlertService)
 

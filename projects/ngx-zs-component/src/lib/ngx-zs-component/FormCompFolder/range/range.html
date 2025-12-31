@@ -21,7 +21,10 @@
       
       <!-- ========================= Track Background ========================= -->
       <div
-        class="zs:absolute zs:inset-0 zs:rounded-full zs:bg-linear-to-r zs:from-gray-200 zs:to-gray-300 zs:transition-all zs:duration-300 zs:group-hover:brightness-110"
+        class="zs:absolute zs:inset-0 zs:rounded-full 
+        zs:bg-linear-to-r zs:from-gray-200 zs:to-gray-300 
+        zs:transition-[filter,background-image] zs:duration-300 zs:ease-out
+        motion-reduce:zs:transition-none zs:group-hover:brightness-110"
         [ngClass]="[
           ['secondary', 'dark'].includes(inputStyle()) ? 'zs:dark:from-gray-500 zs:dark:to-gray-600' : 'zs:dark:from-gray-700 zs:dark:to-gray-800',
           disabledOrReadonly() ? 'zs:cursor-not-allowed' : ''
@@ -30,7 +33,9 @@
 
       <!-- ========================= Fill (Progress) ========================= -->
       <div
-        class="zs:absolute zs:left-0 zs:rounded-full zs:top-0 zs:h-full zs:transition-all zs:duration-200 zs:ease-out zs:shadow-sm"
+        class="zs:absolute zs:left-0 zs:rounded-full zs:top-0 zs:h-full 
+          zs:transition-[width,background-color,box-shadow]
+          zs:duration-200 zs:ease-out zs:shadow-sm motion-reduce:zs:transition-none"
         [style.width.%]="percent()"
         [ngClass]="[
           disabledOrReadonly() ? 'zs:cursor-not-allowed' : '',
@@ -42,7 +47,8 @@
       <!-- ========================= Thumb (Handle) ========================= -->
       <div
         class="zs:absolute zs:top-1/2 zs:rounded-full zs:flex zs:items-center zs:justify-center 
-        zs:-translate-y-1/2 zs:transition-all zs:duration-200 zs:ease-out zs:shadow-md 
+        zs:-translate-y-1/2 zs:transition-[transform,box-shadow,background-color] 
+        zs:duration-200 zs:ease-out zs:shadow-md 
         zs:group-hover:scale-110"
         [style.left]="calcThumbPosition()"
         [ngClass]="[ThumbClasses(), disabledOrReadonly() ? 'zs:cursor-not-allowed' : '']"
@@ -64,7 +70,7 @@
 
     <!-- ========================= Value Display ========================= -->
     @if (showValue()) {
-      <div class="zs:text-sm zs:text-gray-600 zs:dark:text-gray-300 zs:font-medium zs:transition-colors">
+      <div class="zs:text-sm zs:text-gray-600 zs:dark:text-gray-300 zs:font-medium">
         {{ value() }}
       </div>
     }

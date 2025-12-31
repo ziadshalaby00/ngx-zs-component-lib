@@ -37,9 +37,10 @@
   @if (arrows()) {
     <button
       type="button"
-      class="zs:absolute zs:top-1/2 zs:left-3 zs:size-10 zs:-translate-y-1/2 zs:p-3 zs:flex zs:items-center zs:justify-center 
-      zs:rounded-full zs:bg-gray-100/50 zs:dark:bg-gray-500/50 zs:hover:bg-gray-100/70 
-      zs:dark:hover:bg-gray-500/70 zs:transition shadow-lg-all shadow-lg-all-night"
+      class="zs:absolute zs:top-1/2 zs:left-3 zs:size-10 zs:-translate-y-1/2 zs:p-3 zs:flex 
+      zs:items-center zs:justify-center zs:rounded-full zs:bg-gray-100/50 zs:dark:bg-gray-500/50 
+      zs:hover:bg-gray-100/70 zs:dark:hover:bg-gray-500/70 zs:transition-[background-color,box-shadow] 
+      shadow-lg-all shadow-lg-all-night"
       (click)="previous()"
       aria-label="Previous slide"
       [attr.aria-controls]="carouselContainer?.id"
@@ -49,9 +50,10 @@
 
     <button
       type="button"
-      class="zs:absolute zs:top-1/2 zs:right-3 zs:size-10 zs:-translate-y-1/2 zs:p-3 zs:flex zs:items-center zs:justify-center 
-      zs:rounded-full zs:bg-gray-100/50 zs:dark:bg-gray-500/50 zs:hover:bg-gray-100/70 
-      zs:dark:hover:bg-gray-500/70 zs:transition shadow-lg-all shadow-lg-all-night"
+      class="zs:absolute zs:top-1/2 zs:right-3 zs:size-10 zs:-translate-y-1/2 zs:p-3 zs:flex 
+      zs:items-center zs:justify-center zs:rounded-full zs:bg-gray-100/50 zs:dark:bg-gray-500/50 
+      zs:hover:bg-gray-100/70 zs:dark:hover:bg-gray-500/70 zs:transition-[background-color,box-shadow] 
+      shadow-lg-all shadow-lg-all-night"
       (click)="next()"
       aria-label="Next slide"
       [attr.aria-controls]="carouselContainer?.id"

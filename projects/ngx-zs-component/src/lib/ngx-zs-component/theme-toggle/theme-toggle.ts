@@ -34,7 +34,7 @@ export class ThemeToggle {
   // ==============================================
   // Inputs
   // ==============================================
-  readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100 zs:transition-colors');
+  readonly bodyClass = input<string>('zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100');
   readonly showDefaultUI = input<boolean>(true);
   readonly setManualTheme = input<themeTypes | null>(null);
   readonly fromTop = input<number>(1/4);
@@ -46,7 +46,7 @@ export class ThemeToggle {
   private startY = 0;
   private startTop = 0;
 
-  private readonly transitionValue: string = 'zs:transition-all zs:duration-300'
+  private readonly transitionValue: string = 'zs:transition-[translate] zs:duration-300'
   readonly transition = signal<string>('')
 
   // ==============================================

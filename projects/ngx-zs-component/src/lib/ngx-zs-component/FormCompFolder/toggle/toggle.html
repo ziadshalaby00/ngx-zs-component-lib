@@ -16,7 +16,7 @@
     <!-- ===================== Custom Accessible Toggle ===================== -->
     <button
     (click)="value.set(!value())"
-    class="zs:relative zs:rounded-full zs:border-2 zs:flex zs:items-center zs:transition-all zs:duration-500 zs:ease-in-out zs:overflow-hidden"
+    class="zs:relative zs:rounded-full zs:border-2 zs:flex zs:items-center zs:overflow-hidden"
     [ngClass]="[
         toggleClasses(),
         colorClasses('border'),
@@ -26,7 +26,9 @@
     ]"
     >
       <div
-          class="zs:absolute zs:left-1 zs:top-1/2 zs:-translate-1/2 zs:rounded-full zs:flex zs:items-center zs:justify-center zs:transition-all zs:duration-500 zs:ease-in-out zs:shadow-md"
+          class="zs:absolute zs:left-1 zs:top-1/2 zs:-translate-1/2
+           zs:rounded-full zs:flex zs:items-center zs:justify-center 
+           zs:transition-[translate] zs:duration-500 zs:ease-in-out zs:shadow-md"
           [ngClass]="[
               value() ? '' : colorClasses('bg'),
               value() ? colorClasses('text') : 'zs:text-gray-100 zs:dark:text-gray-300',

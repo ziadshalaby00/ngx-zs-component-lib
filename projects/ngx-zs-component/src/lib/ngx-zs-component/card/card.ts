@@ -88,7 +88,7 @@ export class Card {
       zs:will-change-transform
       zs:translate-x-0
       zs:translate-y-0
-      zs:transition zs:duration-500`;
+      zs:transition-[transform,opacity] zs:duration-500`;
     }
 
     // Hidden state
@@ -113,7 +113,8 @@ export class Card {
     const ringPalette = ringPaletteMap.get(style)!;
     const cardPalette = cardPaletteMap.get(style)!;
 
-    const base = 'zs:w-full zs:h-full zs:overflow-hidden zs:flex zs:flex-col zs:gap-4 zs:rounded-lg zs:transition-all zs:duration-300';
+    const base =
+      'zs:w-full zs:h-full zs:overflow-hidden zs:flex zs:flex-col zs:gap-4 zs:rounded-lg zs:transition-transform zs:duration-300 motion-reduce:zs:transition-none';
 
     // ---------------------
     // Border Handling

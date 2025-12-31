@@ -17,7 +17,7 @@
     <!-- ========================= Theme Selection Buttons ========================= -->
     <div class="zs:flex zs:items-center">
       <div 
-        class="zs:flex zs:overflow-hidden zs:transition-all zs:duration-300"
+        class="zs:flex zs:overflow-hidden"
         role="group"
         aria-label="Theme selection"
       >
@@ -26,7 +26,7 @@
           (click)="setTheme('light')"
           type="button"
           class="zs:px-3 zs:py-2 zs:rounded-l-none zs:border-l-0 zs:border-y 
-          zs:transition-colors zs:shrink-0
+          zs:shrink-0
           zs:bg-white zs:text-gray-900 zs:border-gray-300
           zs:dark:bg-gray-800 zs:dark:text-gray-100 zs:dark:border-gray-600
           zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700 zs:w-12
@@ -43,7 +43,7 @@
           (click)="setTheme('dark')"
           type="button"
           class="zs:px-3 zs:py-2 zs:rounded-r-lg zs:border-y zs:border-r 
-          zs:transition-colors zs:shrink-0
+          zs:shrink-0
           zs:bg-white zs:text-gray-900 zs:border-gray-300
           zs:dark:bg-gray-800 zs:dark:text-gray-100 zs:dark:border-gray-600
           zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700 zs:w-12
@@ -64,7 +64,7 @@
         <!-- Connector Line -->
         <div
           class="zs:absolute zs:top-1/2 zs:right-0 zs:h-0.5 zs:w-3 zs:transform zs:-translate-y-1/2
-                  zs:bg-gray-300 zs:dark:bg-gray-600 zs:transition-colors"
+                  zs:bg-gray-300 zs:dark:bg-gray-600"
           aria-hidden="true"
         ></div>
   
@@ -73,8 +73,7 @@
           (click)="toggleOpen()"
           type="button"
           class="zs:relative zs:z-100 zs:w-12 zs:h-12 zs:rounded-full zs:rounded-l-none zs:border-l-0 
-          zs:border-2
-          zs:transition-all zs:duration-300 zs:flex zs:items-center zs:justify-center
+          zs:border-2 zs:flex zs:items-center zs:justify-center
           zs:bg-white zs:text-gray-900 zs:border-gray-300
           zs:dark:bg-gray-800 zs:dark:text-gray-100 zs:dark:border-gray-600
           zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700

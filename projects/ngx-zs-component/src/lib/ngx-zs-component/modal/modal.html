@@ -1,7 +1,7 @@
 <!-- ========================= Overlay ========================= -->
 @if (isOpen()) {
   <div #modalRef
-    class="zs:fixed zs:inset-0 zs:flex {{ zIndices.modal }} zs:bg-black/50 zs:dark:bg-black/70 zs:transition-all zs:duration-300"
+    class="zs:fixed zs:inset-0 zs:flex {{ zIndices.modal }} zs:bg-black/50 zs:dark:bg-black/70"
     [ngClass]="[positionClass(), open() ? 'animate-fadeIn' : 'animate-fadeOut']"
     (click)="onOverlayClick($event)"
     role="presentation"
@@ -11,7 +11,7 @@
     <!-- ========================= Modal Container ========================= -->
     <div
       class="zs:relative zs:m-4 zs:bg-white zs:dark:bg-slate-900 zs:w-full zs:max-w-lg zs:mx-4 
-      zs:rounded-2xl zs:shadow-lg zs:transition-all zs:duration-300 zs:outline-hidden"
+      zs:rounded-2xl zs:shadow-lg zs:outline-hidden"
       [ngClass]="[
         'zs:border', 
         palette().border,
@@ -37,8 +37,8 @@
             </h3>
             @if(showCancelIcon()) {
                 <button 
-                class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer zs:transition-colors 
-                zs:duration-200 zs:focus:outline-hidden zs:focus-visible:ring-2 
+                class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer
+                zs:focus:outline-hidden zs:focus-visible:ring-2 
                 zs:focus-visible:ring-offset-2 zs:focus-visible:ring-blue-500 
                 zs:rounded-md zs:hover:scale-[1.02] zs:active:scale-[0.97]"
                 (click)="close()"

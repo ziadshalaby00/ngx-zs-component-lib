@@ -8,7 +8,7 @@
     [searchPlaceholder]="'Search for a product...'"
     [navItems]="navItems()"
 
-    [isLoggedIn]="true"
+    [isLoggedIn]="false"
     [userProfile]="userProfile()"
     [userMenuItems]="userMenuItems"
 
@@ -19,7 +19,7 @@
 ></ZS-navbar>
 
 
-<div class="zs:flex zs:w-full">
+<div class="zs:flex zs:w-full zs:h-[3000px]">
     <ZS-sidebar
     header="Chats"
     [openSide]="true"
@@ -65,3 +65,14 @@
         </p>
     </div>
 </div>
+
+<ZS-scroll-to-top></ZS-scroll-to-top>
+
+<ZS-pagination
+[totalItems]="100"
+[totalPages]="10"
+[currentPage]="ccc()"
+(pageChangeEv)="ccc.set($event)"
+>
+
+</ZS-pagination>

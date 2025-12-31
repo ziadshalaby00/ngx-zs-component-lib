@@ -35,7 +35,7 @@ class="zs:h-full {{ zIndices.sideBar }} zs:transition-[max-width]"
         zs:top-3 zs:right-2
         zs:bg-gray-200 zs:dark:bg-gray-700 zs:hover:bg-gray-300
         zs:dark:hover:bg-gray-600
-        zs:transition-[width,opacity,color,background-color] zs:duration-300 zs:ease-in-out
+        zs:transition-opacity zs:duration-300 zs:ease-in-out
       "
       aria-label="Close sidebar"
       aria-controls="sidebar"
@@ -64,7 +64,7 @@ class="zs:h-full {{ zIndices.sideBar }} zs:transition-[max-width]"
 
     <h2
       id="sidebar-header"
-      class="zs:font-semibold zs:text-xl zs:transition-colors zs:duration-300 
+      class="zs:font-semibold zs:text-xl
       zs:text-slate-900 zs:dark:text-slate-100 zs:p-2 zs:pt-4"
     >
       {{ header() }}
@@ -84,7 +84,9 @@ class="zs:h-full {{ zIndices.sideBar }} zs:transition-[max-width]"
       zs:top-3 zs:left-2
       zs:bg-gray-200 zs:dark:bg-gray-700 zs:hover:bg-gray-300
       zs:dark:hover:bg-gray-600
-      zs:transition-[width,opacity,color,background-color] zs:duration-300 zs:ease-in-out
+      zs:transition-opacity
+      zs:duration-300
+      zs:ease-in-out
     "
     aria-label="Open sidebar"
     aria-controls="sidebar"
