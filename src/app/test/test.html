@@ -4,7 +4,7 @@
     [authButtons]="authButtons"
     [showUserSection]="true"
 
-    [showSearchBar]="true"
+    [showSearchBar]="false"
     [searchPlaceholder]="'Search for a product...'"
     [navItems]="navItems()"
 
@@ -19,7 +19,7 @@
 ></ZS-navbar>
 
 
-<div class="zs:flex zs:w-full zs:h-[3000px]">
+<div class="zs:flex zs:w-full">
     <ZS-sidebar
     header="Chats"
     [openSide]="true"
@@ -65,14 +65,3 @@
         </p>
     </div>
 </div>
-
-<ZS-scroll-to-top></ZS-scroll-to-top>
-
-<ZS-pagination
-[totalItems]="100"
-[totalPages]="10"
-[currentPage]="ccc()"
-(pageChangeEv)="ccc.set($event)"
->
-
-</ZS-pagination>

@@ -54,7 +54,7 @@ export class Test {
     colorClass: 'zs:hover:bg-sky-100 zs:dark:hover:bg-sky-700/50',
     navItems: [
       {
-        label: 'Home',
+        label: 'Homeeeeee',
         routerLink: '/home',
         icon: 'fa-solid fa-house zs:text-lg',
         iconClass: this.iconClass

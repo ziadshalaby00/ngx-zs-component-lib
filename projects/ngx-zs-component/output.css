@@ -439,6 +439,9 @@
   .zs\:mt-1 {
     margin-top: calc(var(--zs-spacing) * 1);
   }
+  .zs\:mt-1\.5 {
+    margin-top: calc(var(--zs-spacing) * 1.5);
+  }
   .zs\:mt-2 {
     margin-top: calc(var(--zs-spacing) * 2);
   }
@@ -604,9 +607,6 @@
   }
   .zs\:h-\[85vh\] {
     height: 85vh;
-  }
-  .zs\:h-\[3000px\] {
-    height: 3000px;
   }
   .zs\:h-\[calc\(100\%-52px\)\] {
     height: calc(100% - 52px);
@@ -1439,6 +1439,9 @@
   .zs\:pt-4 {
     padding-top: calc(var(--zs-spacing) * 4);
   }
+  .zs\:pr-1 {
+    padding-right: calc(var(--zs-spacing) * 1);
+  }
   .zs\:pr-2 {
     padding-right: calc(var(--zs-spacing) * 2);
   }
@@ -1953,6 +1956,13 @@
       }
     }
   }
+  .zs\:group-hover\:text-blue-600 {
+    &:is(:where(.zs\:group):hover *) {
+      @media (hover: hover) {
+        color: var(--zs-color-blue-600);
+      }
+    }
+  }
   .zs\:group-hover\:brightness-110 {
     &:is(:where(.zs\:group):hover *) {
       @media (hover: hover) {
@@ -2303,13 +2313,6 @@
       }
     }
   }
-  .zs\:hover\:text-blue-700 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--zs-color-blue-700);
-      }
-    }
-  }
   .zs\:hover\:text-cyan-600 {
     &:hover {
       @media (hover: hover) {
@@ -2557,11 +2560,6 @@
   .zs\:sm\:gap-x-6 {
     @media (width >= 40rem) {
       column-gap: calc(var(--zs-spacing) * 6);
-    }
-  }
-  .zs\:sm\:px-3 {
-    @media (width >= 40rem) {
-      padding-inline: calc(var(--zs-spacing) * 3);
     }
   }
   .zs\:sm\:px-6 {
@@ -3537,6 +3535,15 @@
       --tw-shadow-color: var(--zs-color-slate-700);
       @supports (color: color-mix(in lab, red, red)) {
         --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--zs-color-slate-700) 50%, transparent) var(--tw-shadow-alpha), transparent);
+      }
+    }
+  }
+  .zs\:group-hover\:dark\:text-blue-400 {
+    &:is(:where(.zs\:group):hover *) {
+      @media (hover: hover) {
+        &:where(.dark, .dark *) {
+          color: var(--zs-color-blue-400);
+        }
       }
     }
   }
