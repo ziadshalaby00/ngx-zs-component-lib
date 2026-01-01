@@ -1,30 +1,26 @@
-// ==============================================
-// Types
-// ==============================================
+import { signal, WritableSignal, effect } from '@angular/core';
 
-import { signal, WritableSignal } from '@angular/core';
+export type ZFormField<T> = WritableSignal<{
+  value: T | null;
+  valid: boolean;
+  touched: boolean;
+}>;
 
-// نوع الحقل الواحد: يحتوي على value و valid
-export type ZFormField<T> = WritableSignal<{ value: T | null; valid: boolean }>;
-
-// خريطة الحقول كلها
 export type ZFormFieldMap<T extends Record<string, any>> = {
   [K in keyof T]: ZFormField<T[K]>;
 };
 
-// ==============================================
-// Zform Class
-// ==============================================
-
 export class Form<T extends Record<string, any>> {
   public readonly fields: ZFormFieldMap<T>;
-  public readonly touched = signal(false);
+  public readonly initialValues: T;
 
   constructor(initial: T) {
+    this.initialValues = { ...initial };
     this.fields = Object.keys(initial).reduce((acc, key) => {
       (acc as any)[key] = signal({
         value: initial[key],
         valid: false,
+        touched: false, 
       });
       return acc;
     }, {} as ZFormFieldMap<T>);
@@ -34,16 +30,17 @@ export class Form<T extends Record<string, any>> {
   // Field Accessors
   // ==============================================
 
-  public set<K extends keyof T>(key: K, value: T[K] | null, valid: boolean = true): void {
-    this.fields[key].set({ value, valid });
+  public set<K extends keyof T>(key: K, value: T[K] | null, valid: boolean = true, touched: boolean = true): void {
+    const current = this.fields[key]();
+    this.fields[key].set({ value, valid, touched: touched || current.touched });
   }
 
-  public patch<K extends keyof T>(key: K, partial: Partial<{ value: T[K] | null; valid: boolean }>): void {
+  public patch<K extends keyof T>(key: K, partial: Partial<{ value: T[K] | null; valid: boolean; touched: boolean }>): void {
     const current = this.fields[key]();
     this.fields[key].set({ ...current, ...partial });
   }
 
-  public get<K extends keyof T>(key: K): { value: T[K] | null; valid: boolean } {
+  public get<K extends keyof T>(key: K): { value: T[K] | null; valid: boolean; touched: boolean } {
     return this.fields[key]();
   }
 
@@ -51,21 +48,29 @@ export class Form<T extends Record<string, any>> {
   // Form State & Validation
   // ==============================================
 
-  public allFilled(): Record<keyof T, boolean> {
-    const result: Partial<Record<keyof T, boolean>> = {};
-
+  public markAllTouched(): void {
     for (const key in this.fields) {
-      if (this.fields.hasOwnProperty(key)) {
-        const val = this.fields[key as keyof T]().value;
-        result[key as keyof T] = val !== null && val !== undefined && val !== '';
-      }
+      const field = this.fields[key as keyof T]();
+      this.fields[key as keyof T].set({ ...field, touched: true });
     }
-
-    return result as Record<keyof T, boolean>;
   }
 
-  private markAllTouched(): void {
-    this.touched.set(true);
+  public allTouched(): boolean {
+    return Object.keys(this.fields).every(key => this.fields[key as keyof T]().touched);
+  }
+
+  // ==============================================
+  // Reset
+  // ==============================================
+
+  public reset(): void {
+    for (const key in this.fields) {
+      this.fields[key as keyof T].set({
+        value: this.initialValues[key as keyof T],
+        valid: false,
+        touched: false,
+      });
+    }
   }
 
   // ==============================================
@@ -92,6 +97,19 @@ export class Form<T extends Record<string, any>> {
     return result as Record<keyof T, boolean>;
   }
 
+  public allFilled(): Record<keyof T, boolean> {
+    const result: Partial<Record<keyof T, boolean>> = {};
+
+    for (const key in this.fields) {
+      if (this.fields.hasOwnProperty(key)) {
+        const val = this.fields[key as keyof T]().value;
+        result[key as keyof T] = val !== null && val !== undefined && val !== '';
+      }
+    }
+
+    return result as Record<keyof T, boolean>;
+  }
+
   public submit(
     callback: (values: T) => void,
     allowEmptyFields: (keyof T)[] = [],
@@ -102,17 +120,11 @@ export class Form<T extends Record<string, any>> {
     const filled = this.allFilled();
     const validations = this.getValidations();
 
-    // =============================
-    // Check FILL
-    // =============================
     const allFilled = Object.keys(filled).every((key) => {
       if (allowEmptyFields.includes(key as keyof T)) return true;
       return filled[key as keyof T];
     });
 
-    // =============================
-    // Check VALID
-    // =============================
     const allValid = Object.keys(validations).every((key) => {
       if (allowInvalidFields.includes(key as keyof T)) return true;
       return validations[key as keyof T];
