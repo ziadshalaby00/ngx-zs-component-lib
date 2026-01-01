@@ -64,7 +64,9 @@ export class Modal {
   readonly title = input<string>('Modal Title');
   readonly modalStyle = input<FormStyle>('primary');
 
-  readonly showCancelIcon = input<boolean>(true)
+  readonly showCancelIcon = input<boolean>(true);
+  readonly showHeader = input<boolean>(true);
+  readonly showBody = input<boolean>(true);
   readonly showFooter = input<boolean>(true);
 
   readonly cancelConfig = input<BtnType>();

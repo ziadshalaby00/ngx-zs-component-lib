@@ -28,31 +28,35 @@
     >
 
         <!-- ========================= Modal Header ========================= -->
-        <div
-            class="zs:flex zs:items-center zs:justify-between zs:px-4 zs:py-3 zs:border-b"
-            [class]="palette().border"
-        >
-            <h3 id="modal-title" class="zs:font-semibold zs:text-lg">
-            {{ title() }}
-            </h3>
-            @if(showCancelIcon()) {
-                <button 
-                class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer
-                zs:focus:outline-hidden zs:focus-visible:ring-2 
-                zs:focus-visible:ring-offset-2 zs:focus-visible:ring-blue-500 
-                zs:rounded-md zs:hover:scale-[1.02] zs:active:scale-[0.97]"
-                (click)="close()"
-                aria-label="Close dialog"
-                >
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            }
-        </div>
+        @if(showHeader()) {
+            <div
+                class="zs:flex zs:items-center zs:justify-between zs:px-4 zs:py-3 zs:border-b"
+                [class]="palette().border"
+            >
+                <h3 id="modal-title" class="zs:font-semibold zs:text-lg">
+                {{ title() }}
+                </h3>
+                @if(showCancelIcon()) {
+                    <button 
+                    class="zs:text-xl zs:hover:opacity-85 zs:cursor-pointer
+                    zs:focus:outline-hidden zs:focus-visible:ring-2 
+                    zs:focus-visible:ring-offset-2 zs:focus-visible:ring-blue-500 
+                    zs:rounded-md zs:hover:scale-[1.02] zs:active:scale-[0.97]"
+                    (click)="close()"
+                    aria-label="Close dialog"
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                }
+            </div>
+        }
 
         <!-- ========================= Modal Body ========================= -->
-        <div id="modal-body" class="zs:p-4 scroll zs:max-h-[75vh] scroll-{{ modalStyle() }}">
-            <ng-content></ng-content>
-        </div>
+        @if(showBody()) {
+            <div id="modal-body" class="zs:p-4 scroll zs:max-h-[75vh] scroll-{{ modalStyle() }}">
+                <ng-content></ng-content>
+            </div>
+        }
 
         <!-- ========================= Modal Footer ========================= -->
         @if (showFooter()) {
