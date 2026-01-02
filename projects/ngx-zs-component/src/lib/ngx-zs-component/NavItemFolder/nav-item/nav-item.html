@@ -17,13 +17,7 @@
         [attr.aria-controls]="'submenu-' + index()"
       >
         <div class="zs:flex zs:items-center">
-          @if (item().icon) {
-            <i [ngClass]="[
-              item().icon, 
-              item().iconClass ?? '',
-              (item().icon && item().label) ? 'zs:mr-2' : ''
-            ]" aria-hidden="true"></i>
-          }
+          <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
           <span class="zs:wrap-break-word" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
         </div>
         <i class="fas fa-chevron-down zs:ml-auto zs:p-0.5 zs:text-xs" aria-hidden="true"></i>
@@ -68,14 +62,7 @@
       (click)="onItemClick()"
       role="menuitem"
     >
-      @if (item().icon) {
-        <i [ngClass]="[
-          item().icon,
-          rla.isActive && item().routerLinkActive ? '' : (item().iconClass ?? ''),
-          (item().icon && item().label) ? 'zs:mr-2' : ''
-        ]"
-        aria-hidden="true"></i>
-      }
+      <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
       <span class="zs:wrap-break-word zs:line-clamp-3" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
     </a>
   }

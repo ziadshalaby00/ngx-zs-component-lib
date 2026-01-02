@@ -9,13 +9,11 @@ export interface NavbarItem {
   routerLinkActive?: string;
 
   action?: () => void;
+  iconTpl?: Signal<TemplateRef<any> | undefined>;
 
   children?: NavbarItem[];
   childrenOpenWindow?: boolean;
   closeMenuAfterClick?: boolean
-
-  icon?: string;
-  iconClass?: string;
 
   colorClass?: string;
   useDefaultColorClass?: 'text' | 'bg';
@@ -25,7 +23,7 @@ export interface NavbarItem {
 // Imports
 // ==============================================
 
-import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, output, Signal, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavItemService } from '../nav-item-service/nav-item-service';
@@ -77,6 +75,7 @@ export class NavItem {
       if (collection) {
         this.znavItemService.addItemInCollection(collection, this.index());
       }
+      console.log(this.item().iconTpl)
     });
   }
 

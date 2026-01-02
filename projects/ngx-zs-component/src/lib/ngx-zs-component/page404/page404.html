@@ -6,7 +6,10 @@
 
   <!-- ========================= Icon ========================= --> 
   <div class="zs:text-[136px] zs:mb-8 animate-float zs:opacity-90 zs:leading-none">
-    <i class="fa-solid" [class]="icon()"></i>
+    <ng-template #defaultIcon>
+      <i class="fas fa-ghost"></i>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="iconTpl() ?? defaultIcon"></ng-container>
   </div>
 
   <!-- ========================= Title ========================= -->

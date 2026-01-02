@@ -1,5 +1,5 @@
 import { RouterModule } from '@angular/router';
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, effect, input, output, signal, TemplateRef, viewChild } from '@angular/core';
 import { FormStyle, page404PaletteMap } from '../palette-service';
 import { CommonModule } from '@angular/common';
 
@@ -21,8 +21,8 @@ export class Page404 {
   // ========================================================================
   readonly title = input<string>('Page Not Found');
   readonly message = input<string>('Hmm… this page doesn’t seem to exist. Try checking the URL or going back home.');
-  readonly icon = input<string>('fa-ghost');
-  readonly pageStyle = input<FormStyle | 'normal'>('normal')
+  readonly iconTpl = input<TemplateRef<any>>();
+  readonly pageStyle = input<FormStyle | 'normal'>('normal');
 
   readonly showButton = input<boolean>(true);
   readonly buttonText = input<string>('Go Home');

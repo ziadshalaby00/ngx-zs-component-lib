@@ -249,10 +249,12 @@
       role="menu"
       aria-label="Mobile navigation"
     >
-      <div class="zs:pl-3 zs:pr-2 zs:pb-3 zs:flex zs:flex-col zs:gap-1">
+      <div class="zs:pl-3 zs:pr-1 zs:pb-3 zs:flex zs:flex-col zs:gap-1">
 
         <!-- Navigation Items -->
-        <div class="zs:max-h-96 zs:flex zs:flex-col zs:gap-1.5 zs:pr-1 zs:pb-2 zs:pt-2 zs:overflow-y-auto">
+        <div class="zs:max-h-96 zs:flex zs:flex-col zs:gap-1.5 
+        zs:pr-2 zs:pb-2 zs:pt-2 zs:overflow-y-auto
+        ">
           @for (item of mobileNavItems(); track $index) {
             <ZS-nav-item
               [item]="item"
