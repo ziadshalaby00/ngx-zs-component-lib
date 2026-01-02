@@ -4,68 +4,16 @@
     [authButtons]="authButtons"
     [showUserSection]="true"
 
-    [showSearchBar]="false"
+    [showSearchBar]="true"
     [searchPlaceholder]="'Search for a product...'"
     [navItems]="navItems()"
 
-    [isLoggedIn]="false"
+    [isLoggedIn]="true"
     [userProfile]="userProfile()"
-    [userMenuItems]="userMenuItems"
+    [userMenuItems]="userMenuItems()"
 
     (loginClickedEv)="onLogin()"
     (signupClickedEv)="onSignup()"
     (searchSubmittedEv)="onSearch($event)"
     (searchValueChange)="onSearch($event)"
 ></ZS-navbar>
-
-<!-- 
-<div class="zs:flex zs:w-full">
-    <ZS-sidebar
-    header="Chats"
-    [openSide]="true"
-    class='zs:h-[85vh] zs:bg-blue-500'
-    >
-        <div main class="zs:flex zs:flex-col zs:h-full zs:gap-6 zs:pt-4 zs:pb-5 zs:px-5">
-            <ZS-input
-            type="search"
-            inputStyle="primary"
-            >
-            </ZS-input>
-
-            <div class='zs:flex zs:flex-col zs:gap-4 zs:h-full zs:pr-3 zs:overflow-y-auto scroll scroll-success'>
-                @for(item of ['ziad', 'ahmed', 'salah', 'mohamed', 'ali', 'ibrahim', 'some one 1', 'some one 2', 'some one 3', 'some one 4', 'some one 5', 'some one 6', 'some one 7', 'some one 8', 'some one 9', 'some one 10']; track item) {
-                    @if(item === 'ahmed') {
-                        <ZS-card
-                        [clickable]="true"
-                        cardStyle="success"
-                        bodyClass="zs:bg-green-300 zs:dark:bg-green-700"
-                        >
-                            <div class="zs:py-4 zs:px-6">
-                                {{ item }}
-                            </div>
-                        </ZS-card>
-                    }@else {
-                        <ZS-card
-                        [clickable]="true"
-                        cardStyle="success"
-                        >
-                            <div class="zs:py-4 zs:px-6">
-                                {{ item }}
-                            </div>
-                        </ZS-card>
-                    }
-                }
-            </div>
-        </div>
-    </ZS-sidebar>
-
-    <div class="zs:h-[85vh] zs:w-full zs:bg-blue-500 zs:transition-all zs:duration-500">
-        <p class="zs:p-2">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero vel dolorum maxime illum, perferendis id laboriosam autem repellendus quidem modi cupiditate. Distinctio aut expedita eveniet enim quos laborum reiciendis eaque?
-        </p>
-    </div>
-</div> -->
-
-<ng-template #homeIcon>
-    <i class="fa-solid fa-house zs:text-lg zs:mr-1.5"></i>
-</ng-template>

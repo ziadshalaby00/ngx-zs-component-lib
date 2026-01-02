@@ -37,7 +37,7 @@
               value() ? transSize() : 'zs:translate-x-0',
           ]"
       >
-          <i [class]="icon()"></i>
+        <ng-container *ngTemplateOutlet="iconTpl()"></ng-container>
       </div>
     </button>
   </div>

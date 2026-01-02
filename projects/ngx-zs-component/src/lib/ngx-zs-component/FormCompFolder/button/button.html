@@ -7,14 +7,12 @@
   [ngClass]="['zs:flex zs:gap-2', baseClasses()]"
 
   [attr.aria-disabled]="disabled()"
-  [attr.aria-label]="icon() ? (icon() + ' button') : undefined"
+  [attr.aria-label]="iconTpl() ? (iconTpl() + ' button') : undefined"
   [attr.tabindex]="disabled() ? -1 : 0"
 
   (click)="onClick($event)"
 >
   <!-- ========================= Button Content ========================= -->
-  @if (icon()) {
-    <i [class]="icon()" aria-hidden="true"></i>
-  }
+  <ng-container *ngTemplateOutlet="iconTpl()"></ng-container>
   <ng-content></ng-content>
 </button>

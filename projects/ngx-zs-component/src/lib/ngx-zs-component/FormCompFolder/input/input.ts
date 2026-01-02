@@ -7,6 +7,7 @@ import {
   model,
   output,
   signal,
+  TemplateRef,
   viewChild,
 } from '@angular/core';
 import { inputPaletteMap, BaseSize, FormStyle, ringPaletteMap } from '../../palette-service';
@@ -128,7 +129,7 @@ export class Input {
   readonly required = input<boolean>(false);
   readonly inputmode = input<string | null>(null);
 
-  readonly icon = input<string | null>(null);
+  readonly iconTpl = input<TemplateRef<any>>();
   readonly showSearchIcon = input<boolean>(false);
   readonly showLoaderIconOnSearchInput = input<boolean>(false);
 
@@ -224,7 +225,6 @@ export class Input {
   });
   
   readonly dateIcon = computed<string>(() => {
-    if (this.icon()) return '';
     return DATE_ICON_MAP[this.type() as DateType] || 'fas fa-calendar';
   });
 

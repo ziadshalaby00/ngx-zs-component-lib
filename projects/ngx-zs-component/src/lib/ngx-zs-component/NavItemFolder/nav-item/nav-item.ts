@@ -9,7 +9,9 @@ export interface NavbarItem {
   routerLinkActive?: string;
 
   action?: () => void;
+
   iconTpl?: Signal<TemplateRef<any> | undefined>;
+  iconClasses?: string;
 
   children?: NavbarItem[];
   childrenOpenWindow?: boolean;
@@ -75,7 +77,6 @@ export class NavItem {
       if (collection) {
         this.znavItemService.addItemInCollection(collection, this.index());
       }
-      console.log(this.item().iconTpl)
     });
   }
 

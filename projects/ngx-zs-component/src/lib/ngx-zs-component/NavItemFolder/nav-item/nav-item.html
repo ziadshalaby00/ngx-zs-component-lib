@@ -62,7 +62,9 @@
       (click)="onItemClick()"
       role="menuitem"
     >
-      <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
+      <span [ngClass]="[!rla.isActive && item().iconClasses ? item().iconClasses : '']">
+        <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
+      </span>
       <span class="zs:wrap-break-word zs:line-clamp-3" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
     </a>
   }

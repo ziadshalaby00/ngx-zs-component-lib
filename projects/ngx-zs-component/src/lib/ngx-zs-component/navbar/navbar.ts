@@ -1,9 +1,10 @@
+import { Signal } from '@angular/core';
 // ==============================================
 // Imports
 // ==============================================
 
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, model, output, signal } from '@angular/core';
+import { Component, computed, input, model, output, signal, TemplateRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavItem, NavbarItem } from '../NavItemFolder/nav-item/nav-item';
 import { ButtonVariant, Button } from '../FormCompFolder/button/button';
@@ -23,11 +24,26 @@ export interface UserProfile {
 }
 
 export type NavbarItemExport = Omit<NavbarItem, 'childrenOpenWindow'>;
-export interface navItemsType {
+
+export interface NavItemsType {
   routerLinkActive?: string;
   colorClass?: string;
-  navItems: NavbarItemExport[];
+
+  closeMoreMenu?: boolean;
+  closeMobileMenu?: boolean;
+  closeUserMenu?: boolean;
+
+  items: NavbarItemExport[];
 }
+
+export type UserItemsType =
+  Omit<NavItemsType, 'routerLinkActive' | 'colorClass'>;
+
+type MenuConfig = {
+  closeMobileMenu?: boolean;
+  closeUserMenu?: boolean;
+  closeMoreMenu?: boolean;
+};
 
 export interface SiteNameConfigType {
   siteName: string;
@@ -38,16 +54,16 @@ export interface SiteNameConfigType {
 export interface AuthButtonsType {
   showAuthButtons: boolean;
   login?: {
-    btnStyle?: FormStyle,
-    variant?: ButtonVariant,
-    size?: BaseSize,
-    icon?: string | null
+    btnStyle?: FormStyle;
+    variant?: ButtonVariant;
+    size?: BaseSize;
+    iconTpl?: Signal<TemplateRef<any> | undefined>;
   }
   signup?: {
     btnStyle?: FormStyle,
     variant?: ButtonVariant,
     size?: BaseSize,
-    icon?: string | null
+    iconTpl?: Signal<TemplateRef<any> | undefined>;
   }
 }
 
@@ -77,12 +93,12 @@ export class Navbar {
   readonly showUserSection = input<boolean>(true);
   readonly showSearchBar = input<boolean>(false);
 
-  readonly navItems = input<navItemsType>();
+  readonly navItems = input<NavItemsType>();
 
   readonly isLoggedIn = input<boolean>(false);
   readonly userProfile = input<UserProfile | undefined>();
 
-  readonly userMenuItems = input<NavbarItemExport[]>([]);
+  readonly userMenuItems = input<UserItemsType>();
 
   readonly searchPlaceholder = input<string>('Search...');
   
@@ -114,7 +130,7 @@ export class Navbar {
   // ==============================================
 
   readonly visibleNavItems = computed<NavbarItem[]>(() => {
-    const items = this.navItems()?.navItems ?? [];
+    const items = this.navItems()?.items ?? [];
     const limit = this.showSearchBar() ? 2 : 5;
     return items.slice(0, limit).map(item => this.toNavbarItem(
       item,
@@ -125,7 +141,7 @@ export class Navbar {
   });
 
   readonly moreNavItems = computed<NavbarItem[]>(() => {
-    const items = this.navItems()?.navItems ?? [];
+    const items = this.navItems()?.items ?? [];
     const start = this.showSearchBar() ? 2 : 5;
     return items.slice(start).map(item => this.toNavbarItem(
       item,
@@ -136,7 +152,7 @@ export class Navbar {
   });
 
   readonly mobileNavItems = computed<NavbarItem[]>(() =>
-    (this.navItems()?.navItems ?? []).map(item => this.toNavbarItem(
+    (this.navItems()?.items ?? []).map(item => this.toNavbarItem(
       item,
       false,
       this.navItems()?.routerLinkActive, 
@@ -145,7 +161,7 @@ export class Navbar {
   );
 
   readonly getUserMenuItems = computed<NavbarItem[]>(() =>
-    this.userMenuItems().map(item => this.toNavbarItem(item, false))
+    this.userMenuItems()!.items.map(item => this.toNavbarItem(item, false))
   );
 
   // ==============================================
@@ -196,15 +212,25 @@ export class Navbar {
     this.isUserMenuOpen.update(value => !value);
   }
 
-  closeAllMenus(): void {
+  closeNavMenus(): void {
     this.isMobileMenuOpen.set(false);
-    this.isUserMenuOpen.set(false);
     this.isMoreOpen.set(false);
   }
 
-  itemClicked(event: NavbarItem): void {
-    this.anyItemClickedEv.emit(event)
-    this.closeAllMenus();
+  private closeMenus(config?: MenuConfig): void {
+    if (config?.closeMobileMenu !== false) this.isMobileMenuOpen.set(false);
+    if (config?.closeUserMenu !== false) this.isUserMenuOpen.set(false);
+    if (config?.closeMoreMenu !== false) this.isMoreOpen.set(false);
+  }
+
+  itemClicked(event: NavbarItem, type: 'navItems' | 'userItems'): void {
+    this.anyItemClickedEv.emit(event);
+
+    this.closeMenus(
+      type === 'navItems'
+        ? this.navItems()
+        : this.userMenuItems()
+    );
   }
 
   // ==============================================

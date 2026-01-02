@@ -23,14 +23,16 @@
   >
 
     <!-- ========================= Left Icon ========================= -->
-    @if (icon() || loaderIconOnSearchInput() || isDate()) {
+    @if(loaderIconOnSearchInput()) {
       <i
-        [ngClass]="(
-          loaderIconOnSearchInput()
-            ? loaderIconOnSearchInput()
-            : 
-            icon() ? icon() : dateIcon()
-        ) + ' ' + getSize('leftIcon')"
+        [ngClass]="[loaderIconOnSearchInput(), getSize('leftIcon')]"
+        aria-hidden="true"
+      ></i>
+    }@else if(iconTpl()) {
+      <ng-container *ngTemplateOutlet="iconTpl()"></ng-container>
+    }@else if(isDate()) {
+      <i
+        [ngClass]="[dateIcon(), getSize('leftIcon')]"
         aria-hidden="true"
       ></i>
     }

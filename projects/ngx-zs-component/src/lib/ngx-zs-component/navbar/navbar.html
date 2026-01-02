@@ -42,7 +42,7 @@
           <ZS-nav-item
             [item]="item"
             [collectionName]="'navItems'"
-            (anyItemClickedEv)="itemClicked($event)"
+            (anyItemClickedEv)="itemClicked($event, 'navItems')"
             role="menuitem"
           />
         }
@@ -79,7 +79,7 @@
                 <ZS-nav-item
                   [item]="item"
                   [collectionName]="'navItems'"
-                  (anyItemClickedEv)="itemClicked($event)"
+                  (anyItemClickedEv)="itemClicked($event, 'navItems')"
                   role="menuitem"
                 />
               }
@@ -149,7 +149,7 @@
                       zs:hover:text-gray-700 zs:dark:hover:text-gray-300"></i>
             </button>
 
-            @if (isUserMenuOpen() && userMenuItems().length > 0) {
+            @if (isUserMenuOpen() && userMenuItems()!.items.length > 0) {
               <div
                 id="user-menu"
                 class="zs:absolute zs:right-0 zs:mt-2.5 zs:min-w-56 zs:bg-white zs:dark:bg-gray-800 zs:rounded-md
@@ -176,13 +176,13 @@
                 </div>
 
                 <!-- Menu Items -->
-                @if (userMenuItems().length > 0) {
+                @if (userMenuItems()!.items.length > 0) {
                   <div class="zs:py-1">
                     @for (item of getUserMenuItems(); track $index) {
                       <ZS-nav-item
                         [item]="item"
                         [collectionName]="'MenuItems'"
-                        (anyItemClickedEv)="itemClicked($event)"
+                        (anyItemClickedEv)="itemClicked($event, 'userItems')"
                         role="menuitem"
                       />
                     }
@@ -200,7 +200,7 @@
             [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
             [variant]="authButtons().login?.variant ?? 'outline'"
             [size]="authButtons().login?.size ?? 'md'"
-            [icon]="authButtons().login?.icon  ?? ''"
+            [iconTpl]="authButtons().login?.iconTpl?.()"
             (clickedEv)="onLogin()"
             >
               Login
@@ -210,7 +210,7 @@
             [btnStyle]="authButtons().signup?.btnStyle ?? 'primary'"
             [variant]="authButtons().signup?.variant ?? 'solid'"
             [size]="authButtons().signup?.size ?? 'md'"
-            [icon]="authButtons().signup?.icon  ?? ''"
+            [iconTpl]="authButtons().signup?.iconTpl?.()"
             class="zs:truncate"
             (clickedEv)="onSignup()"
             >
@@ -259,7 +259,7 @@
             <ZS-nav-item
               [item]="item"
               [collectionName]="'navItems'"
-              (anyItemClickedEv)="itemClicked($event)"
+              (anyItemClickedEv)="itemClicked($event, 'navItems')"
               role="menuitem"
             />
           }
@@ -306,7 +306,7 @@
             [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
             [variant]="authButtons().login?.variant ?? 'outline'"
             [size]="authButtons().login?.size ?? 'md'"
-            [icon]="authButtons().login?.icon  ?? ''"
+            [iconTpl]="authButtons().login?.iconTpl?.()"
             (clickedEv)="onLogin(); isMobileMenuOpen.set(false)"
             >
               Login
@@ -316,7 +316,7 @@
             [btnStyle]="authButtons().signup?.btnStyle ?? 'primary'"
             [variant]="authButtons().signup?.variant ?? 'solid'"
             [size]="authButtons().signup?.size ?? 'md'"
-            [icon]="authButtons().signup?.icon  ?? ''"
+            [iconTpl]="authButtons().signup?.iconTpl?.()"
             (clickedEv)="onSignup(); isMobileMenuOpen.set(false)"
             >
               Sign Up
@@ -337,7 +337,7 @@
 @if (isMobileMenuOpen()) {
   <div
     class="zs:fixed zs:inset-0 zs:bg-gray-700 zs:dark:bg-black {{ zIndices.navbarOverlay }}"
-    (click)="closeAllMenus()"
+    (click)="closeNavMenus()"
     aria-hidden="true"
   ></div>
 }

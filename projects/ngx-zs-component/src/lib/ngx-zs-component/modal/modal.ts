@@ -1,4 +1,4 @@
-import { Component, computed, effect, HostListener, input, model, output, signal, untracked } from '@angular/core';
+import { Component, computed, effect, HostListener, input, model, output, Signal, signal, TemplateRef, untracked } from '@angular/core';
 import { BaseSize, FormStyle, modalPaletteMap } from '../palette-service';
 import { Button, ButtonVariant } from '../FormCompFolder/button/button';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ export interface BtnType {
   btnStyle?: FormStyle;
   variant?: ButtonVariant;
   size?: BaseSize;
-  icon?: string | null
+  iconTpl?: Signal<TemplateRef<any> | undefined> | null;
   disabled?: boolean;
 }
 export type BtnTypeDefault = Required<BtnType>;
@@ -86,7 +86,7 @@ export class Modal {
     btnStyle: 'secondary',
     variant: 'outline',
     size: 'md',
-    icon: null,
+    iconTpl: null,
     disabled: false
   }
   readonly confirmConfigDefault: BtnTypeDefault = {
@@ -96,7 +96,7 @@ export class Modal {
     btnStyle: 'primary',
     variant: 'solid',
     size: 'md',
-    icon: null,
+    iconTpl: null,
     disabled: false
   }
   readonly cancelMerged = computed<{
@@ -105,7 +105,7 @@ export class Modal {
     btnStyle: FormStyle;
     variant: ButtonVariant;
     size: BaseSize;
-    icon: string | null;
+    iconTpl: Signal<TemplateRef<any> | undefined> | null;
     disabled: boolean;
   }>(() => ({
     ...this.cancelConfigDefault,
@@ -118,7 +118,7 @@ export class Modal {
     btnStyle: FormStyle;
     variant: ButtonVariant;
     size: BaseSize;
-    icon: string | null;
+    iconTpl: Signal<TemplateRef<any> | undefined> | null;
     disabled: boolean;
   }>(() => ({
     ...this.confirmConfigDefault,

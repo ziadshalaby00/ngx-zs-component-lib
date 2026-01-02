@@ -14,6 +14,7 @@ import {
   input,
   computed,
   output,
+  TemplateRef,
 } from '@angular/core';
 import { FormStyle, BaseSize, buttonSolidPaletteMap, ringPaletteMap, buttonOutlinePaletteMap } from '../../palette-service';
 import { CommonModule } from '@angular/common';
@@ -40,7 +41,7 @@ export class Button {
   readonly variant = input<ButtonVariant>('solid');
   readonly size = input<BtnSizeType>('md');
   readonly disabled = input<boolean>(false);
-  readonly icon = input<string | null>(null); // Optional FontAwesome icon class (e.g., "fa fa-plus")
+  readonly iconTpl = input<TemplateRef<any>>();
   readonly type = input<'button' | 'submit' | 'reset'>('button');
 
 

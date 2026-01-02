@@ -1,4 +1,4 @@
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, input, model, TemplateRef } from '@angular/core';
 import { BaseColors, BaseSize, ColorMapping } from '../../palette-service';
 import { Label } from '../label/label';
 import { CommonModule } from '@angular/common';
@@ -19,7 +19,7 @@ export class Toggle {
   readonly color = input<BaseColors>('blue');
   readonly disabled = input<boolean>(false);
   readonly isReadonly = input<boolean>(false);
-  readonly icon = input<string>('')
+  readonly iconTpl = input<TemplateRef<any>>()
   readonly size = input<BaseSize>('md')
 
   // ==============================================
