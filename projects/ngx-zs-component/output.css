@@ -391,9 +391,6 @@
   .zs\:z-400 {
     z-index: 400;
   }
-  .zs\:z-600 {
-    z-index: 600;
-  }
   .zs\:z-800 {
     z-index: 800;
   }
@@ -402,6 +399,9 @@
   }
   .zs\:z-1200 {
     z-index: 1200;
+  }
+  .zs\:z-1300 {
+    z-index: 1300;
   }
   .zs\:z-1400 {
     z-index: 1400;
@@ -415,8 +415,14 @@
   .zs\:z-2000 {
     z-index: 2000;
   }
+  .zs\:z-2200 {
+    z-index: 2200;
+  }
   .zs\:m-4 {
     margin: calc(var(--zs-spacing) * 4);
+  }
+  .zs\:m-auto {
+    margin: auto;
   }
   .zs\:mx-4 {
     margin-inline: calc(var(--zs-spacing) * 4);
@@ -602,6 +608,9 @@
   .zs\:h-16 {
     height: calc(var(--zs-spacing) * 16);
   }
+  .zs\:h-\[85vh\] {
+    height: 85vh;
+  }
   .zs\:h-\[calc\(100\%-52px\)\] {
     height: calc(100% - 52px);
   }
@@ -634,6 +643,9 @@
   }
   .zs\:w-1\.5 {
     width: calc(var(--zs-spacing) * 1.5);
+  }
+  .zs\:w-1\/2 {
+    width: calc(1/2 * 100%);
   }
   .zs\:w-2 {
     width: calc(var(--zs-spacing) * 2);
@@ -674,6 +686,9 @@
   .zs\:w-full {
     width: 100%;
   }
+  .zs\:w-screen {
+    width: 100vw;
+  }
   .zs\:max-w-0 {
     max-width: calc(var(--zs-spacing) * 0);
   }
@@ -694,6 +709,9 @@
   }
   .zs\:max-w-md {
     max-width: var(--zs-container-md);
+  }
+  .zs\:max-w-screen {
+    max-width: 100vw;
   }
   .zs\:max-w-sm {
     max-width: var(--zs-container-sm);
@@ -1436,6 +1454,9 @@
   .zs\:pr-2 {
     padding-right: calc(var(--zs-spacing) * 2);
   }
+  .zs\:pr-3 {
+    padding-right: calc(var(--zs-spacing) * 3);
+  }
   .zs\:pb-2 {
     padding-bottom: calc(var(--zs-spacing) * 2);
   }
@@ -1444,6 +1465,15 @@
   }
   .zs\:pb-4 {
     padding-bottom: calc(var(--zs-spacing) * 4);
+  }
+  .zs\:pb-5 {
+    padding-bottom: calc(var(--zs-spacing) * 5);
+  }
+  .zs\:pb-6 {
+    padding-bottom: calc(var(--zs-spacing) * 6);
+  }
+  .zs\:pl-1\.5 {
+    padding-left: calc(var(--zs-spacing) * 1.5);
   }
   .zs\:pl-3 {
     padding-left: calc(var(--zs-spacing) * 3);
@@ -1807,6 +1837,11 @@
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
   }
+  .zs\:transition-\[max-width\,opacity\] {
+    transition-property: max-width,opacity;
+    transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
+  }
   .zs\:transition-\[max-width\] {
     transition-property: max-width;
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
@@ -1827,8 +1862,8 @@
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
   }
-  .zs\:transition-\[transform\,opacity\] {
-    transition-property: transform,opacity;
+  .zs\:transition-\[transform\,translate\,scale\,opacity\] {
+    transition-property: transform,translate,scale,opacity;
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
   }
@@ -1862,11 +1897,8 @@
     transition-timing-function: var(--tw-ease, var(--zs-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--zs-default-transition-duration));
   }
-  .zs\:delay-0 {
-    transition-delay: 0ms;
-  }
-  .zs\:delay-300 {
-    transition-delay: 300ms;
+  .zs\:delay-\[500ms\,0ms\] {
+    transition-delay: 500ms,0ms;
   }
   .zs\:duration-100 {
     --tw-duration: 100ms;
@@ -1892,6 +1924,14 @@
     --tw-duration: 600ms;
     transition-duration: 600ms;
   }
+  .zs\:duration-\[0ms\,500ms\] {
+    --tw-duration: 0ms,500ms;
+    transition-duration: 0ms,500ms;
+  }
+  .zs\:duration-\[500ms\,500ms\,250ms\,500ms\] {
+    --tw-duration: 500ms,500ms,250ms,500ms;
+    transition-duration: 500ms,500ms,250ms,500ms;
+  }
   .zs\:ease-in-out {
     --tw-ease: var(--zs-ease-in-out);
     transition-timing-function: var(--zs-ease-in-out);
@@ -1899,9 +1939,6 @@
   .zs\:ease-out {
     --tw-ease: var(--zs-ease-out);
     transition-timing-function: var(--zs-ease-out);
-  }
-  .zs\:will-change-transform {
-    will-change: transform;
   }
   .zs\:select-none {
     -webkit-user-select: none;
@@ -1996,6 +2033,16 @@
   .zs\:focus-within\:ring-yellow-400 {
     &:focus-within {
       --tw-ring-color: var(--zs-color-yellow-400);
+    }
+  }
+  .zs\:hover\:scale-110 {
+    &:hover {
+      @media (hover: hover) {
+        --tw-scale-x: 110%;
+        --tw-scale-y: 110%;
+        --tw-scale-z: 110%;
+        scale: var(--tw-scale-x) var(--tw-scale-y);
+      }
     }
   }
   .zs\:hover\:scale-\[1\.02\] {
@@ -2413,6 +2460,13 @@
       }
     }
   }
+  .zs\:hover\:opacity-90 {
+    &:hover {
+      @media (hover: hover) {
+        opacity: 90%;
+      }
+    }
+  }
   .zs\:hover\:shadow-lg {
     &:hover {
       @media (hover: hover) {
@@ -2517,6 +2571,11 @@
       opacity: 50%;
     }
   }
+  .zs\:motion-reduce\:transition-none {
+    @media (prefers-reduced-motion: reduce) {
+      transition-property: none;
+    }
+  }
   .zs\:sm\:size-10 {
     @media (width >= 40rem) {
       width: calc(var(--zs-spacing) * 10);
@@ -2548,11 +2607,6 @@
     @media (width >= 40rem) {
       font-size: var(--zs-text-xs);
       line-height: var(--tw-leading, var(--zs-text-xs--line-height));
-    }
-  }
-  .zs\:md\:relative {
-    @media (width >= 48rem) {
-      position: relative;
     }
   }
   .zs\:md\:w-\[40vw\] {

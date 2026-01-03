@@ -1,101 +1,78 @@
-<div 
-class="zs:h-full {{ zIndices.sideBar }} zs:transition-[max-width]"
-[ngClass]="[
-  floating() ? 'zs:absolute' : 'zs:md:relative zs:absolute',
-  openSide() ? 'zs:max-w-[75vw]' : 'zs:max-w-0'
-]"
->
-  <!-- Sidebar -->
+<!-- Element For Width -->
+@if(!floating()) {
   <div
-    id="sidebar"
-    role="complementary"
-    aria-labelledby="sidebar-header"
-    class="
-      zs:h-full 
-      zs:bg-white zs:dark:bg-slate-800 zs:backdrop-blur-md 
-      zs:w-[75vw] zs:sm:w-[55vw] zs:md:w-[40vw] zs:lg:w-[25vw] zs:xl:w-[15vw]
-      zs:transition-[translate]
-      zs:duration-600 sidebar-shadow-right 
-      motion-reduce:zs:transition-none zs:overflow-hidden
-    "
+  class="zs:bg-transparent zs:h-full zs:relative {{ zIndices.sideBarOverlay }}
+  zs:w-[75vw] zs:sm:w-[55vw] zs:md:w-[40vw] zs:lg:w-[25vw] zs:xl:w-[15vw]
+  zs:transition-[max-width]
+  zs:duration-500
+  zs:ease-in-out
+  "
+  [ngClass]="[
+    openSide() ? 'zs:max-w-[75vw]' : 'zs:max-w-0'
+  ]"
+  ></div>
+}
 
-    [attr.aria-hidden]="!openSide()"
-    [attr.inert]="!openSide() ? '' : null"
+<!-- Overlay -->
+@if(floating()) {
+  <div
+  class="zs:h-full zs:w-screen zs:absolute {{ zIndices.sideBarOverlay }}
+  zs:bg-black/50 zs:dark:bg-black/70
+  zs:duration-500
+  zs:ease-in-out
+  "
+  [ngClass]="[
+    openSide() 
+    ? 'zs:max-w-screen zs:opacity-100 zs:transition-opacity' 
+    : 'zs:max-w-0 zs:opacity-0 zs:transition-[max-width,opacity] 
+       zs:duration-[0ms,500ms] zs:delay-[500ms,0ms]'
+  ]"
 
-    [ngClass]="
-      openSide()
-        ? 'zs:translate-x-0'
-        : 'zs:-translate-x-full'
-    "
-  >
-    <!-- Close Sidebar Button -->
-    <button
-      class="
-        zs:absolute zs:rounded-lg zs:p-1 zs:cursor-pointer
-        zs:top-3 zs:right-2
-        zs:bg-gray-200 zs:dark:bg-gray-700 zs:hover:bg-gray-300
-        zs:dark:hover:bg-gray-600
-        zs:transition-opacity zs:duration-300 zs:ease-in-out
-      "
-      aria-label="Close sidebar"
-      aria-controls="sidebar"
-      [attr.aria-expanded]="openSide()"
-      [ngClass]="openSide() ? 'zs:opacity-100' : 'zs:opacity-0'"
-      (click)="toggleSide()"
-    >
-      <svg
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path
-          d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
-        />
-        <path d="M9 4l0 16" />
-      </svg>
-    </button>
+  (click)="onOverlayClick($event)"
+  ></div>
+}
 
-    <h2
-      id="sidebar-header"
-      class="zs:font-semibold zs:text-xl
-      zs:text-slate-900 zs:dark:text-slate-100 zs:p-2 zs:pt-4"
-    >
-      {{ header() }}
-    </h2>
+<!-- Sidebar -->
+<div
+  id="sidebar"
+  role="complementary"
+  aria-labelledby="sidebar-header"
+  class="
+    zs:absolute zs:top-0 {{ zIndices.sideBar }}
+    zs:bg-white zs:dark:bg-slate-800 zs:backdrop-blur-md 
+    zs:w-[75vw] zs:sm:w-[55vw] zs:md:w-[40vw] zs:lg:w-[25vw] zs:xl:w-[15vw]
+    zs:transition-transform
+    zs:duration-600 
+    zs:ease-in-out
+    motion-reduce:zs:transition-none zs:h-full
+    zs:overflow-hidden sidebar-shadow-right 
+  "
+  [attr.aria-hidden]="!openSide()"
+  [attr.inert]="!openSide() ? '' : null"
 
-    <hr class="zs:w-full" />
-
-    <div class="zs:h-[calc(100%-52px)]">
-      <ng-content select="[main]"></ng-content>
-    </div>
-  </div>
-
-  <!-- Open Sidebar Button -->
+  [ngClass]="[
+    openSide() ? 'zs:translate-x-0' : 'zs:-translate-x-full'
+  ]"
+>
+  <!-- Close Sidebar Button -->
   <button
     class="
       zs:absolute zs:rounded-lg zs:p-1 zs:cursor-pointer
-      zs:top-3 zs:left-2
-      zs:bg-gray-200 zs:dark:bg-gray-700 zs:hover:bg-gray-300
-      zs:dark:hover:bg-gray-600
-      zs:transition-opacity
-      zs:duration-300
-      zs:ease-in-out
+      zs:top-3 zs:right-2
+      zs:bg-gray-200 zs:dark:bg-gray-700
+      zs:transition-opacity zs:duration-300 zs:ease-in-out
     "
-    aria-label="Open sidebar"
+    aria-label="Close sidebar"
     aria-controls="sidebar"
     [attr.aria-expanded]="openSide()"
-    [ngClass]="openSide() ? 'zs:delay-0 zs:opacity-0 zs:pointer-events-none' : 'zs:delay-300 zs:opacity-100 zs:pointer-events-auto'"
+    [ngClass]="[
+      openSide() ? 'zs:opacity-100' : 'zs:opacity-0',
+      preventClose() ? '' : 'zs:hover:bg-gray-300 zs:dark:hover:bg-gray-600'
+    ]"
     (click)="toggleSide()"
   >
     <svg
-      aria-hidden="true"
+      [attr.aria-hidden]="!openSide()"
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
@@ -112,4 +89,58 @@ class="zs:h-full {{ zIndices.sideBar }} zs:transition-[max-width]"
       <path d="M9 4l0 16" />
     </svg>
   </button>
+
+  <h2
+    id="sidebar-header"
+    class="zs:font-semibold zs:text-xl
+    zs:text-slate-900 zs:dark:text-slate-100 zs:p-2 zs:pt-4"
+  >
+    {{ header() }}
+  </h2>
+
+  <hr class="zs:w-full" />
+
+  <div class="zs:h-[calc(100%-52px)]">
+    <ng-content select="[main]"></ng-content>
+  </div>
 </div>
+
+<!-- Open Sidebar Button -->
+<button
+  class="
+    zs:absolute {{ zIndices.sideBar }} 
+    zs:rounded-lg zs:p-1 zs:cursor-pointer 
+    zs:top-3 zs:left-2
+    zs:bg-gray-200 zs:dark:bg-gray-700
+    zs:hover:opacity-90
+    zs:transition-opacity
+    zs:duration-300 
+    zs:ease-in-out
+  "
+  aria-label="Open sidebar"
+  aria-controls="sidebar"
+  [attr.aria-expanded]="openSide()"
+  [ngClass]="openSide() 
+    ? 'zs:opacity-0 zs:pointer-events-none' 
+    : 'zs:opacity-60 zs:pointer-events-auto'"
+
+  (click)="toggleSide()"
+>
+  <svg
+    [attr.aria-hidden]="openSide()"
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path
+      d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
+    />
+    <path d="M9 4l0 16" />
+  </svg>
+</button>

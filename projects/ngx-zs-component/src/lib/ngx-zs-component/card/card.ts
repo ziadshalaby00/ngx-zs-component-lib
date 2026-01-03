@@ -84,11 +84,8 @@ export class Card {
 
     if (visible) {
       return `zs:opacity-100
-      zs:transform-gpu
-      zs:will-change-transform
       zs:translate-x-0
-      zs:translate-y-0
-      zs:transition-[transform,opacity] zs:duration-500`;
+      zs:translate-y-0`;
     }
 
     // Hidden state
@@ -99,8 +96,6 @@ export class Card {
     return [
       'zs:opacity-0',
       animateMap[animation],
-      'zs:transform-gpu',
-      'zs:will-change-transform'
     ].filter(Boolean).join(' ');
   });
 
@@ -114,7 +109,11 @@ export class Card {
     const cardPalette = cardPaletteMap.get(style)!;
 
     const base =
-      'zs:w-full zs:h-full zs:overflow-hidden zs:flex zs:flex-col zs:gap-4 zs:rounded-lg zs:transition-transform zs:duration-300 motion-reduce:zs:transition-none';
+      `zs:w-full zs:h-full zs:flex zs:flex-col zs:gap-4
+      zs:transition-[transform,translate,scale,opacity]
+      zs:duration-[500ms,500ms,250ms,500ms]
+      zs:transform-gpu zs:rounded-lg 
+      zs:motion-reduce:transition-none`;
 
     // ---------------------
     // Border Handling

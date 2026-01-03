@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, input, model } from '@angular/core';
+import { Component, ElementRef, HostListener, input, model, viewChild } from '@angular/core';
 import { zIndices, ZIndicesType } from '../z-index';
 
 @Component({
@@ -13,9 +13,28 @@ export class Sidebar {
   readonly zIndices: ZIndicesType = zIndices;
   readonly header = input<string>('Side Bar');
   readonly openSide = model<boolean>(false);
+
+  readonly preventClose = input<boolean>(false)
   readonly floating = input<boolean>(false);
+  readonly closeOnOverlay = input<boolean>(true);
 
   toggleSide() {
-    this.openSide.update((v) => !v);
+    if(this.preventClose() && this.openSide()) return;
+    this.openSide.update(v => !v);
+  }
+
+  onOverlayClick(event: MouseEvent) {
+    if(this.preventClose()) return;
+    if (this.closeOnOverlay()) {
+      this.openSide.set(false);
+    }
+  }
+
+  @HostListener('document:keydown.escape')
+  onEsc() {
+    if(this.preventClose()) return;
+    if (this.openSide()) {
+      this.openSide.set(false);
+    }
   }
 }

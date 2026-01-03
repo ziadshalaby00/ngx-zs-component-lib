@@ -22,14 +22,15 @@ import { NavItem } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-compo
   imports: [
     Navbar,
     Sidebar,
-    Checkbox, 
-    Input, 
-    Card, 
-    ScrollToTop, 
+    Checkbox,
+    Input,
+    Card,
+    ScrollToTop,
     Pagination,
     Page404,
-    NavItem
-  ],
+    NavItem,
+    Modal
+],
   templateUrl: './test.html',
   styleUrl: './test.css',
 })
