@@ -3,6 +3,7 @@
 // ==============================================
 
 export interface NavbarItem {
+  id: string | number;
   label: string;
 
   routerLink?: string;

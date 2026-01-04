@@ -1590,9 +1590,6 @@
   .zs\:text-blue-600 {
     color: var(--zs-color-blue-600);
   }
-  .zs\:text-blue-700 {
-    color: var(--zs-color-blue-700);
-  }
   .zs\:text-blue-800 {
     color: var(--zs-color-blue-800);
   }
@@ -1647,14 +1644,8 @@
   .zs\:text-green-800 {
     color: var(--zs-color-green-800);
   }
-  .zs\:text-indigo-500 {
-    color: var(--zs-color-indigo-500);
-  }
   .zs\:text-indigo-600 {
     color: var(--zs-color-indigo-600);
-  }
-  .zs\:text-lime-500 {
-    color: var(--zs-color-lime-500);
   }
   .zs\:text-lime-600 {
     color: var(--zs-color-lime-600);

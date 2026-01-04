@@ -4,7 +4,7 @@ import { Signal } from '@angular/core';
 // ==============================================
 
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, model, output, signal, TemplateRef } from '@angular/core';
+import { Component, computed, input, model, output, TemplateRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NavItem, NavbarItem } from '../NavItemFolder/nav-item/nav-item';
 import { ButtonVariant, Button } from '../FormCompFolder/button/button';
@@ -29,21 +29,11 @@ export interface NavItemsType {
   routerLinkActive?: string;
   colorClass?: string;
 
-  closeMoreMenu?: boolean;
-  closeMobileMenu?: boolean;
-  closeUserMenu?: boolean;
-
   items: NavbarItemExport[];
 }
 
 export type UserItemsType =
   Omit<NavItemsType, 'routerLinkActive' | 'colorClass'>;
-
-type MenuConfig = {
-  closeMobileMenu?: boolean;
-  closeUserMenu?: boolean;
-  closeMoreMenu?: boolean;
-};
 
 export interface SiteNameConfigType {
   siteName: string;
@@ -118,12 +108,8 @@ export class Navbar {
   readonly searchValue = model<string | null>(null);
   readonly isMobileMenuOpen = model<boolean>(false);
 
-  // ==============================================
-  // Internal State (Signals)
-  // ==============================================
-
-  readonly isUserMenuOpen = signal<boolean>(false);
-  readonly isMoreOpen = signal<boolean>(false);
+  readonly isUserMenuOpen = model<boolean>(false);
+  readonly isMoreOpen = model<boolean>(false);
 
   // ==============================================
   // Computed Properties
@@ -217,20 +203,8 @@ export class Navbar {
     this.isMoreOpen.set(false);
   }
 
-  private closeMenus(config?: MenuConfig): void {
-    if (config?.closeMobileMenu !== false) this.isMobileMenuOpen.set(false);
-    if (config?.closeUserMenu !== false) this.isUserMenuOpen.set(false);
-    if (config?.closeMoreMenu !== false) this.isMoreOpen.set(false);
-  }
-
   itemClicked(event: NavbarItem, type: 'navItems' | 'userItems'): void {
     this.anyItemClickedEv.emit(event);
-
-    this.closeMenus(
-      type === 'navItems'
-        ? this.navItems()
-        : this.userMenuItems()
-    );
   }
 
   // ==============================================

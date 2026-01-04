@@ -66,51 +66,57 @@ export class Test {
   readonly navItems = signal<NavItemsType>({
     routerLinkActive: 'zs:bg-sky-500 zs:dark:bg-sky-700 zs:text-gray-100',
     colorClass: 'zs:hover:bg-sky-100 zs:dark:hover:bg-sky-700/50',
-    closeMobileMenu: true,
-    closeUserMenu: false,
-    closeMoreMenu: true,
     items: [
       {
+        id: 'nav-0',
         label: 'Home',
         routerLink: '/home',
         iconTpl: this.homeIcon,
         iconClasses: 'zs:text-sky-500 zs:dark:text-sky-600'
       },
       {
+        id: 'nav-1',
         label: 'Azkar',
         iconTpl: this.azkarIcon,
         children: [
           {
+            id: 'nav-10',
             label: 'Morning Azkar',
             routerLink: '/azkar/morning',
             closeMenuAfterClick: false
           },
           {
+            id: 'nav-11',
             label: 'Evening Azkar',
             routerLink: '/azkar/evening',
             closeMenuAfterClick: true
           },
           {
+            id: 'nav-12',
             label: 'After Prayer Azkar',
             routerLink: '/azkar/afterPrayer',
             closeMenuAfterClick: true
           },
           {
+            id: 'nav-13',
             label: 'Tasbeeh',
             routerLink: '/azkar/tasbeeh',
             closeMenuAfterClick: true
           },
           {
+            id: 'nav-14',
             label: 'Comprehensive Supplication',
             routerLink: '/azkar/comprehensiveSupplication',
             closeMenuAfterClick: true
           },
           {
+            id: 'nav-15',
             label: 'The Most Beautiful Names of Allah',
             routerLink: '/azkar/namesOfAllah',
             closeMenuAfterClick: true
           },
           {
+            id: 'nav-16',
             label: 'Favorites',
             routerLink: '/azkar/favorites',
             closeMenuAfterClick: true
@@ -118,10 +124,12 @@ export class Test {
         ]
       },
       {
+        id: 'nav-2',
         label: 'History',
         routerLink: '/history',
       },
       {
+        id: 'nav-3',
         label: 'Features',
         routerLink: '/features',
       }
@@ -137,53 +145,44 @@ export class Test {
   })
 
   userMenuItems = signal<UserItemsType>({
-    closeMobileMenu: true,
-    closeUserMenu: true,
-    closeMoreMenu: false,
     items: [
       { 
+        id: 'user-0',
         label: 'Profile',
         routerLink: '/profile', 
-        // icon: 'fa-solid fa-user ', 
-        // iconClass: 'zs:text-lg'
       },
       { 
+        id: 'user-1',
         label: 'Cart', 
         routerLink: '/cart', 
-        // icon: 'fas fa-shopping-cart',
-        // iconClass: 'zs:text-lg zs:text-blue-700 zs:dark:text-blue-500', 
       },
       { 
+        id: 'user-2',
         label: 'Dashboard', 
-        // icon: 'fa-solid fa-gear',
         children: [
           { 
+            id: 'user-20',
             label: 'Orders', 
             routerLink: '/orders', 
-            // icon: 'fas fa-box',
-            // iconClass: 'zs:text-lg zs:text-indigo-500',
             useDefaultColorClass: 'bg'
           },
           { 
+            id: 'user-21',
             label: 'Addresses', routerLink: '/addresses', 
-            // icon: 'fa-solid fa-location-dot', 
-            // iconClass: 'zs:text-lg zs:text-lime-500', 
             useDefaultColorClass: 'bg' 
           },
           { 
+            id: 'user-22',
             label: 'Reviews', routerLink: '/reviews', 
-            // icon: 'fa-solid fa-star', 
-            // iconClass: 'zs:text-lg zs:text-yellow-600', 
             useDefaultColorClass: 'bg' 
           },
         ]
       },
       { 
+        id: 'user-3',
         label: 'Logout', 
         action: () => this.logout(),
         colorClass: 'zs:text-red-700 zs:hover:text-red-800 zs:dark:hover:text-red-600',
-        // icon: 'fas fa-sign-out-alt',
-        // iconClass: 'zs:text-lg',
       }
     ]
   });
