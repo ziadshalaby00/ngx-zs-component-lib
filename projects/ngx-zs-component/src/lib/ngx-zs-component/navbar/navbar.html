@@ -37,7 +37,9 @@
       </div>
 
       <!-- ========================= Desktop Navigation ========================= -->
-      <div class="zs:hidden zs:lg:flex zs:items-center zs:gap-2" role="menubar">
+      <div class="zs:hidden zs:items-center zs:gap-2" 
+      [ngClass]="[desktopVisibilityClass()]"
+      role="menubar">
         @for (item of visibleNavItems(); track $index) {
           <ZS-nav-item
             [item]="item"
@@ -69,7 +71,10 @@
             </button>
             <div
               id="more-menu"
-              [ngClass]="{ 'zs:block': isMoreOpen(), 'zs:hidden': !isMoreOpen() }"
+              [ngClass]="{ 
+                'zs:block': isMoreOpen(),
+                'zs:hidden': !isMoreOpen() 
+              }"
               class="zs:absolute zs:bg-white zs:dark:bg-[#18202F] shadow-md-all 
               shadow-md-all-night zs:rounded-md zs:mt-1 zs:p-2 zs:min-w-50 zs:z-200 
               zs:flex zs:flex-col zs:gap-1.5"
@@ -93,7 +98,9 @@
 
         <!-- Search Bar (Desktop) -->
         @if (showSearchBar()) {
-          <div class="zs:hidden zs:lg:block" role="search">
+          <div class="zs:hidden" 
+          [ngClass]="[desktopVisibilityClassBlock()]"
+          role="search">
             <div class="zs:relative">
               <label for="desktop-search" class="sr-only">Search</label>
               <input
@@ -195,7 +202,9 @@
 
         <!-- Auth Buttons -->
         @else if (authButtons().showAuthButtons && !isLoggedIn()) {
-          <div class="zs:hidden zs:lg:flex zs:items-center zs:gap-3" role="group" aria-label="Authentication">
+          <div class="zs:hidden zs:items-center zs:gap-3" 
+          [ngClass]="[desktopVisibilityClass()]"
+          role="group" aria-label="Authentication">
             <ZS-button
             [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
             [variant]="authButtons().login?.variant ?? 'outline'"
@@ -221,7 +230,9 @@
 
         <!-- Mobile Menu Toggle -->
         @if(mobileNavItems().length || showSearchBar() || (authButtons().showAuthButtons && !isLoggedIn())) {
-          <div class="zs:lg:hidden">
+          <div
+          [ngClass]="[desktopHiddenClass()]"
+          >
             <button
               (click)="toggleMobileMenu()"
               class="zs:p-2 zs:rounded-md zs:text-gray-600 zs:dark:text-gray-300
@@ -244,8 +255,9 @@
   @if (isMobileMenuOpen()) {
     <div
       id="mobile-menu"
-      class="zs:lg:hidden zs:bg-white zs:dark:bg-[#18202F]
+      class="zs:bg-white zs:dark:bg-[#18202F]
       zs:[box-shadow:0_8px_0_0_#364153] zs:dark:[box-shadow:0_8px_0_0_black]"
+      [ngClass]="[desktopHiddenClass()]"
       role="menu"
       aria-label="Mobile navigation"
     >

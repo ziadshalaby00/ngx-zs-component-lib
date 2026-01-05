@@ -57,6 +57,8 @@ export interface AuthButtonsType {
   }
 }
 
+export type MobileModeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl' 
+
 // ==============================================
 // Component Decorator
 // ==============================================
@@ -75,6 +77,7 @@ export class Navbar {
   // ==============================================
 
   readonly fixed = input<boolean>(true);
+  readonly mobileMode = input<MobileModeType>('lg');
 
   readonly logoUrl = input<string | undefined>();
   readonly siteNameConfig = input<SiteNameConfigType | undefined>();
@@ -149,6 +152,39 @@ export class Navbar {
   readonly getUserMenuItems = computed<NavbarItem[]>(() =>
     this.userMenuItems()!.items.map(item => this.toNavbarItem(item, false))
   );
+
+  readonly desktopVisibilityClass = computed(() => {
+    switch (this.mobileMode()) {
+      case 'xs': return 'zs:xs:flex';
+      case 'sm': return 'zs:sm:flex';
+      case 'md': return 'zs:md:flex';
+      case 'lg': return 'zs:lg:flex';
+      case 'xl': return 'zs:xl:flex';
+      default: return '';
+    }
+  });
+
+  readonly desktopVisibilityClassBlock = computed(() => {
+    switch (this.mobileMode()) {
+      case 'xs': return 'zs:xs:block';
+      case 'sm': return 'zs:sm:block';
+      case 'md': return 'zs:md:block';
+      case 'lg': return 'zs:lg:block';
+      case 'xl': return 'zs:xl:block';
+      default: return '';
+    }
+  });
+
+  readonly desktopHiddenClass = computed(() => {
+    switch (this.mobileMode()) {
+      case 'xs': return 'zs:xs:hidden';
+      case 'sm': return 'zs:sm:hidden';
+      case 'md': return 'zs:md:hidden';
+      case 'lg': return 'zs:lg:hidden';
+      case 'xl': return 'zs:xl:hidden';
+      default: return '';
+    }
+  });
 
   // ==============================================
   // Private Helper Methods

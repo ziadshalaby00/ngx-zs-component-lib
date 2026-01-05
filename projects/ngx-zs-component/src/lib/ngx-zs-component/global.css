@@ -4,6 +4,10 @@
 @import "tailwindcss" prefix(zs);
 @custom-variant dark (&:where(.dark, .dark *)); /* Custom Variants */
 
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
 a, button {
   cursor: pointer; 
 }
