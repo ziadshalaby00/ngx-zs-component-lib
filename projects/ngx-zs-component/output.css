@@ -634,9 +634,6 @@
   .zs\:min-h-\[88vh\] {
     min-height: 88vh;
   }
-  .zs\:min-h-\[90vh\] {
-    min-height: 90vh;
-  }
   .zs\:w-1 {
     width: calc(var(--zs-spacing) * 1);
   }
@@ -673,8 +670,8 @@
   .zs\:w-64 {
     width: calc(var(--zs-spacing) * 64);
   }
-  .zs\:w-\[75vw\] {
-    width: 75vw;
+  .zs\:w-\[80vw\] {
+    width: 80vw;
   }
   .zs\:w-auto {
     width: auto;
@@ -2602,9 +2599,9 @@
       height: calc(var(--zs-spacing) * 10);
     }
   }
-  .zs\:sm\:w-\[55vw\] {
+  .zs\:sm\:w-\[65vw\] {
     @media (width >= 40rem) {
-      width: 55vw;
+      width: 65vw;
     }
   }
   .zs\:sm\:gap-x-6 {
@@ -2675,9 +2672,9 @@
       display: none;
     }
   }
-  .zs\:lg\:w-\[25vw\] {
+  .zs\:lg\:w-\[28vw\] {
     @media (width >= 64rem) {
-      width: 25vw;
+      width: 28vw;
     }
   }
   .zs\:lg\:gap-x-10 {
@@ -2705,9 +2702,14 @@
       display: none;
     }
   }
-  .zs\:xl\:w-\[15vw\] {
+  .zs\:xl\:w-\[22vw\] {
     @media (width >= 80rem) {
-      width: 15vw;
+      width: 22vw;
+    }
+  }
+  .zs\:2xl\:w-\[18vw\] {
+    @media (width >= 96rem) {
+      width: 18vw;
     }
   }
   .zs\:dark\:border-amber-400 {
