@@ -20,7 +20,9 @@
           <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
           <span class="zs:wrap-break-word" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
         </div>
-        <i class="fas fa-chevron-down zs:ml-auto zs:p-0.5 zs:text-xs" aria-hidden="true"></i>
+        @if(item().showChevronDownIcon !== false) {
+          <i class="fas fa-chevron-down zs:ml-auto zs:p-0.5 zs:text-xs" aria-hidden="true"></i>
+        }
       </button>
 
       <!-- ========================= Dropdown Menu ========================= -->
@@ -46,11 +48,9 @@
           ></ZS-nav-item>
         }
       </div>
-
     </div>
 
   } @else {
-
     <!-- ========================= Leaf Item (No Children) ========================= -->
     <a
       [routerLink]="item().routerLink"

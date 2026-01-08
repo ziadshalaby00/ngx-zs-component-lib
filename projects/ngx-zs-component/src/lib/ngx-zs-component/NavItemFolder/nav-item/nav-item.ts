@@ -15,8 +15,9 @@ export interface NavbarItem {
   iconClasses?: string;
 
   children?: NavbarItem[];
+  showChevronDownIcon?: boolean;
   childrenOpenWindow?: boolean;
-  closeMenuAfterClick?: boolean
+  closeMenuAfterClick?: boolean;
 
   colorClass?: string;
   useDefaultColorClass?: 'text' | 'bg';

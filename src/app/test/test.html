@@ -27,7 +27,8 @@
     [preventClose]="false"
     class='zs:h-[85vh]'
     >
-        <div main class="zs:flex zs:flex-col zs:h-full zs:gap-4 zs:pt-4 zs:pb-5 zs:pl-1.5 zs:pr-3">
+        <div main class="zs:flex zs:flex-col zs:h-full 
+        zs:gap-4 zs:pt-4 zs:pb-5 zs:pl-1.5 zs:pr-3 zs:relative">
             <div class="zs:px-3">
                 <ZS-input
                 placeholder="Search for chat..."
@@ -37,51 +38,77 @@
                 >
                 </ZS-input>
             </div>
-            <div class='zs:flex zs:flex-col zs:gap-4 zs:h-full zs:pt-2 zs:pb-6 zs:px-3 zs:overflow-y-auto 
-            scroll scroll-success'>
+            <div class='zs:flex zs:flex-col zs:gap-4 zs:h-full 
+            zs:overflow-y-auto zs:overflow-x-visible
+            zs:pt-2 zs:pb-6 zs:px-3 scroll scroll-success'>
                 @for(item of ['ziad', 'ahmed', 'salah']; track item) {
                     <ZS-card
-                    [animation]="'bottom'"
-                    [clickable]="true"
-                    cardStyle="success"
+                        [animation]="'bottom'"
+                        [clickable]="true"
+                        cardStyle="success"
+                        class="zs:relative"
                     >
-                        <div class="py-3.5 px-4.5 flex justify-start items-center gap-3">
-                            <!-- @if(participant.user_info.user_image) {
-                                <img
-                                    [src]="participant.user_info.user_image"
-                                    alt="User image"
-                                    class="
-                                    size-14 min-w-14 rounded-full shadow-lg ring-1 
-                                    ring-slate-800/70 
-                                    dark:ring-slate-300 object-cover
-                                    "
-                                >
-                            }@else { -->
-                                <div
-                                    class="size-14 min-w-14 text-2xl rounded-full shadow-lg bg-blue-500 
-                                    flex leading-none ring-slate-800/70 dark:ring-slate-300
-                                    items-center justify-center text-white font-semibold ring-1"
-                                    aria-hidden="true"
-                                >
-                                    Z 
-                                </div>
-                            <!-- } -->
+                        <div class="zs:py-3.5 zs:px-4.5 zs:flex zs:justify-between zs:items-center">
 
-                            <div class="flex flex-col gap-1.5">
-                                <p class="font-semibold leading-none line-clamp-1 wrap-anywhere">Ziad Shalaby</p>
-                                <p class="text-xs text-gray-600 dark:text-gray-400 leading-none line-clamp-1 wrap-anywhere">1111111111111111111111111</p>
+                        <!-- Left content -->
+                        <div class="zs:flex zs:items-center zs:gap-3">
+                            <div
+                            class="zs:size-14 zs:min-w-14 zs:text-2xl zs:rounded-full 
+                            zs:shadow-lg zs:bg-blue-500
+                            zs:flex zs:items-center zs:justify-center 
+                            zs:text-white zs:font-semibold zs:ring-1"
+                            >
+                            Z
+                            </div>
+
+                            <div class="zs:flex zs:flex-col zs:gap-1.5">
+                                <p class="zs:font-semibold zs:leading-none zs:line-clamp-1">
+                                    Ziad Shalaby
+                                </p>
+                            <p class="zs:text-xs zs:text-gray-600 zs:dark:text-gray-400 
+                            zs:leading-none zs:line-clamp-1">
+                                1111111111111111111111111
+                            </p>
                             </div>
                         </div>
+
+                        <!-- Settings icon -->
+                        <ZS-nav-item
+                            [collectionName]="'chat-settings'"
+                            [item]="chatSettings()"
+                        >
+                        </ZS-nav-item>
+
+                        </div>
                     </ZS-card>
+
+                    <div class="zs:flex zs:justify-end">
+                        <ZS-nav-item class="zs:w-7"
+                            [collectionName]="'chat-settings'"
+                            [item]="chatSettings()"
+                        >
+                        </ZS-nav-item>
+                    </div>
                 }
             </div>
+
+            <!-- @for(item of ['ziad', 'ahmed', 'salah']; track item) {
+                <div class="zs:flex zs:items-center zs:justify-center
+                zs:absolute zs:top-1/2 zs:-translate-y-1/2 zs:right-7">
+                    <ZS-nav-item
+                    [collectionName]="'chat-settings'"
+                    [item]="chatSettings()"
+                    >
+                    </ZS-nav-item>
+                </div>
+            } -->
         </div>
     </ZS-sidebar>
-    <span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor harum deserunt dolorem doloribus, eligendi vitae debitis praesentium officiis nostrum, quo deleniti. Magnam quo, earum aspernatur asperiores optio atque saepe accusantium?
-    </span>
 </div>
 
-<p class=" zs:p-6 zs:hover:scale-110 zs:m-auto zs:w-1/2 zs:transition-transform zs:duration-500">
-    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident repellat accusamus perferendis nemo qui ducimus pariatur dignissimos minus saepe dolorum adipisci dolorem dolor quidem modi quibusdam dolores fuga, laborum itaque!
-</p>
+<!-- Chat Settings Icon -->
+<ng-template #chatSettingsIcon>
+    <div class="zs:flex zs:items-center zs:justify-center">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </div>
+</ng-template>

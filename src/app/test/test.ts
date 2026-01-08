@@ -15,7 +15,7 @@ import { Button } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-compon
 import { themeTypes } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle';
 import { FileInput } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/file/file'
 import { ScrollToTop } from "../../../projects/ngx-zs-component/src/lib/ngx-zs-component/scroll-to-top/scroll-to-top";
-import { NavItem } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/NavItemFolder/nav-item/nav-item';
+import { NavbarItem, NavItem } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/NavItemFolder/nav-item/nav-item';
 
 @Component({
   selector: 'app-test',
@@ -214,17 +214,27 @@ export class Test {
  , 'teal']
 
 
- constructor() {
-  this.alertService.bulkAlert([
-    'ziad ahmed shalaby',
-    'ziad ahmed shalaby',
-    'ziad ahmed shalaby',
-    'ziad ahmed shalaby',
-    'ziad ahmed shalaby',
-    'ziad ahmed shalaby',
-  ], {
-    autoClose: false,
-    type: 'danger'
+  readonly chatSettingsIconTpl = viewChild<TemplateRef<any>>('chatSettingsIcon')
+  readonly chatSettings = signal<NavbarItem>({
+    id: 'chat-settings',
+    label: '',
+    iconTpl: this.chatSettingsIconTpl,
+    colorClass: 'zs:bg-red-500',
+    children: [
+      {
+        id: 'view-profile',
+        label: 'View Profile',
+      },
+      {
+        id: 'mark-as-read',
+        label: 'Mark As Read',
+      },
+      {
+        id: 'delete-chat',
+        label: 'Delete Chat',
+      },
+    ],
+    showChevronDownIcon: false,
+    childrenOpenWindow: true,
   })
- }
 }
