@@ -29,7 +29,7 @@ import { NavbarItem, NavItem } from '../../../projects/ngx-zs-component/src/lib/
     Pagination,
     Page404,
     NavItem,
-    Modal
+    Modal,
 ],
   templateUrl: './test.html',
   styleUrl: './test.css',
@@ -219,22 +219,31 @@ export class Test {
     id: 'chat-settings',
     label: '',
     iconTpl: this.chatSettingsIconTpl,
-    colorClass: 'zs:bg-red-500',
+    colorClass: 'zs:bg-red-400/20',
     children: [
       {
         id: 'view-profile',
         label: 'View Profile',
+        action: () => {console.log(this.chatSettings().children?.[0].label)}
       },
       {
         id: 'mark-as-read',
         label: 'Mark As Read',
+        action: () => {console.log(this.chatSettings().children?.[1].label)}
       },
       {
         id: 'delete-chat',
         label: 'Delete Chat',
+        action: () => {console.log(this.chatSettings().children?.[2].label)}
       },
     ],
     showChevronDownIcon: false,
     childrenOpenWindow: true,
   })
+
+  readonly items = ['ziad', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah']
+
+  cardClicked(event: any) {
+    console.log(event)
+  }
 }

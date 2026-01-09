@@ -28,7 +28,7 @@
     class='zs:h-[85vh]'
     >
         <div main class="zs:flex zs:flex-col zs:h-full 
-        zs:gap-4 zs:pt-4 zs:pb-5 zs:pl-1.5 zs:pr-3 zs:relative">
+        zs:gap-4 zs:pt-4 zs:pb-5 zs:pl-1.5 zs:pr-3">
             <div class="zs:px-3">
                 <ZS-input
                 placeholder="Search for chat..."
@@ -39,76 +39,58 @@
                 </ZS-input>
             </div>
             <div class='zs:flex zs:flex-col zs:gap-4 zs:h-full 
-            zs:overflow-y-auto zs:overflow-x-visible
             zs:pt-2 zs:pb-6 zs:px-3 scroll scroll-success'>
-                @for(item of ['ziad', 'ahmed', 'salah']; track item) {
+                @for(item of items; track $index; let i = $index) {
                     <ZS-card
-                        [animation]="'bottom'"
+                        (click)="cardClicked('Card Clicked')"
                         [clickable]="true"
                         cardStyle="success"
-                        class="zs:relative"
+                        [style]="'z-index: ' + (items.length-i)"
                     >
                         <div class="zs:py-3.5 zs:px-4.5 zs:flex zs:justify-between zs:items-center">
+                            <!-- Left content -->
+                            <div class="zs:flex zs:items-center zs:gap-3">
+                                <div
+                                class="zs:size-14 zs:min-w-14 zs:text-2xl zs:rounded-full 
+                                zs:shadow-lg zs:bg-blue-500
+                                zs:flex zs:items-center zs:justify-center 
+                                zs:text-white zs:font-semibold zs:ring-1"
+                                >
+                                Z
+                                </div>
 
-                        <!-- Left content -->
-                        <div class="zs:flex zs:items-center zs:gap-3">
-                            <div
-                            class="zs:size-14 zs:min-w-14 zs:text-2xl zs:rounded-full 
-                            zs:shadow-lg zs:bg-blue-500
-                            zs:flex zs:items-center zs:justify-center 
-                            zs:text-white zs:font-semibold zs:ring-1"
-                            >
-                            Z
-                            </div>
-
-                            <div class="zs:flex zs:flex-col zs:gap-1.5">
-                                <p class="zs:font-semibold zs:leading-none zs:line-clamp-1">
-                                    Ziad Shalaby
+                                <div class="zs:flex zs:flex-col zs:gap-1.5">
+                                    <p class="zs:font-semibold zs:leading-none zs:line-clamp-1">
+                                        Ziad Shalaby
+                                    </p>
+                                <p class="zs:text-xs zs:text-gray-600 zs:dark:text-gray-400 
+                                zs:leading-none zs:line-clamp-1">
+                                    1111111111111111111111111
                                 </p>
-                            <p class="zs:text-xs zs:text-gray-600 zs:dark:text-gray-400 
-                            zs:leading-none zs:line-clamp-1">
-                                1111111111111111111111111
-                            </p>
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- Settings icon -->
-                        <ZS-nav-item
-                            [collectionName]="'chat-settings'"
-                            [item]="chatSettings()"
-                        >
-                        </ZS-nav-item>
-
+                            <div 
+                            (click)="$event.stopPropagation()"
+                            (mousedown)="$event.preventDefault()"
+                            class="zs:absolute zs:top-1/2 zs:-translate-y-1/2 zs:right-0">
+                                <!-- Settings icon -->
+                                <ZS-nav-item
+                                    [collectionName]="'chat-settings'"
+                                    [item]="chatSettings()"
+                                >
+                                </ZS-nav-item>
+                            </div>
                         </div>
                     </ZS-card>
-
-                    <div class="zs:flex zs:justify-end">
-                        <ZS-nav-item class="zs:w-7"
-                            [collectionName]="'chat-settings'"
-                            [item]="chatSettings()"
-                        >
-                        </ZS-nav-item>
-                    </div>
                 }
             </div>
-
-            <!-- @for(item of ['ziad', 'ahmed', 'salah']; track item) {
-                <div class="zs:flex zs:items-center zs:justify-center
-                zs:absolute zs:top-1/2 zs:-translate-y-1/2 zs:right-7">
-                    <ZS-nav-item
-                    [collectionName]="'chat-settings'"
-                    [item]="chatSettings()"
-                    >
-                    </ZS-nav-item>
-                </div>
-            } -->
         </div>
     </ZS-sidebar>
 </div>
 
 <!-- Chat Settings Icon -->
 <ng-template #chatSettingsIcon>
-    <div class="zs:flex zs:items-center zs:justify-center">
+    <div class="zs:flex zs:items-center zs:p-2 zs:justify-center">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </div>
 </ng-template>
