@@ -219,12 +219,11 @@ export class Test {
     id: 'chat-settings',
     label: '',
     iconTpl: this.chatSettingsIconTpl,
-    colorClass: 'zs:bg-red-400/20',
     children: [
       {
         id: 'view-profile',
         label: 'View Profile',
-        action: () => {console.log(this.chatSettings().children?.[0].label)}
+        action: () => {console.log(this.chatSettings().children?.[0].label)},
       },
       {
         id: 'mark-as-read',
@@ -239,6 +238,8 @@ export class Test {
     ],
     showChevronDownIcon: false,
     childrenOpenWindow: true,
+    childrenWindowDir: 'right',
+    // closeOnPointerOutside: true
   })
 
   readonly items = ['ziad', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah', 'ahmed', 'salah']
@@ -246,4 +247,7 @@ export class Test {
   cardClicked(event: any) {
     console.log(event)
   }
+
+  readonly isSettingsHover = signal(false);
+
 }

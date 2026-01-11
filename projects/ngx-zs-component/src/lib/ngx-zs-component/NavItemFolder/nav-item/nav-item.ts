@@ -17,7 +17,9 @@ export interface NavbarItem {
   children?: NavbarItem[];
   showChevronDownIcon?: boolean;
   childrenOpenWindow?: boolean;
+  childrenWindowDir?: 'left' | 'right';
   closeMenuAfterClick?: boolean;
+  closeOnPointerOutside?: boolean;
 
   colorClass?: string;
   useDefaultColorClass?: 'text' | 'bg';
@@ -27,7 +29,7 @@ export interface NavbarItem {
 // Imports
 // ==============================================
 
-import { Component, computed, effect, inject, input, output, Signal, signal, TemplateRef } from '@angular/core';
+import { Component, computed, effect, ElementRef, HostListener, inject, input, output, Signal, signal, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavItemService } from '../nav-item-service/nav-item-service';
@@ -143,5 +145,18 @@ export class NavItem {
     return item.label.length > 60 ? 'zs:text-xs' 
     : item.label.length > 40 ? 'zs:text-sm' 
     : ''
+  }
+
+  private host = inject<ElementRef<HTMLElement>>(ElementRef);
+  @HostListener('document:pointerdown', ['$event'])
+  onDocumentPointerDown(event: PointerEvent) {
+    if (!this.isOpen() || !this.item().closeOnPointerOutside === true) return;
+
+    const target = event.target as HTMLElement;
+
+    // لو الضغط خارج الـ ZS-nav-item كله
+    if (!this.host.nativeElement.contains(target)) {
+      this.toggle();
+    }
   }
 }

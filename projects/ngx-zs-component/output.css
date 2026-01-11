@@ -420,9 +420,6 @@
   .zs\:m-4 {
     margin: calc(var(--zs-spacing) * 4);
   }
-  .zs\:m-auto {
-    margin: auto;
-  }
   .zs\:mx-4 {
     margin-inline: calc(var(--zs-spacing) * 4);
   }
@@ -498,6 +495,12 @@
   .zs\:ml-auto {
     margin-left: auto;
   }
+  .zs\:line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
   .zs\:line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;
@@ -563,6 +566,10 @@
   .zs\:size-13 {
     width: calc(var(--zs-spacing) * 13);
     height: calc(var(--zs-spacing) * 13);
+  }
+  .zs\:size-14 {
+    width: calc(var(--zs-spacing) * 14);
+    height: calc(var(--zs-spacing) * 14);
   }
   .zs\:size-18 {
     width: calc(var(--zs-spacing) * 18);
@@ -640,9 +647,6 @@
   .zs\:w-1\.5 {
     width: calc(var(--zs-spacing) * 1.5);
   }
-  .zs\:w-1\/2 {
-    width: calc(1/2 * 100%);
-  }
   .zs\:w-2 {
     width: calc(var(--zs-spacing) * 2);
   }
@@ -711,6 +715,9 @@
   }
   .zs\:max-w-sm {
     max-width: var(--zs-container-sm);
+  }
+  .zs\:min-w-14 {
+    min-width: calc(var(--zs-spacing) * 14);
   }
   .zs\:min-w-30 {
     min-width: calc(var(--zs-spacing) * 30);
@@ -1366,6 +1373,9 @@
   .zs\:px-4 {
     padding-inline: calc(var(--zs-spacing) * 4);
   }
+  .zs\:px-4\.5 {
+    padding-inline: calc(var(--zs-spacing) * 4.5);
+  }
   .zs\:px-5 {
     padding-inline: calc(var(--zs-spacing) * 5);
   }
@@ -1410,6 +1420,9 @@
   }
   .zs\:py-3 {
     padding-block: calc(var(--zs-spacing) * 3);
+  }
+  .zs\:py-3\.5 {
+    padding-block: calc(var(--zs-spacing) * 3.5);
   }
   .zs\:py-3\.25 {
     padding-block: calc(var(--zs-spacing) * 3.25);
@@ -1773,6 +1786,10 @@
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .zs\:ring-1 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
   .zs\:\[box-shadow\:0_8px_0_0_\#364153\] {
     box-shadow: 0 8px 0 0 #364153;
   }
@@ -2020,16 +2037,6 @@
   .zs\:focus-within\:ring-yellow-400 {
     &:focus-within {
       --tw-ring-color: var(--zs-color-yellow-400);
-    }
-  }
-  .zs\:hover\:scale-110 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-scale-x: 110%;
-        --tw-scale-y: 110%;
-        --tw-scale-z: 110%;
-        scale: var(--tw-scale-x) var(--tw-scale-y);
-      }
     }
   }
   .zs\:hover\:scale-\[1\.02\] {

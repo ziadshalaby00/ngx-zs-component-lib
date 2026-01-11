@@ -23,7 +23,7 @@
 <div class="zs:flex">
     <ZS-sidebar
     header="Chats"
-    [openSide]="true"
+    [openSide]="false"
     [preventClose]="false"
     class='zs:h-[85vh]'
     >
@@ -43,7 +43,7 @@
                 @for(item of items; track $index; let i = $index) {
                     <ZS-card
                         (click)="cardClicked('Card Clicked')"
-                        [clickable]="true"
+                        [clickable]="!isSettingsHover()"
                         cardStyle="success"
                         [style]="'z-index: ' + (items.length-i)"
                     >
@@ -69,10 +69,13 @@
                                 </p>
                                 </div>
                             </div>
-                            <div 
+                            <div
                             (click)="$event.stopPropagation()"
-                            (mousedown)="$event.preventDefault()"
-                            class="zs:absolute zs:top-1/2 zs:-translate-y-1/2 zs:right-0">
+                            (mouseenter)="isSettingsHover.set(true)"
+                            (mouseleave)="isSettingsHover.set(false)"
+                            class="zs:absolute zs:top-1/2 zs:h-full
+                            zs:flex zs:items-center zs:justify-center
+                            zs:-translate-y-1/2 zs:right-0">
                                 <!-- Settings icon -->
                                 <ZS-nav-item
                                     [collectionName]="'chat-settings'"
@@ -87,6 +90,7 @@
         </div>
     </ZS-sidebar>
 </div>
+
 
 <!-- Chat Settings Icon -->
 <ng-template #chatSettingsIcon>

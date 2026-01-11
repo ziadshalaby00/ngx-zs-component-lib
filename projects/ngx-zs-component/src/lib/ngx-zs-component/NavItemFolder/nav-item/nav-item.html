@@ -28,13 +28,13 @@
       <!-- ========================= Dropdown Menu ========================= -->
       <div
         [id]="'submenu-' + index()"
-        [ngClass]="{
-          'zs:block': isOpen(),
-          'zs:hidden': !isOpen(),
-          'zs:absolute zs:left-4 zs:w-54 zs:mt-1 zs:p-2 zs:bg-white zs:dark:bg-gray-800 
-          zs:rounded-md shadow-md-all shadow-md-all-night': item().childrenOpenWindow,
-          'zs:px-4 zs:mt-1.5': !item().childrenOpenWindow
-        }"
+        [ngClass]="[
+          isOpen() ? 'zs:block' : 'zs:hidden',
+          item().childrenOpenWindow 
+            ? 'zs:absolute zs:w-54 zs:mt-1 zs:p-2 zs:bg-white zs:dark:bg-gray-800 zs:rounded-md shadow-md-all shadow-md-all-night'
+            : 'zs:px-4 zs:mt-1.5',
+          item().childrenWindowDir === 'left' ? 'zs:right-4' : 'zs:left-4'
+        ]"
         class="{{ zIndices.navItemDropdown }} zs:flex zs:flex-col zs:gap-1.5"
         role="menu"
         [attr.aria-label]="item().label + ' submenu'"
