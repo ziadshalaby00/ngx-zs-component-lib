@@ -110,13 +110,10 @@ export class Form<T extends Record<string, any>> {
     return result as Record<keyof T, boolean>;
   }
 
-  public submit(
-    callback: (values: T) => void,
+  public canSubmit(
     allowEmptyFields: (keyof T)[] = [],
     allowInvalidFields: (keyof T)[] = []
-  ): void {
-    this.markAllTouched();
-
+  ): boolean {
     const filled = this.allFilled();
     const validations = this.getValidations();
 
@@ -130,7 +127,17 @@ export class Form<T extends Record<string, any>> {
       return validations[key as keyof T];
     });
 
-    if (!allFilled || !allValid) return;
+    return allFilled && allValid;
+  }
+
+  public submit(
+    callback: (values: T) => void,
+    allowEmptyFields: (keyof T)[] = [],
+    allowInvalidFields: (keyof T)[] = []
+  ): void {
+    this.markAllTouched();
+
+    if (!this.canSubmit(allowEmptyFields, allowInvalidFields)) return;
 
     callback(this.getValues());
   }

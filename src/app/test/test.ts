@@ -30,6 +30,7 @@ import { NavbarItem, NavItem } from '../../../projects/ngx-zs-component/src/lib/
     Page404,
     NavItem,
     Modal,
+    Button
 ],
   templateUrl: './test.html',
   styleUrl: './test.css',

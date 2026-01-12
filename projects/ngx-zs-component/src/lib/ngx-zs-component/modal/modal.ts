@@ -160,6 +160,14 @@ export class Modal {
         }
       })
     })
+
+    effect(() => {
+      const open = this.open();
+      const classToBudy = 'zs:overflow-hidden';
+
+      if(open) document.body.classList.add(classToBudy);
+      else document.body.classList.remove(classToBudy);
+    })
   }
 
   // ==============================================
