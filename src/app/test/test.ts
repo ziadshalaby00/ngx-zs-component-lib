@@ -84,43 +84,43 @@ export class Test {
             id: 'nav-10',
             label: 'Morning Azkar',
             routerLink: '/azkar/morning',
-            closeMenuAfterClick: false
+            closeParentMenuAfterClick: false
           },
           {
             id: 'nav-11',
             label: 'Evening Azkar',
             routerLink: '/azkar/evening',
-            closeMenuAfterClick: true
+            closeParentMenuAfterClick: true
           },
           {
             id: 'nav-12',
             label: 'After Prayer Azkar',
             routerLink: '/azkar/afterPrayer',
-            closeMenuAfterClick: true
+            closeParentMenuAfterClick: true
           },
           {
             id: 'nav-13',
             label: 'Tasbeeh',
             routerLink: '/azkar/tasbeeh',
-            closeMenuAfterClick: true
+            closeParentMenuAfterClick: true
           },
           {
             id: 'nav-14',
             label: 'Comprehensive Supplication',
             routerLink: '/azkar/comprehensiveSupplication',
-            closeMenuAfterClick: true
+            closeParentMenuAfterClick: true
           },
           {
             id: 'nav-15',
             label: 'The Most Beautiful Names of Allah',
             routerLink: '/azkar/namesOfAllah',
-            closeMenuAfterClick: true
+            closeParentMenuAfterClick: true
           },
           {
             id: 'nav-16',
             label: 'Favorites',
             routerLink: '/azkar/favorites',
-            closeMenuAfterClick: true
+            closeParentMenuAfterClick: true
           }
         ]
       },
@@ -229,17 +229,19 @@ export class Test {
       {
         id: 'mark-as-read',
         label: 'Mark As Read',
-        action: () => {console.log(this.chatSettings().children?.[1].label)}
+        action: () => {console.log(this.chatSettings().children?.[1].label)},
       },
       {
         id: 'delete-chat',
         label: 'Delete Chat',
-        action: () => {console.log(this.chatSettings().children?.[2].label)}
+        action: () => {console.log(this.chatSettings().children?.[2].label)},
       },
     ],
-    showChevronDownIcon: false,
-    childrenOpenWindow: true,
-    childrenWindowDir: 'right',
+    childrenConfig: {
+      showChevronDownIcon: false,
+      childrenOpenWindow: true,
+      childrenWindowDir: 'bottom-right',
+    }
     // closeOnPointerOutside: true
   })
 

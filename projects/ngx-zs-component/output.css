@@ -345,6 +345,9 @@
   .zs\:top-4 {
     top: calc(var(--zs-spacing) * 4);
   }
+  .zs\:top-full {
+    top: 100%;
+  }
   .zs\:right-0 {
     right: calc(var(--zs-spacing) * 0);
   }
@@ -362,6 +365,9 @@
   }
   .zs\:bottom-4 {
     bottom: calc(var(--zs-spacing) * 4);
+  }
+  .zs\:bottom-full {
+    bottom: 100%;
   }
   .zs\:left-0 {
     left: calc(var(--zs-spacing) * 0);

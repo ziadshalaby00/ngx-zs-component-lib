@@ -200,7 +200,9 @@ export class Navbar {
       ...item,
       colorClass: item.colorClass ?? generalColorClass,
       routerLinkActive: item.routerLinkActive ?? generalRouterLinkActive,
-      childrenOpenWindow,
+      childrenConfig: {
+        childrenOpenWindow
+      },
       children: item.children?.map(child => this.toNavbarItem(
         child, 
         childrenOpenWindow, 

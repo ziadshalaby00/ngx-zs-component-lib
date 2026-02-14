@@ -15,12 +15,14 @@ export interface NavbarItem {
   iconClasses?: string;
 
   children?: NavbarItem[];
-  showChevronDownIcon?: boolean;
-  childrenOpenWindow?: boolean;
-  childrenWindowDir?: 'left' | 'right';
-  closeMenuAfterClick?: boolean;
-  closeOnPointerOutside?: boolean;
+  childrenConfig?: {
+    showChevronDownIcon?: boolean;
+    childrenOpenWindow?: boolean;
+    childrenWindowDir?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
+    closeMenuOnPointerOutside?: boolean;
+  }
 
+  closeParentMenuAfterClick?: boolean;
   colorClass?: string;
   useDefaultColorClass?: 'text' | 'bg';
 }
@@ -103,7 +105,7 @@ export class NavItem {
     const item = this.item();
 
     item.action?.();
-    if(this.item().closeMenuAfterClick){
+    if(this.item().closeParentMenuAfterClick){
       this.toggle()
     }
 
@@ -115,7 +117,7 @@ export class NavItem {
     this.anyItemClickedEv.emit(child);
 
     // إن كان الطفل يريد غلق القائمة، أغلق نفسي
-    if (child.closeMenuAfterClick) {
+    if (child.closeParentMenuAfterClick) {
       this.toggle();
     }
   }
@@ -150,7 +152,7 @@ export class NavItem {
   private host = inject<ElementRef<HTMLElement>>(ElementRef);
   @HostListener('document:pointerdown', ['$event'])
   onDocumentPointerDown(event: PointerEvent) {
-    if (!this.isOpen() || !this.item().closeOnPointerOutside === true) return;
+    if (!this.isOpen() || !this.item().childrenConfig?.closeMenuOnPointerOutside === true) return;
 
     const target = event.target as HTMLElement;
 

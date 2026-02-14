@@ -20,7 +20,7 @@
           <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
           <span class="zs:wrap-break-word" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
         </div>
-        @if(item().showChevronDownIcon !== false) {
+        @if(item().childrenConfig?.showChevronDownIcon !== false) {
           <i class="fas fa-chevron-down zs:ml-auto zs:p-0.5 zs:text-xs" aria-hidden="true"></i>
         }
       </button>
@@ -30,10 +30,13 @@
         [id]="'submenu-' + index()"
         [ngClass]="[
           isOpen() ? 'zs:block' : 'zs:hidden',
-          item().childrenOpenWindow 
+          item().childrenConfig?.childrenOpenWindow 
             ? 'zs:absolute zs:w-54 zs:mt-1 zs:p-2 zs:bg-white zs:dark:bg-gray-800 zs:rounded-md shadow-md-all shadow-md-all-night'
             : 'zs:px-4 zs:mt-1.5',
-          item().childrenWindowDir === 'left' ? 'zs:right-4' : 'zs:left-4'
+          item().childrenConfig?.childrenWindowDir === 'bottom-left' ? 'zs:top-full zs:right-4' : '',
+          item().childrenConfig?.childrenWindowDir === 'bottom-right' ? 'zs:top-full zs:left-4' : '',
+          item().childrenConfig?.childrenWindowDir === 'top-left' ? 'zs:bottom-full zs:right-4' : '',
+          item().childrenConfig?.childrenWindowDir === 'top-right' ? 'zs:bottom-full zs:left-4' : '',
         ]"
         class="{{ zIndices.navItemDropdown }} zs:flex zs:flex-col zs:gap-1.5"
         role="menu"
