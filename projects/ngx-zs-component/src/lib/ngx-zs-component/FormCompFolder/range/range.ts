@@ -187,7 +187,7 @@ export class Range {
     const track = this.trackRef()?.nativeElement;
     if (!track) return `${p}%`;
 
-    const trackWidth = track.offsetWidth; // عرض الشريط بالبكسل
+    const trackWidth = track.offsetWidth;
     const displacementSizes: Record<BaseSize, number> = {
       sm: 6,
       md: 10,

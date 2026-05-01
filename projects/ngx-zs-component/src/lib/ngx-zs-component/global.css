@@ -126,12 +126,12 @@ zs-carousel {
 /* =============================
   Side Bar Shadow
 ============================= */
-/* Shadow للـ Light Mode */
+/* Shadow Light Mode */
 .sidebar-shadow-right {
   box-shadow: 4px 0 6px -1px rgba(0,0,0,0.1), 4px 0 3px -1px rgba(0,0,0,0.06);
 }
 
-/* Shadow للـ Dark Mode */
+/* Shadow Dark Mode */
 .dark .sidebar-shadow-right {
   box-shadow: 4px 0 6px -1px rgba(255,255,255,0.1), 4px 0 3px -1px rgba(255,255,255,0.06);
 }

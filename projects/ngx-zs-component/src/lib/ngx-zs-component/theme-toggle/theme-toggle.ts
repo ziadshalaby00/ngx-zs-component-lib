@@ -64,7 +64,6 @@ export class ThemeToggle {
       this.panelTop.set(+savedTop);
     }
 
-    // ① تهيئة الثيم
     const savedTheme = localStorage.getItem('theme') as themeTypes | null;
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
@@ -75,7 +74,6 @@ export class ThemeToggle {
       this.currentTheme.set(systemPrefersDark.matches ? 'dark' : 'light');
     }
 
-    // ② مراقبة تغيّر ثيم النظام (لو المستخدم لم يختر يدويًا)
     effect((onCleanup) => {
       const listener = (e: MediaQueryListEvent) => {
         if (!this.userSelectedTheme()) {
@@ -87,7 +85,6 @@ export class ThemeToggle {
       onCleanup(() => systemPrefersDark.removeEventListener('change', listener));
     });
 
-    // ③ مزامنة الثيم مع DOM و localStorage
     effect(() => {
       const theme = this.currentTheme();
       document.documentElement.classList.toggle('dark', theme === 'dark');
@@ -186,7 +183,6 @@ export class ThemeToggle {
     this.animationFrameId = requestAnimationFrame(() => {
       this.panelTop.set(targetTop);
 
-      // تحديث startTop و startY بعد التحديث
       this.startY = event.clientY;
       this.startTop = targetTop;
       this.animationFrameId = null;

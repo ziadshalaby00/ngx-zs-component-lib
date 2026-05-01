@@ -113,10 +113,8 @@ export class NavItem {
   }
 
   handleChildClick(child: NavbarItem) {
-    // أعد إرسال الحدث لأعلى (لو فيه levels أكثر)
     this.anyItemClickedEv.emit(child);
 
-    // إن كان الطفل يريد غلق القائمة، أغلق نفسي
     if (child.closeParentMenuAfterClick) {
       this.toggle();
     }
@@ -156,7 +154,6 @@ export class NavItem {
 
     const target = event.target as HTMLElement;
 
-    // لو الضغط خارج الـ ZS-nav-item كله
     if (!this.host.nativeElement.contains(target)) {
       this.toggle();
     }
