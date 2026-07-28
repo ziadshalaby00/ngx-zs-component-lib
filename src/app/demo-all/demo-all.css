@@ -1,0 +1,8 @@
+/* Demo page custom styles */
+:host {
+  display: block;
+}
+
+section {
+  scroll-margin-top: 2rem;
+}

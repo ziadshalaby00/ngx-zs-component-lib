@@ -1,67 +1,31 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-// استيراد جميع المكونات من المكتبة
-import { Alert } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert/alert';
-import { AlertService } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/AlertFolder/alert-service/alert-service';
-import { Button } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button';
-import { Checkbox } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/checkbox/checkbox';
-import { FileInput } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/file/file';
-import { Input } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/input/input';
-import { Label } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/label/label';
-import { Range } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/range/range';
-import { Select } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/select/select';
-import { Toggle } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/toggle/toggle';
-import { Card } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/card/card';
-import { Carousel } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/carousel/carousel';
-import { Connection } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/connection/connection';
-import { Footer } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/footer/footer';
-import { Modal } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/modal/modal';
-import { Navbar } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/navbar/navbar';
-import { NavItem } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/NavItemFolder/nav-item/nav-item';
-import { Page404 } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/page404/page404';
-import { Pagination } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/pagination/pagination';
-import { ScrollToTop } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/scroll-to-top/scroll-to-top';
-import { Sidebar } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/sidebar/sidebar';
-import { Spinner } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/spinner/spinner';
-import { ThemeToggle } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle';
-
-// أنواع مساعدة
-import { DropdownItem } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/select/select';
-import { NavbarItem } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/NavItemFolder/nav-item/nav-item';
-import { NavItemsType } from '../../../projects/ngx-zs-component/src/lib/ngx-zs-component/navbar/navbar';
+// Import all library components & services
+import {
+  Button, Input, Select, Checkbox, Toggle, Range, FileInput, Label, InputErrors,
+  Alert, Card, Carousel, Modal, Navbar, NavItem, Sidebar,
+  Pagination, Spinner, ThemeToggle, ScrollToTop, Page404, Connection, Footer,
+  AlertService, Form, ExtractorService,
+  FormStyle, BaseColors, BaseSize, DropdownItem, NavbarItem, AlertType,
+  FilesType, FileData, ChangeEventType, VariantType, AnimationType,
+  NavItemsType, UserItemsType, UserProfile, AuthButtonsType, MobileModeType,
+  BtnType, Position, LoaderType, ValidatorFn
+} from '../../../projects/ngx-zs-component/src/public-api';
 
 @Component({
   selector: 'app-demo-all',
   standalone: true,
   imports: [
-    CommonModule,
-    Alert,
-    Button,
-    Checkbox,
-    FileInput,
-    Input,
-    Label,
-    Range,
-    Select,
-    Toggle,
-    Card,
-    Carousel,
-    Connection,
-    Footer,
-    Modal,
-    Navbar,
-    NavItem,
-    Page404,
-    Pagination,
-    ScrollToTop,
-    Sidebar,
-    Spinner,
-    ThemeToggle,
+    CommonModule, RouterModule,
+    Button, Input, Select, Checkbox, Toggle, Range, FileInput, Label, InputErrors,
+    Alert, Card, Carousel, Modal, Navbar, NavItem, Sidebar,
+    Pagination, Spinner, ThemeToggle, ScrollToTop, Page404, Connection, Footer
   ],
   templateUrl: './demo-all.html',
-  styleUrls: ['./demo-all.css']
+  styleUrl: './demo-all.css'
 })
 export class DemoAll {
-
+ 
 }
