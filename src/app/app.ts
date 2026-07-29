@@ -25,14 +25,4 @@ import { DemoAll } from './demo-all/demo-all';
 export class App {
   protected readonly title = signal('ngx-zs-component-project');
   readonly setTheme = signal<themeTypes | null>(null)
-
-  readonly alert = inject(AlertService);
-
-  constructor() {
-    this.alert.addAlert({
-      type: 'success',
-      message: 'Loggedin Successfully, Welcome Again',
-      autoClose: false
-    })
-  }
 }

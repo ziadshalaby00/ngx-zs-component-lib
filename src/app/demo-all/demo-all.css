@@ -6,3 +6,8 @@
 section {
   scroll-margin-top: 2rem;
 }
+
+/* Smooth scroll for the page */
+html {
+  scroll-behavior: smooth;
+}
