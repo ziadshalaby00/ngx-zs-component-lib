@@ -1,185 +1,344 @@
-# 📦 ngx-zs-component Library Documentation
+A comprehensive Angular component library (version 3.4.0) built with Angular 20+ and Tailwind CSS. It provides a rich set of reusable UI components with built-in theming support (light/dark modes), responsive design, and accessibility features.
 
-## 🚀 Overview
-
-**ngx-zs-component** is a comprehensive, modern Angular component library built with **Angular 20** and **Tailwind CSS 4**. It provides a rich set of reusable, accessible, and highly customizable UI components following the latest Angular best practices, including **zoneless change detection** and **standalone components**.
-
----
-
-## 📑 Table of Contents
-
-- [✨ Features](#-features)
-- [📦 Installation](#-installation)
-- [🔧 Quick Start](#-quick-start)
-- [📋 Component Catalog](#-component-catalog)
-  - [🎨 Form Components](#-form-components)
-  - [🧩 UI Components](#-ui-components)
-- [📖 Component Usage Examples](#-component-usage-examples)
-  - [1. Button Component](#1-button-component)
-  - [2. Input Component](#2-input-component)
-  - [3. Select Component](#3-select-component)
-  - [4. Checkbox Component](#4-checkbox-component)
-  - [5. Toggle Component](#5-toggle-component)
-  - [6. Card Component](#6-card-component)
-  - [7. Modal Component](#7-modal-component)
-  - [8. Alert System](#8-alert-system)
-  - [9. Navbar Component](#9-navbar-component)
-  - [10. Sidebar Component](#10-sidebar-component)
-  - [11. Carousel Component](#11-carousel-component)
-  - [12. Spinner Component](#12-spinner-component)
-  - [13. ThemeToggle Component](#13-themetoggle-component)
-  - [14. ScrollToTop Component](#14-scrolltotop-component)
-  - [15. Pagination Component](#15-pagination-component)
-  - [16. Page404 Component](#16-page404-component)
-  - [17. Connection Component](#17-connection-component)
-  - [18. Footer Component](#18-footer-component)
-  - [19. NavItem Component (Standalone)](#19-navitem-component-standalone)
-  - [20. Range Component](#20-range-component)
-  - [21. File Input Component](#21-file-input-component)
-  - [22. Label Component](#22-label-component)
-  - [23. InputErrors Component](#23-inputerrors-component)
-  - [24. Custom Validators (ValidatorFn)](#24-custom-validators-validatorfn)
-- [🛠️ Services](#️-services)
-  - [AlertService](#alertservice)
-  - [NavItemService](#navitemservice)
-  - [FormService](#formservice)
-  - [ExtractorService](#extractorservice)
-  - [VisibilityObserverService](#visibilityobserverservice)
-- [🎨 Theme & Styling](#-theme--styling)
-  - [Palette Service](#palette-service)
-  - [Color System](#color-system)
-  - [Z-Index System](#z-index-system)
-- [🌙 Dark Mode Mechanism](#-dark-mode-mechanism)
-- [📱 Responsive Design](#-responsive-design)
-- [♿ Accessibility (a11y)](#-accessibility-a11y)
-- [🚀 Performance Features](#-performance-features)
-- [📦 Dependencies](#-dependencies)
-  - [Required Peer Dependencies](#required-peer-dependencies)
-  - [Internal Dependencies](#internal-dependencies)
-- [🌐 CDN & Font Awesome Setup](#-cdn--font-awesome-setup)
-- [📄 License](#-license)
-- [🤝 Contributing](#-contributing)
-- [📞 Support](#-support)
-- [⚡ Quick Reference](#-quick-reference)
-  - [Common Imports](#common-imports)
-  - [Common CSS Classes](#common-css-classes)
-- [🙏 Acknowledgments](#-acknowledgments)
-- [📚 Additional Resources](#-additional-resources)
+[![npm version](https://badge.fury.io/js/%40ziadshalaby%2Fngx-zs-component.svg)](https://badge.fury.io/js/%40ziadshalaby%2Fngx-zs-component)
+[![Angular](https://img.shields.io/badge/Angular-20%2B-red.svg)](https://angular.io/)
 
 ---
 
-## ✨ Features
+## Table of Contents
 
-- ✅ **Standalone Components** – No NgModules needed, just import and use
-- ✅ **Zoneless Change Detection** – Built for Angular's new zoneless architecture
-- ✅ **Tailwind CSS 4** – Utility-first styling with dark mode support
-- ✅ **Font Awesome 6** – Rich iconography throughout all components
-- ✅ **Full Accessibility (a11y)** – ARIA attributes, keyboard navigation, screen reader support
-- ✅ **Dark & Light Themes** – Seamless theme switching with persistent storage
-- ✅ **Type Safe** – Full TypeScript support with strict typing
-- ✅ **Responsive** – Mobile-first design with responsive breakpoints
-- ✅ **Customizable** – Extensive inputs for styling, behavior, and content
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Core Concepts](#core-concepts)
+- [Components API](#components-api)
+  - [Form Components](#form-components)
+  - [Layout Components](#layout-components)
+  - [Feedback Components](#feedback-components)
+  - [Navigation Components](#navigation-components)
+  - [Utility Components](#utility-components)
+- [Services API](#services-api)
+- [Types & Interfaces](#types--interfaces)
+- [Configuration](#configuration)
+- [Usage Examples](#usage-examples)
+- [Advanced Usage](#advanced-usage)
+- [Error Handling](#error-handling)
+- [Best Practices](#best-practices)
+- [FAQ](#faq)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## 📦 Installation
+## Overview
+
+**@ziadshalaby/ngx-zs-component** is a modern Angular component library designed to accelerate UI development with:
+
+- **Signal-based reactivity** for optimal performance
+- **Tailwind CSS** with automatic dark mode
+- **Comprehensive theming** with 9 color variants
+- **Full accessibility** (WAI-ARIA compliant)
+- **Zoneless Angular** ready
+- **TypeScript-first** with full type safety
+
+### What Problem Does It Solve?
+
+Building consistent, accessible, and themeable UIs in Angular often requires:
+- Assembling multiple UI libraries or building components from scratch
+- Managing dark mode implementation
+- Ensuring accessibility compliance
+- Maintaining consistent styling across large applications
+
+This library provides a complete, battle-tested solution with a unified design system, eliminating the need to reinvent common UI patterns.
+
+### Key Use Cases
+
+| Use Case | Description |
+|----------|-------------|
+| **Enterprise Applications** | Consistent UI with theming, accessibility, and performance |
+| **Admin Dashboards** | Rich set of form controls, navigation, and data display components |
+| **Angular Projects** | Rapid prototyping and production-ready components |
+| **Dark Mode Apps** | Built-in dark mode support with seamless switching |
+| **Accessible UIs** | All components include proper ARIA attributes and keyboard navigation |
+
+---
+
+## Features
+
+| Feature | Description |
+|---------|-------------|
+| **Signal-Based** | All components use Angular Signals for reactive state management |
+| **Tailwind CSS** | Utility-first styling with `zs:` prefix and dark mode support |
+| **9 Color Variants** | Primary, Secondary, Success, Danger, Warning, Info, Dark, Violet, Teal |
+| **Dark Mode Ready** | Built-in dark mode with `ThemeToggle` component and `dark:` variants |
+| **Accessibility** | ARIA attributes, keyboard navigation, focus management, screen reader support |
+| **Form Components** | Input, Select, Checkbox, Toggle, Range, File, Button, Label, Field |
+| **Layout Components** | Card, Carousel, Modal, Sidebar, Navbar, Footer |
+| **Feedback Components** | Alert (with service), Spinner, Connection Status |
+| **Navigation** | NavItem, Pagination, Scroll-to-Top |
+| **Utility Components** | Theme Toggle, Page 404, Input Errors |
+| **Services** | AlertService, Form (lightweight forms), ExtractorService, NavItemService, VisibilityObserverService |
+| **Zoneless Ready** | Compatible with `provideZonelessChangeDetection()` |
+| **TypeScript** | Full type safety with exported interfaces and types |
+| **Standalone Components** | All components are standalone and tree-shakable |
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Angular `^20.3.0 || ^21.0.0 || ^22.0.0`
+- Tailwind CSS configured in your project
+
+### Install the Library
 
 ```bash
 npm install @ziadshalaby/ngx-zs-component
 ```
 
----
+### Configure Tailwind CSS
 
-## 🔧 Quick Start
+If you're using Tailwind CSS, add the following to your `tailwind.config.js`:
 
-### 1. Import the global styles
-
-In your `styles.css` or `styles.scss`:
-
-```css
-@import '@ziadshalaby/ngx-zs-component/output.css';
+```javascript
+module.exports = {
+  content: [
+    // ... existing content
+    "./node_modules/@ziadshalaby/ngx-zs-component/**/*.{html,ts}"
+  ],
+  darkMode: 'class',
+  // The library uses the 'zs:' prefix. Ensure your Tailwind setup supports it.
+}
 ```
 
-### 2. Use a component in your template
+### Import Global Styles
+
+In your `styles.css` or `styles.scss`, import the library's global styles:
+
+```css
+/* If using Tailwind's @import */
+@import "@ziadshalaby/ngx-zs-component/global.css";
+
+/* Or via relative path */
+@import "../node_modules/@ziadshalaby/ngx-zs-component/global.css";
+```
+
+### Font Awesome (Optional)
+
+The library uses Font Awesome for icons. Add it to your project:
+
+```html
+<!-- In your index.html -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+```
+
+---
+
+## Quick Start
+
+### 1. Import a Component
+
+All components are standalone. Import them directly in your Angular component:
 
 ```typescript
 import { Component } from '@angular/core';
-import { Button } from '@ziadshalaby/ngx-zs-component';
+import { Button, AlertService, Alert } from '@ziadshalaby/ngx-zs-component';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-example',
   standalone: true,
-  imports: [Button],
+  imports: [Button, Alert],
   template: `
-    <ZS-button (clickedEv)="handleClick()">
-      Click Me!
-    </ZS-button>
+    <ZS-button (clickedEv)="showAlert()">Click Me</ZS-button>
+    <ZS-alert></ZS-alert>
   `
 })
-export class AppComponent {
-  handleClick() {
-    console.log('Button clicked!');
+export class ExampleComponent {
+  private alertService = inject(AlertService);
+
+  showAlert() {
+    this.alertService.addAlert({
+      type: 'success',
+      message: 'Hello from ngx-zs-component!',
+      autoClose: true
+    });
+  }
+}
+```
+
+### 2. Complete Working Example
+
+```typescript
+import { Component, signal, inject } from '@angular/core';
+import { 
+  Button, Input, Alert, AlertService, 
+  Card, ThemeToggle, themeTypes 
+} from '@ziadshalaby/ngx-zs-component';
+
+@Component({
+  selector: 'app-demo',
+  standalone: true,
+  imports: [Button, Input, Alert, Card, ThemeToggle],
+  template: `
+    <ZS-theme-toggle 
+      (themeChangeEv)="onThemeChange($event)"
+    ></ZS-theme-toggle>
+
+    <ZS-card cardStyle="primary" animation="bottom">
+      <div class="zs:p-6">
+        <h2>Welcome to ngx-zs-component!</h2>
+        <ZS-input 
+          label="Your Name"
+          placeholder="Enter your name"
+          [(value)]="name"
+        ></ZS-input>
+        <ZS-button 
+          btnStyle="primary" 
+          (clickedEv)="submit()"
+        >
+          Submit
+        </ZS-button>
+      </div>
+    </ZS-card>
+
+    <ZS-alert></ZS-alert>
+  `
+})
+export class DemoComponent {
+  private alertService = inject(AlertService);
+  name = signal<string | null>(null);
+
+  submit() {
+    this.alertService.addAlert({
+      type: 'success',
+      message: `Hello, ${this.name() || 'World'}!`,
+      autoClose: true,
+      duration: 3000
+    });
+  }
+
+  onThemeChange(theme: themeTypes) {
+    console.log('Theme changed to:', theme);
   }
 }
 ```
 
 ---
 
-## 📋 Component Catalog
+## Core Concepts
 
-### 🎨 Form Components
+### 1. Theme System
 
-| Component | Selector | Description |
-|-----------|----------|-------------|
-| Button | `ZS-button` | Versatile button with solid/outline variants, sizes, and styles |
-| Input | `ZS-input` | Form input with validation, password toggle, search, and more |
-| Select | `ZS-select` | Dropdown select with search, multi-select, and custom rendering |
-| Checkbox | `ZS-checkbox` | Custom checkbox with variant and shape options |
-| Toggle | `ZS-toggle` | Toggle switch with customizable colors and sizes |
-| Range | `ZS-range` | Custom range slider with progress tracking |
-| File | `ZS-file` | File upload with drag-and-drop and preview support |
-| Label | `ZS-label` | Label with hint/description support |
-| InputErrors | `ZS-input-errors` | Error message display for form validation |
+The library uses a **unified palette map** (`unifiedPaletteMap`) that defines all styling for each color variant:
 
----
+```typescript
+// Available variants
+type FormStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'violet' | 'teal';
+```
 
-### 🧩 UI Components
+Each variant provides:
+- Input styling (border, background, text)
+- Button styling (solid and outline)
+- Select styling
+- Checkbox styling
+- Card styling
+- Modal styling
+- Page 404 styling
 
-| Component | Selector | Description |
-|-----------|----------|-------------|
-| Alert | `ZS-alert` | Toast/notification system with positioning and auto-close |
-| Card | `ZS-card` | Card with animations, hover effects, and visibility detection |
-| Carousel | `ZS-carousel` | Responsive carousel with drag, indicators, and auto-play |
-| Modal | `ZS-modal` | Modal dialog with customizable header, body, and footer |
-| Navbar | `ZS-navbar` | Responsive navigation bar with dropdowns and user menu |
-| NavItem | `ZS-nav-item` | Navigation item with nested dropdown support |
-| Sidebar | `ZS-sidebar` | Collapsible sidebar with overlay and floating modes |
-| Pagination | `ZS-pagination` | Pagination controls with page navigation |
-| Spinner | `ZS-spinner` | Loading spinners with multiple styles and sizes |
-| ThemeToggle | `ZS-theme-toggle` | Theme switcher with drag-to-reposition |
-| ScrollToTop | `ZS-scroll-to-top` | Scroll-to-top button with progress ring |
-| Page404 | `ZS-page404` | 404 error page with custom messages and actions |
-| Connection | `ZS-connection` | Online/offline status indicator |
-| Footer | `ZS-footer` | Footer with navigation links and copyright |
+### 2. Signal-Based Reactivity
 
----
+All components use Angular Signals for state management, making them compatible with zoneless change detection:
 
-## 📖 Component Usage Examples
+```typescript
+// Model binding (two-way)
+[(value)]="mySignal"
 
-### 1. **Button Component**
+// Model input (one-way)
+[value]="mySignal()"
+
+// Output events
+(valueChangeEv)="handleChange($event)"
+```
+
+### 3. Dark Mode
+
+Dark mode is implemented using the `dark` class on the `<html>` element:
 
 ```html
-<!-- Solid Primary Button -->
-<ZS-button btnStyle="primary" size="md" (clickedEv)="onClick()">
-  Primary Button
+<html class="dark">
+  <!-- Dark mode styles are applied via Tailwind's dark: variant -->
+</html>
+```
+
+Use the `ZS-theme-toggle` component for automatic dark mode switching.
+
+### 4. Z-Index Management
+
+The library provides a centralized z-index system:
+
+```typescript
+export const zIndices = {
+  alert: 'zs:z-2200',
+  spinner: 'zs:z-2000',
+  modal: 'zs:z-1800',
+  themeToggle: 'zs:z-1600',
+  navbar: 'zs:z-1400',
+  navbarOverlay: 'zs:z-1300',
+  sideBar: 'zs:z-1200',
+  sideBarOverlay: 'zs:z-1100',
+  scrollToTop: 'zs:z-800',
+  navItemDropdown: 'zs:z-200',
+  selectDropdown: 'zs:z-200'
+};
+```
+
+### 5. Component Prefix
+
+All components use the `ZS-` prefix to avoid naming conflicts:
+- `ZS-button`, `ZS-input`, `ZS-alert`, etc.
+
+---
+
+## Components API
+
+### Form Components
+
+#### `ZS-button`
+
+A versatile button component with multiple variants, sizes, and styles.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `btnStyle` | `FormStyle` | `'primary'` | Color variant |
+| `variant` | `'solid' \| 'outline'` | `'solid'` | Button style |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Button size |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `iconTpl` | `TemplateRef<any>` | `undefined` | Icon template |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `clickedEv` | `Event` | Emitted when button is clicked |
+
+**Example:**
+
+```html
+<!-- Solid button -->
+<ZS-button btnStyle="primary" (clickedEv)="handleClick()">
+  Submit
 </ZS-button>
 
-<!-- Outline Danger Button with Icon -->
+<!-- Outline button with icon -->
 <ZS-button 
   btnStyle="danger" 
   variant="outline" 
   [iconTpl]="iconTemplate"
-  size="lg"
 >
   Delete
 </ZS-button>
@@ -188,329 +347,1107 @@ export class AppComponent {
   <i class="fas fa-trash"></i>
 </ng-template>
 
-<!-- Disabled Button -->
+<!-- Disabled button -->
 <ZS-button btnStyle="secondary" [disabled]="true">
   Disabled
 </ZS-button>
 ```
 
-**Inputs:**
-- `btnStyle`: `'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'violet' | 'teal'`
-- `variant`: `'solid' | 'outline'`
-- `size`: `'xs' | 'sm' | 'md' | 'lg' | 'xl'`
-- `disabled`: `boolean`
-- `type`: `'button' | 'submit' | 'reset'`
-- `iconTpl`: `TemplateRef<any>`
-
-**Outputs:**
-- `clickedEv`: `EventEmitter<Event>`
-
 ---
 
-### 2. **Input Component**
+#### `ZS-input`
+
+A feature-rich input component with validation, formatting, and various input types.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `iName` | `string \| null` | `null` | Input name attribute |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint/helper text |
+| `placeholder` | `string \| null` | `null` | Placeholder text |
+| `type` | `InputType` | `'text'` | Input type |
+| `inputStyle` | `FormStyle` | `'secondary'` | Color variant |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `required` | `boolean` | `false` | Required field |
+| `iconTpl` | `TemplateRef<any>` | `undefined` | Left icon template |
+| `showSearchIcon` | `boolean` | `false` | Show search icon |
+| `showLoaderIconOnSearchInput` | `boolean` | `false` | Show loader on search |
+| `maxlength` | `number \| null` | `null` | Max character length |
+| `minlength` | `number \| null` | `null` | Min character length |
+| `spellcheck` | `boolean` | `false` | Spellcheck enabled |
+| `min` | `string \| number \| null` | `null` | Min value (number/date) |
+| `max` | `string \| number \| null` | `null` | Max value (number/date) |
+| `step` | `number \| null` | `null` | Step increment |
+| `validateFns` | `ValidatorFn[]` | `[]` | Custom validators |
+| `formatFn` | `FormatterFn` | `(val) => val?.trim() ?? null` | Formatting function |
+| `autofocus` | `boolean` | `false` | Autofocus on load |
+| `searchDebounceDelay` | `number` | `300` | Search debounce (ms) |
+| `size` | `BaseSize` | `'md'` | Input size |
+
+**Input Types:**
+
+```typescript
+type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'phone' | 'url' | 'search' | 'date' | 'datetime-local' | 'month' | 'week' | 'time';
+```
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `enterEv` | `void` | Emitted on Enter key |
+| `focusEv` | `void` | Emitted on focus |
+| `blurEv` | `void` | Emitted on blur |
+| `changedEv` | `ChangeEventType<string \| null>` | Emitted on value change |
+| `searchEv` | `string \| null` | Emitted on search |
+| `clearedEv` | `void` | Emitted when cleared |
+| `keydownEv` | `KeyboardEvent` | Emitted on keydown |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `value` | `string \| null` | Input value (two-way) |
+| `touched` | `boolean` | Tracks if user interacted |
+
+**Example:**
 
 ```html
-<!-- Basic Input -->
-<ZS-input
-  [Id]="'email'"
-  label="Email Address"
-  hint="We'll never share your email"
-  type="email"
-  placeholder="Enter your email"
+<!-- Basic text input -->
+<ZS-input 
+  label="Username"
+  placeholder="Enter username"
+  [(value)]="username"
   [required]="true"
-  (changedEv)="onChange($event)"
-/>
+  [validateFns]="[usernameValidator]"
+></ZS-input>
 
-<!-- Password Input with Toggle -->
-<ZS-input
-  label="Password"
+<!-- Email input with validation -->
+<ZS-input 
+  type="email"
+  label="Email Address"
+  placeholder="you@example.com"
+  hint="We'll never share your email"
+  [(value)]="email"
+  (changedEv)="onEmailChange($event)"
+></ZS-input>
+
+<!-- Password with show/hide toggle -->
+<ZS-input 
   type="password"
-  [showSearchIcon]="false"
-  [maxlength]="20"
+  label="Password"
+  placeholder="Enter password"
+  [(value)]="password"
   [minlength]="8"
-/>
+></ZS-input>
 
-<!-- Search Input with Debounce -->
-<ZS-input
+<!-- Search input with debounce -->
+<ZS-input 
   type="search"
+  label="Search"
   placeholder="Search..."
-  [searchDebounceDelay]="500"
   [showLoaderIconOnSearchInput]="true"
-  (searchEv)="handleSearch($event)"
-/>
+  (searchEv)="performSearch($event)"
+></ZS-input>
 
-<!-- Date Input -->
-<ZS-input
+<!-- Date input -->
+<ZS-input 
   type="date"
   label="Birth Date"
-  [min]="'2000-01-01'"
-  [max]="'2010-12-31'"
-/>
+  [(value)]="birthDate"
+  [min]="'1900-01-01'"
+  [max]="'2020-01-01'"
+></ZS-input>
 
-<!-- Number Input with Range -->
-<ZS-input
+<!-- Number input with range -->
+<ZS-input 
   type="number"
   label="Age"
   [min]="18"
   [max]="99"
   [step]="1"
-/>
+  [(value)]="age"
+></ZS-input>
 ```
-
-**Inputs:**
-- `type`: `'text' | 'email' | 'password' | 'number' | 'search' | 'date' | 'phone' | 'url'`
-- `inputStyle`: FormStyle (color theme)
-- `size`: `'sm' | 'md' | 'lg'`
-- `value`: `string | null` (two-way bindable via `[value]` and `(valueChange)`)
-- `touched`: `boolean` (two-way bindable)
-- `disabled`, `isReadonly`, `required`
-- `label`, `hint`, `placeholder`
-- `maxlength`, `minlength`
-- `min`, `max`, `step` (for number/date)
-- `validateFns`: `ValidatorFn[]`
-
-**Outputs:**
-- `changedEv`: `EventEmitter<ChangeEventType>`
-- `searchEv`: `EventEmitter<string | null>`
-- `enterEv`, `focusEv`, `blurEv`, `clearedEv`
-- `keydownEv`: `EventEmitter<KeyboardEvent>`
 
 ---
 
-### 3. **Select Component**
+#### `ZS-select`
+
+A customizable dropdown select component with search and multi-select support.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `items` | `DropdownItem<T>[]` | **Required** | Options list |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `required` | `boolean` | `false` | Required field |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `inputStyle` | `FormStyle` | `'secondary'` | Color variant |
+| `placeholder` | `string` | `'Select an option...'` | Placeholder text |
+| `showSearch` | `boolean` | `true` | Show search input |
+| `searchPlaceholder` | `string` | `'Search...'` | Search placeholder |
+| `noResultsText` | `string` | `'No results found'` | No results message |
+| `showClearButton` | `boolean` | `true` | Show clear button |
+| `searchDebounceDelay` | `number` | `300` | Search debounce (ms) |
+| `showLoaderIconOnSearchInput` | `boolean` | `false` | Show loader on search |
+| `preselectedIds` | `(number \| string)[]` | `[]` | Pre-selected IDs |
+| `multiple` | `boolean` | `false` | Multi-select mode |
+| `validateFns` | `ValidatorFn<DropdownItem<T>[]>[]` | `[]` | Custom validators |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `selectedItemsEv` | `ChangeEventType<DropdownItem<T>[]>` | Emitted on selection change |
+| `selectionClearedEv` | `void` | Emitted when cleared |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `selectedItems` | `DropdownItem<T>[]` | Selected items (two-way) |
+| `touched` | `boolean` | Tracks if user interacted |
+
+**Example:**
 
 ```typescript
-// Define your items
-const items: DropdownItem<number>[] = [
+// Define items
+const options: DropdownItem<number>[] = [
   { id: 1, name: 'Option 1' },
   { id: 2, name: 'Option 2' },
   { id: 3, name: 'Option 3' }
 ];
+
+// Component
+selected = signal<DropdownItem<number>[]>([]);
+multiSelected = signal<DropdownItem<number>[]>([]);
 ```
 
 ```html
-<!-- Single Select -->
+<!-- Single select -->
 <ZS-select
   label="Choose an option"
-  [items]="items"
-  [required]="true"
+  [items]="options"
   placeholder="Select..."
-  [showSearch]="true"
-  (selectedItemsEv)="onSelect($event)"
-/>
+  [(selectedItems)]="selected"
+  inputStyle="primary"
+></ZS-select>
 
-<!-- Multi-Select -->
+<!-- Multi-select -->
 <ZS-select
   label="Select multiple"
-  [items]="items"
+  [items]="options"
   [multiple]="true"
   [preselectedIds]="[1, 3]"
-  (selectedItemsEv)="onMultiSelect($event)"
-/>
+  [(selectedItems)]="multiSelected"
+  inputStyle="success"
+></ZS-select>
 ```
-
-**Inputs:**
-- `items`: `DropdownItem<T>[]` (required)
-- `multiple`: `boolean`
-- `preselectedIds`: `(number | string)[]`
-- `showSearch`: `boolean`
-- `showClearButton`: `boolean`
-- `required`, `disabled`, `isReadonly`
-- `placeholder`, `searchPlaceholder`, `noResultsText`
-- `searchDebounceDelay`: `number`
-
-**Outputs:**
-- `selectedItemsEv`: `EventEmitter<ChangeEventType<DropdownItem<T>[]>>`
-- `selectionClearedEv`: `EventEmitter<void>`
 
 ---
 
-### 4. **Checkbox Component**
+#### `ZS-checkbox`
+
+A customizable checkbox component with variant and shape options.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `inputStyle` | `FormStyle` | `'secondary'` | Color variant |
+| `size` | `BaseSize` | `'md'` | Checkbox size |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `variant` | `'solid' \| 'regular'` | `'regular'` | Icon style |
+| `shape` | `'square' \| 'circle'` | `'square'` | Checkbox shape |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `value` | `boolean` | Checked state (two-way) |
+
+**Example:**
 
 ```html
-<!-- Basic Checkbox -->
-<ZS-checkbox
-  label="Accept Terms"
-  hint="You must accept to continue"
-  [value]="isAccepted"
-  (valueChange)="isAccepted = $event"
-/>
+<!-- Basic checkbox -->
+<ZS-checkbox 
+  label="Accept terms"
+  [(value)]="accepted"
+></ZS-checkbox>
 
-<!-- Checkbox with Different Style -->
-<ZS-checkbox
-  label="Remember Me"
-  inputStyle="primary"
+<!-- Solid variant -->
+<ZS-checkbox 
+  label="Solid style"
   variant="solid"
+  inputStyle="primary"
+  [(value)]="solidChecked"
+></ZS-checkbox>
+
+<!-- Circle shape -->
+<ZS-checkbox 
+  label="Circle shape"
   shape="circle"
-  size="lg"
-/>
+  inputStyle="success"
+  [(value)]="circleChecked"
+></ZS-checkbox>
 ```
-
-**Inputs:**
-- `label`: `string | null`
-- `hint`: `string | null`
-- `inputStyle`: FormStyle
-- `size`: `'sm' | 'md' | 'lg'`
-- `variant`: `'solid' | 'regular'`
-- `shape`: `'square' | 'circle'`
-- `disabled`, `isReadonly`
-
-**Two-way Binding:**
-- `value`: `boolean` (via `[value]` and `(valueChange)`)
 
 ---
 
-### 5. **Toggle Component**
+#### `ZS-toggle`
+
+A toggle switch component with color and size options.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `color` | `BaseColors` | `'blue'` | Toggle color |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `iconTpl` | `TemplateRef<any>` | `undefined` | Icon template |
+| `size` | `BaseSize` | `'md'` | Toggle size |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `value` | `boolean` | Toggle state (two-way) |
+
+**Example:**
 
 ```html
-<!-- Basic Toggle -->
-<ZS-toggle
-  label="Enable Notifications"
-  color="blue"
-  [value]="isEnabled"
-  (valueChange)="isEnabled = $event"
-/>
+<!-- Basic toggle -->
+<ZS-toggle 
+  label="Enable notifications"
+  [(value)]="notificationsEnabled"
+></ZS-toggle>
 
-<!-- Toggle with Icon -->
-<ZS-toggle
-  label="Dark Mode"
-  color="indigo"
-  [iconTpl]="iconTemplate"
-  size="lg"
-/>
+<!-- Custom color -->
+<ZS-toggle 
+  label="Dark mode"
+  color="violet"
+  [(value)]="darkMode"
+></ZS-toggle>
 
-<ng-template #iconTemplate>
-  <i class="fas fa-moon"></i>
+<!-- With icon template -->
+<ZS-toggle 
+  label="Wi-Fi"
+  color="teal"
+  [iconTpl]="wifiIcon"
+  [(value)]="wifiOn"
+></ZS-toggle>
+
+<ng-template #wifiIcon>
+  <i class="fas fa-wifi"></i>
 </ng-template>
 ```
 
-**Inputs:**
-- `label`: `string | null`
-- `hint`: `string | null`
-- `color`: BaseColors (slate, gray, blue, red, etc.)
-- `size`: `'sm' | 'md' | 'lg'`
-- `disabled`, `isReadonly`
-- `iconTpl`: `TemplateRef<any>`
+---
 
-**Two-way Binding:**
-- `value`: `boolean` (via `[value]` and `(valueChange)`)
+#### `ZS-range`
+
+A customizable range slider component.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `min` | `number` | `10` | Minimum value |
+| `max` | `number` | `400` | Maximum value |
+| `step` | `number` | `10` | Step increment |
+| `inputStyle` | `FormStyle` | `'secondary'` | Color variant |
+| `size` | `BaseSize` | `'md'` | Range size |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `showValue` | `boolean` | `true` | Show current value |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `value` | `number` | Current value (two-way) |
+
+**Example:**
+
+```html
+<!-- Basic range -->
+<ZS-range 
+  label="Volume"
+  [min]="0"
+  [max]="100"
+  [step]="5"
+  [(value)]="volume"
+></ZS-range>
+
+<!-- With custom style -->
+<ZS-range 
+  label="Brightness"
+  [min]="0"
+  [max]="100"
+  inputStyle="primary"
+  size="lg"
+  [(value)]="brightness"
+></ZS-range>
+```
 
 ---
 
-### 6. **Card Component**
+#### `ZS-file`
+
+A file upload component with preview and validation support.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `iName` | `string \| null` | `null` | Input name attribute |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `placeholder` | `string \| null` | `null` | Placeholder text |
+| `inputStyle` | `FormStyle` | `'secondary'` | Color variant |
+| `autofocus` | `boolean` | `false` | Autofocus |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `required` | `boolean` | `false` | Required field |
+| `validateFns` | `ValidatorFn<FileData[]>[]` | `[]` | Custom validators |
+| `accept` | `string` | `''` | Accepted file types |
+| `multiple` | `boolean` | `false` | Multiple files |
+| `maxSize` | `number` | `5 * 1024 * 1024` | Max total size (bytes) |
+| `allowPreview` | `boolean` | `true` | Enable file preview |
+| `maxFiles` | `number \| 'infinity'` | `'infinity'` | Max file count |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `changeEv` | `ChangeEventType<FileData[]>` | Emitted on file change |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `files` | `FilesType` | Files map (two-way) |
+| `touched` | `boolean` | Tracks if user interacted |
+
+**Example:**
 
 ```html
-<!-- Basic Card -->
-<ZS-card cardStyle="primary" [clickable]="true">
+<!-- Single file upload -->
+<ZS-file
+  label="Upload Document"
+  hint="Max 5MB"
+  accept=".pdf,.docx,.jpg,.png"
+  [maxSize]="5 * 1024 * 1024"
+  [(files)]="files"
+  inputStyle="primary"
+></ZS-file>
+
+<!-- Multiple file upload -->
+<ZS-file
+  label="Upload Images"
+  hint="Select multiple images"
+  accept="image/*"
+  [multiple]="true"
+  [maxFiles]="5"
+  [allowPreview]="true"
+  [(files)]="files"
+  inputStyle="success"
+></ZS-file>
+```
+
+---
+
+#### `ZS-label`
+
+A label component for form fields.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `hintId` | `string \| null` | `null` | Hint ID |
+| `size` | `BaseSize` | `'md'` | Label size |
+| `required` | `boolean` | `false` | Required indicator |
+| `for` | `string \| null` | `null` | Associated input ID |
+
+**Example:**
+
+```html
+<ZS-label 
+  label="Username"
+  hint="Min 3 characters"
+  [required]="true"
+  for="username-input"
+></ZS-label>
+```
+
+---
+
+#### `ZS-input-errors`
+
+A component for displaying validation errors.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `errors` | `string[][]` | `[]` | Error messages |
+
+**Example:**
+
+```html
+<ZS-input-errors 
+  [errors]="[['Email is required', 'Invalid email format']]"
+></ZS-input-errors>
+```
+
+---
+
+#### `ZS-field`
+
+A headless field wrapper that provides consistent styling for form controls.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `Id` | `string` | `crypto.randomUUID()` | Unique identifier |
+| `for` | `string \| null` | `null` | Associated input ID |
+| `label` | `string \| null` | `null` | Label text |
+| `hint` | `string \| null` | `null` | Hint text |
+| `required` | `boolean` | `false` | Required indicator |
+| `fieldStyle` | `FormStyle` | `'secondary'` | Color variant |
+| `size` | `BaseSize` | `'md'` | Field size |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `isReadonly` | `boolean` | `false` | Readonly state |
+| `iconTpl` | `TemplateRef<any>` | `undefined` | Left icon template |
+| `errors` | `string[]` | `[]` | Error messages |
+
+**Example:**
+
+```html
+<ZS-field 
+  label="Custom Field" 
+  hint="Enter your value"
+  [required]="true"
+>
+  <input 
+    type="text" 
+    placeholder="Type here..."
+    class="zs:flex-1 zs:bg-transparent zs:outline-hidden"
+  >
+</ZS-field>
+```
+
+---
+
+#### `FieldInputStyle` Directive
+
+A directive that applies consistent styling to native inputs, textareas, and selects.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `size` | `BaseSize` | `'md'` | Input size |
+
+**Example:**
+
+```html
+<input zsInputStyle type="text" placeholder="Styled input">
+<textarea zsInputStyle placeholder="Styled textarea"></textarea>
+<select zsInputStyle>
+  <option>Option 1</option>
+</select>
+```
+
+---
+
+### Layout Components
+
+#### `ZS-card`
+
+A versatile card component with animations and hover effects.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `cardStyle` | `FormStyle` | `'primary'` | Color variant |
+| `variant` | `VariantType` | `undefined` | Card variant options |
+| `clickable` | `boolean` | `false` | Clickable state |
+| `animation` | `AnimationType` | `'none'` | Entrance animation |
+| `bodyClass` | `string` | `'zs:bg-gray-100 zs:dark:bg-gray-800'` | Body CSS class |
+
+**Animation Types:**
+
+```typescript
+type AnimationType = 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'none';
+```
+
+**Example:**
+
+```html
+<!-- Basic card -->
+<ZS-card cardStyle="primary">
   <div class="zs:p-6">
-    <h3 class="zs:text-xl zs:font-bold">Card Title</h3>
-    <p>Card content goes here</p>
+    <h3>Card Title</h3>
+    <p>Card content goes here.</p>
   </div>
 </ZS-card>
 
-<!-- Card with Animation -->
+<!-- Clickable card with animation -->
 <ZS-card 
   cardStyle="success" 
-  animation="bottom"
-  [variant]="{ shadow: true, border: true, border_hover: true }"
+  animation="bottom" 
   [clickable]="true"
-  (click)="handleCardClick()"
+  [variant]="{ shadow: true, border: true, border_hover: true }"
 >
-  <div class="zs:p-4">Animated Card</div>
+  <div class="zs:p-6">
+    <h3>Interactive Card</h3>
+    <p>Click me!</p>
+  </div>
 </ZS-card>
 ```
 
-**Inputs:**
-- `cardStyle`: FormStyle
-- `variant`: `{ border?: boolean, border_hover?: boolean, shadow?: boolean }`
-- `clickable`: `boolean`
-- `animation`: `'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'none'`
-- `bodyClass`: `string` (for custom background/color)
+---
+
+#### `ZS-carousel`
+
+A responsive carousel component with drag support and auto-play.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `itemsNumber` | `number` | **Required** | Total number of items |
+| `arrows` | `boolean` | `true` | Show navigation arrows |
+| `arrowColor` | `BaseColors` | `'gray'` | Arrow color |
+| `showIndicators` | `boolean` | `true` | Show indicators |
+| `autoPlay` | `boolean` | `true` | Auto-play slides |
+| `duration` | `number` | `3000` | Auto-play interval (ms) |
+| `maxItemsPerBox` | `number` | `4` | Max items per slide |
+| `itemMinWidth` | `number` | `200` | Min item width (px) |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `indexChangeEv` | `number` | Emitted on slide change |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `currentIndex` | `number` | Current slide index (two-way) |
+
+**Example:**
+
+```html
+<ZS-carousel
+  [itemsNumber]="items.length"
+  [arrows]="true"
+  [showIndicators]="true"
+  [autoPlay]="true"
+  [duration]="3000"
+  [maxItemsPerBox]="3"
+  arrowColor="blue"
+  [(currentIndex)]="activeSlide"
+>
+  @for (item of items; track item.id) {
+    <div carousel-item>
+      <div class="zs:p-6 zs:bg-blue-500 zs:rounded-lg zs:m-2 zs:h-48 zs:text-white">
+        <h3>{{ item.title }}</h3>
+      </div>
+    </div>
+  }
+</ZS-carousel>
+```
 
 ---
 
-### 7. **Modal Component**
+#### `ZS-modal`
+
+A modal dialog component with configurable buttons and positioning.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `title` | `string` | `'Modal Title'` | Modal title |
+| `modalStyle` | `FormStyle` | `'primary'` | Color variant |
+| `showCancelIcon` | `boolean` | `true` | Show close icon |
+| `showHeader` | `boolean` | `true` | Show header |
+| `showBody` | `boolean` | `true` | Show body |
+| `showFooter` | `boolean` | `true` | Show footer |
+| `cancelConfig` | `BtnType` | `undefined` | Cancel button config |
+| `confirmConfig` | `BtnType` | `undefined` | Confirm button config |
+| `position` | `Position` | `'center'` | Modal position |
+| `closeOnOverlay` | `boolean` | `true` | Close on overlay click |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `confirmEv` | `void` | Emitted on confirm |
+| `cancelEv` | `void` | Emitted on cancel |
+| `closedEv` | `void` | Emitted when closed |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `open` | `boolean` | Modal open state (two-way) |
+
+**Example:**
 
 ```html
+<ZS-button (clickedEv)="modalOpen.set(true)">Open Modal</ZS-button>
+
 <ZS-modal
-  [(open)]="isModalOpen"
+  [(open)]="modalOpen"
   title="Confirm Action"
   modalStyle="primary"
   [position]="'center'"
-  [showCancelIcon]="true"
-  [confirmConfig]="confirmConfig"
-  [cancelConfig]="cancelConfig"
-  (confirmEv)="handleConfirm()"
-  (cancelEv)="handleCancel()"
+  [confirmConfig]="{ text: 'Yes, Confirm', btnStyle: 'success' }"
+  [cancelConfig]="{ text: 'Cancel', btnStyle: 'secondary', variant: 'outline' }"
+  (confirmEv)="onConfirm()"
+  (cancelEv)="onCancel()"
 >
   <p>Are you sure you want to proceed?</p>
 </ZS-modal>
 ```
 
-```typescript
-export class MyComponent {
-  isModalOpen = false;
-  
-  confirmConfig = {
-    text: 'Yes, Confirm',
-    btnStyle: 'success' as FormStyle,
-    variant: 'solid' as ButtonVariant
-  };
-  
-  cancelConfig = {
-    text: 'Cancel',
-    btnStyle: 'secondary' as FormStyle,
-    variant: 'outline' as ButtonVariant
-  };
-}
+---
+
+#### `ZS-sidebar`
+
+A sidebar component with floating and fixed modes.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `header` | `string` | `'Side Bar'` | Sidebar header |
+| `preventClose` | `boolean` | `false` | Prevent closing |
+| `floating` | `boolean` | `false` | Floating mode |
+| `closeOnOverlay` | `boolean` | `true` | Close on overlay click |
+
+**Model:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `openSide` | `boolean` | Sidebar open state (two-way) |
+
+**Example:**
+
+```html
+<ZS-button (clickedEv)="sidebarOpen.set(true)">Open Sidebar</ZS-button>
+
+<ZS-sidebar
+  header="Menu"
+  [(openSide)]="sidebarOpen"
+  [floating]="true"
+  [closeOnOverlay]="true"
+>
+  <div main class="zs:p-4 zs:flex zs:flex-col zs:gap-2">
+    <a class="zs:p-2 zs:rounded zs:hover:bg-gray-100">Dashboard</a>
+    <a class="zs:p-2 zs:rounded zs:hover:bg-gray-100">Profile</a>
+    <a class="zs:p-2 zs:rounded zs:hover:bg-gray-100">Settings</a>
+  </div>
+</ZS-sidebar>
 ```
-
-**Inputs:**
-- `open`: `boolean` (two-way bindable)
-- `title`: `string`
-- `modalStyle`: FormStyle
-- `position`: `'center' | 'top' | 'bot' | 'left top' | 'left bot' | 'right top' | 'right bot'`
-- `showHeader`, `showBody`, `showFooter`: `boolean`
-- `showCancelIcon`: `boolean`
-- `closeOnOverlay`: `boolean`
-- `cancelConfig`, `confirmConfig`: `BtnType`
-
-**Outputs:**
-- `confirmEv`: `EventEmitter<void>`
-- `cancelEv`: `EventEmitter<void>`
-- `closedEv`: `EventEmitter<void>`
 
 ---
 
-### 8. **Alert System**
+#### `ZS-navbar`
+
+A responsive navigation bar component with search, auth, and user menu.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `fixed` | `boolean` | `true` | Fixed navbar |
+| `mobileMode` | `MobileModeType` | `'lg'` | Mobile breakpoint |
+| `logoUrl` | `string \| undefined` | `undefined` | Logo image URL |
+| `siteNameConfig` | `SiteNameConfigType \| undefined` | `undefined` | Site name config |
+| `authButtons` | `AuthButtonsType` | `{ showAuthButtons: false }` | Auth button config |
+| `showUserSection` | `boolean` | `true` | Show user section |
+| `showSearchBar` | `boolean` | `false` | Show search bar |
+| `navItems` | `NavItemsType` | `undefined` | Navigation items |
+| `isLoggedIn` | `boolean` | `false` | Login state |
+| `userProfile` | `UserProfile \| undefined` | `undefined` | User profile |
+| `userMenuItems` | `UserItemsType` | `undefined` | User menu items |
+| `searchPlaceholder` | `string` | `'Search...'` | Search placeholder |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `loginClickedEv` | `void` | Emitted on login click |
+| `signupClickedEv` | `void` | Emitted on signup click |
+| `searchSubmittedEv` | `string \| null` | Emitted on search |
+| `anyItemClickedEv` | `NavbarItem` | Emitted on any nav item click |
+
+**Models:**
+
+| Model | Type | Description |
+|-------|------|-------------|
+| `searchValue` | `string \| null` | Search value (two-way) |
+| `isMobileMenuOpen` | `boolean` | Mobile menu state (two-way) |
+| `isUserMenuOpen` | `boolean` | User menu state (two-way) |
+| `isMoreOpen` | `boolean` | More menu state (two-way) |
+
+**Example:**
 
 ```typescript
+// Component setup
+navItems: NavItemsType = {
+  routerLinkActive: 'zs:bg-blue-500 zs:text-white zs:rounded-md',
+  items: [
+    { id: 'home', label: 'Home', routerLink: '/' },
+    { id: 'products', label: 'Products', children: [
+      { id: 'p1', label: 'Electronics', routerLink: '/electronics' }
+    ], childrenConfig: { childrenOpenWindow: true } }
+  ]
+};
+
+userProfile: UserProfile = {
+  name: 'John Doe',
+  username: 'johndoe',
+  email: 'john@example.com'
+};
+
+authButtons: AuthButtonsType = {
+  showAuthButtons: true,
+  login: { btnStyle: 'secondary', variant: 'outline' },
+  signup: { btnStyle: 'primary', variant: 'solid' }
+};
+```
+
+```html
+<ZS-navbar
+  [fixed]="true"
+  mobileMode="lg"
+  [siteNameConfig]="{ siteName: 'My App' }"
+  [navItems]="navItems"
+  [authButtons]="authButtons"
+  [isLoggedIn]="isLoggedIn()"
+  [userProfile]="userProfile"
+  [showSearchBar]="true"
+  (loginClickedEv)="onLogin()"
+  (searchSubmittedEv)="onSearch($event)"
+></ZS-navbar>
+```
+
+---
+
+#### `ZS-footer`
+
+A footer component with navigation links.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `showDefultContent` | `boolean` | `true` | Show default content |
+| `pages` | `PagesType[]` | `[]` | Navigation pages |
+
+**Example:**
+
+```html
+<ZS-footer [showDefultContent]="true" [pages]="footerPages">
+  <div rights>&copy; 2026 My Company. All rights reserved.</div>
+</ZS-footer>
+```
+
+---
+
+### Feedback Components
+
+#### `ZS-alert`
+
+A notification component that works with `AlertService`. This component is typically placed once in your app and renders all alerts from the service.
+
+**Note:** The `ZS-alert` component is configured via inputs but primarily displays alerts from the `AlertService`.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `positionClass` | `string` | `'zs:top-4 zs:right-4'` | Position classes |
+| `direction` | `'top' \| 'bottom'` | `'top'` | Stack direction |
+| `maxh` | `string` | `'zs:max-h-[calc(100vh-1.2rem)]'` | Max height |
+| `defaultShowCloseButton` | `boolean` | `true` | Show close button by default |
+| `defaultAutoClose` | `boolean` | `true` | Auto-close by default |
+| `defaultDuration` | `number` | `5000` | Default duration (ms) |
+
+**Example:**
+
+```html
+<!-- Place once in your app layout -->
+<ZS-alert 
+  positionClass="zs:top-4 zs:right-4"
+  direction="top"
+  [defaultAutoClose]="true"
+  [defaultDuration]="3000"
+></ZS-alert>
+```
+
+---
+
+#### `ZS-spinner`
+
+A loading spinner component with multiple styles and sizes.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `loading` | `boolean` | `false` | Show spinner |
+| `isFloating` | `boolean` | `false` | Floating overlay mode |
+| `color` | `BaseColors` | `'blue'` | Spinner color |
+| `withBox` | `boolean` | `false` | Show background box |
+| `boxColorClass` | `string` | `'zs:bg-gray-300/90 zs:dark:bg-gray-400/80'` | Box CSS class |
+| `type` | `LoaderType` | `'spinner'` | Spinner type |
+| `size` | `BaseSize` | `'md'` | Spinner size |
+
+**Loader Types:**
+
+```typescript
+type LoaderType = 'spinner' | 'pro' | 'double' | 'gear' | 'fan' | 'pulse' | 'dots' | 'bars';
+```
+
+**Example:**
+
+```html
+<!-- Basic spinner -->
+<ZS-spinner [loading]="isLoading()" type="spinner" size="md" color="blue"></ZS-spinner>
+
+<!-- Fullscreen overlay -->
+<ZS-spinner 
+  [loading]="isLoading()" 
+  [isFloating]="true" 
+  type="double" 
+  size="lg" 
+  color="violet" 
+  [withBox]="true"
+></ZS-spinner>
+
+<!-- Different types -->
+<ZS-spinner [loading]="true" type="pro"></ZS-spinner>
+<ZS-spinner [loading]="true" type="dots"></ZS-spinner>
+<ZS-spinner [loading]="true" type="bars"></ZS-spinner>
+```
+
+---
+
+#### `ZS-connection`
+
+A connection status indicator component.
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `isOnlineEv` | `boolean` | Emitted on connection status change |
+
+**Example:**
+
+```html
+<ZS-connection (isOnlineEv)="onConnectionChange($event)"></ZS-connection>
+```
+
+---
+
+### Navigation Components
+
+#### `ZS-nav-item`
+
+A navigation item component with dropdown support.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `item` | `NavbarItem` | **Required** | Navigation item |
+| `collectionName` | `string` | **Required** | Collection identifier |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `anyItemClickedEv` | `NavbarItem` | Emitted on click |
+
+**Example:**
+
+```html
+<!-- Simple item -->
+<ZS-nav-item
+  [item]="{ id: 'home', label: 'Home', routerLink: '/' }"
+  collectionName="demo"
+></ZS-nav-item>
+
+<!-- With dropdown -->
+<ZS-nav-item
+  [item]="{
+    id: 'settings',
+    label: 'Settings',
+    children: [
+      { id: 'account', label: 'Account', routerLink: '/account' },
+      { id: 'privacy', label: 'Privacy', routerLink: '/privacy' }
+    ],
+    childrenConfig: { childrenOpenWindow: true }
+  }"
+  collectionName="demo"
+></ZS-nav-item>
+```
+
+---
+
+#### `ZS-pagination`
+
+A pagination component.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `totalPages` | `number` | **Required** | Total number of pages |
+| `currentPage` | `number` | **Required** | Current page |
+| `showTotalItems` | `boolean` | `false` | Show total items |
+| `totalItemsMessage` | `string` | `'Total items:'` | Total items message |
+| `totalItems` | `number` | `undefined` | Total items count |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `pageChangeEv` | `number` | Emitted on page change |
+
+**Example:**
+
+```html
+<ZS-pagination
+  [totalPages]="totalPages()"
+  [currentPage]="currentPage()"
+  [showTotalItems]="true"
+  [totalItems]="totalItems()"
+  (pageChangeEv)="onPageChange($event)"
+></ZS-pagination>
+```
+
+---
+
+#### `ZS-scroll-to-top`
+
+A scroll-to-top button with progress ring.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `position` | `'left' \| 'right'` | `'right'` | Button position |
+| `circleColorClass` | `string` | `'zs:text-gray-400/60 zs:dark:text-gray-600/70 zs:group-hover:brightness-110'` | Circle color class |
+| `arrowProgressColor` | `BaseColors` | `'blue'` | Arrow and progress color |
+
+**Example:**
+
+```html
+<ZS-scroll-to-top
+  position="right"
+  arrowProgressColor="blue"
+></ZS-scroll-to-top>
+```
+
+---
+
+### Utility Components
+
+#### `ZS-theme-toggle`
+
+A theme toggle component for switching between light and dark modes.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `bodyClass` | `string` | `'zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100'` | Body CSS classes |
+| `showDefaultUI` | `boolean` | `true` | Show default UI |
+| `setManualTheme` | `themeTypes \| null` | `null` | Manual theme override |
+| `fromTop` | `number` | `1/4` | Position from top (fraction) |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `themeChangeEv` | `themeTypes` | Emitted on theme change |
+
+**Example:**
+
+```html
+<ZS-theme-toggle
+  [bodyClass]="'zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100'"
+  [showDefaultUI]="true"
+  (themeChangeEv)="onThemeChange($event)"
+></ZS-theme-toggle>
+```
+
+---
+
+#### `ZS-page404`
+
+A 404 error page component.
+
+| Input | Type | Default | Description |
+|-------|------|---------|-------------|
+| `title` | `string` | `'Page Not Found'` | Page title |
+| `message` | `string` | `'Hmm… this page doesn’t seem to exist.'` | Error message |
+| `iconTpl` | `TemplateRef<any>` | `undefined` | Icon template |
+| `pageStyle` | `FormStyle \| 'normal'` | `'normal'` | Style variant |
+| `showButton` | `boolean` | `true` | Show home button |
+| `buttonText` | `string` | `'Go Home'` | Button text |
+| `routerLink` | `string` | `'/'` | Home route |
+
+**Outputs:**
+
+| Output | Type | Description |
+|--------|------|-------------|
+| `onAction` | `void` | Emitted on button click |
+
+**Example:**
+
+```html
+<ZS-page404
+  title="Oops! Page Not Found"
+  message="The page you're looking for doesn't exist."
+  pageStyle="primary"
+  buttonText="Back to Home"
+  routerLink="/"
+></ZS-page404>
+```
+
+---
+
+## Services API
+
+### `AlertService`
+
+A service for managing notifications.
+
+**Methods:**
+
+| Method | Parameters | Return | Description |
+|--------|------------|--------|-------------|
+| `addAlert` | `newAlert: NewAlert` | `void` | Add a single alert |
+| `bulkAlert` | `newAlerts: string[], options: BulkAlert` | `void` | Add multiple alerts |
+| `onAlertClosed` | `id: string \| number` | `void` | Called when alert closes |
+
+**Signals:**
+
+| Signal | Type | Description |
+|--------|------|-------------|
+| `alerts` | `AlertType[]` | Current alerts array |
+
+**Example:**
+
+```typescript
+import { inject } from '@angular/core';
 import { AlertService } from '@ziadshalaby/ngx-zs-component';
 
-@Component({
-  // ...
-})
 export class MyComponent {
   private alertService = inject(AlertService);
-  
+
   showSuccess() {
     this.alertService.addAlert({
       type: 'success',
-      message: 'Operation completed successfully!',
+      message: 'Operation completed!',
       autoClose: true,
       duration: 3000
     });
   }
-  
-  showError() {
-    this.alertService.addAlert({
-      type: 'danger',
-      message: 'Something went wrong!',
-      autoClose: false
-    });
-  }
-  
-  bulkAlerts() {
+
+  showBulk() {
     this.alertService.bulkAlert(
       ['Alert 1', 'Alert 2', 'Alert 3'],
       { type: 'info', autoClose: true, duration: 2000 }
@@ -519,937 +1456,39 @@ export class MyComponent {
 }
 ```
 
-```html
-<!-- Place in your root component -->
-<ZS-alert 
-  [positionClass]="'zs:top-4 zs:right-4'"
-  [direction]="'top'"
-  [defaultAutoClose]="true"
-  [defaultDuration]="5000"
-  [defaultShowCloseButton]="true"
-></ZS-alert>
-```
-
-**Alert Types:**
-- `'success'` – Green theme with check icon
-- `'danger'` – Red theme with exclamation icon
-- `'warning'` – Yellow theme with warning icon
-- `'info'` – Blue theme with info icon
-
 ---
 
-### 9. **Navbar Component**
+### `Form<T>`
+
+A lightweight form state management class using Signals.
+
+**Constructor:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `initial` | `T` | Initial form values |
+
+**Methods:**
+
+| Method | Parameters | Return | Description |
+|--------|------------|--------|-------------|
+| `set` | `key: K, value: T[K] \| null, valid?: boolean, touched?: boolean` | `void` | Set field value |
+| `patch` | `key: K, partial: Partial<{ value: T[K] \| null; valid: boolean; touched: boolean }>` | `void` | Patch field |
+| `get` | `key: K` | `{ value: T[K] \| null; valid: boolean; touched: boolean }` | Get field |
+| `markAllTouched` | - | `void` | Mark all fields touched |
+| `allTouched` | - | `boolean` | Check if all touched |
+| `reset` | - | `void` | Reset form |
+| `getValues` | - | `T` | Get all values |
+| `getValidations` | - | `Record<keyof T, boolean>` | Get validation states |
+| `allFilled` | - | `Record<keyof T, boolean>` | Get filled states |
+| `canSubmit` | `allowEmptyFields?: (keyof T)[], allowInvalidFields?: (keyof T)[]` | `boolean` | Check if submitable |
+| `submit` | `callback: (values: T) => void, allowEmptyFields?: (keyof T)[], allowInvalidFields?: (keyof T)[]` | `void` | Submit form |
+
+**Example:**
 
 ```typescript
-// Define navigation items
-const navItems: NavItemsType = {
-  routerLinkActive: 'zs:bg-primary-500 zs:text-white',
-  colorClass: 'zs:hover:bg-gray-100 zs:dark:hover:bg-gray-700',
-  items: [
-    {
-      id: 'home',
-      label: 'Home',
-      routerLink: '/',
-      iconTpl: homeIcon
-    },
-    {
-      id: 'products',
-      label: 'Products',
-      children: [
-        { id: 'p1', label: 'Electronics', routerLink: '/electronics' },
-        { id: 'p2', label: 'Clothing', routerLink: '/clothing' }
-      ],
-      childrenConfig: {
-        childrenOpenWindow: true,
-        childrenWindowDir: 'bottom-left'
-      }
-    }
-  ]
-};
+import { Form } from '@ziadshalaby/ngx-zs-component';
 
-const userMenuItems: UserItemsType = {
-  items: [
-    { id: 'profile', label: 'Profile', routerLink: '/profile' },
-    { id: 'settings', label: 'Settings', routerLink: '/settings' },
-    { id: 'logout', label: 'Logout', action: () => this.logout() }
-  ]
-};
-```
-
-```html
-<ZS-navbar
-  [fixed]="true"
-  [mobileMode]="'lg'"
-  [logoUrl]="logoUrl"
-  [siteNameConfig]="{
-    siteName: 'My App',
-    siteNameColorClass: 'zs:text-gray-800 zs:dark:text-white',
-    routerLink: '/'
-  }"
-  [navItems]="navItems"
-  [authButtons]="{
-    showAuthButtons: true,
-    login: { btnStyle: 'secondary', variant: 'outline' },
-    signup: { btnStyle: 'primary', variant: 'solid' }
-  }"
-  [isLoggedIn]="isLoggedIn"
-  [userProfile]="userProfile"
-  [userMenuItems]="userMenuItems"
-  [showSearchBar]="true"
-  [searchPlaceholder]="'Search...'"
-  [(searchValue)]="searchQuery"
-  (loginClickedEv)="onLogin()"
-  (signupClickedEv)="onSignup()"
-  (searchSubmittedEv)="onSearch($event)"
-  (anyItemClickedEv)="onNavItemClick($event)"
-></ZS-navbar>
-```
-
-**Inputs:**
-- `fixed`: `boolean`
-- `mobileMode`: `'xs' | 'sm' | 'md' | 'lg' | 'xl'`
-- `logoUrl`: `string`
-- `siteNameConfig`: `SiteNameConfigType`
-- `navItems`: `NavItemsType`
-- `authButtons`: `AuthButtonsType`
-- `isLoggedIn`: `boolean`
-- `userProfile`: `UserProfile`
-- `userMenuItems`: `UserItemsType`
-- `showSearchBar`: `boolean`
-- `showUserSection`: `boolean`
-- `searchPlaceholder`: `string`
-
-**Outputs:**
-- `loginClickedEv`, `signupClickedEv`
-- `searchSubmittedEv`: `EventEmitter<string | null>`
-- `anyItemClickedEv`: `EventEmitter<NavbarItem>`
-
----
-
-### 10. **Sidebar Component**
-
-```html
-<ZS-sidebar
-  header="Menu"
-  [(openSide)]="isSidebarOpen"
-  [floating]="true"
-  [preventClose]="false"
-  [closeOnOverlay]="true"
-  class="zs:h-screen"
->
-  <div main class="zs:p-4">
-    <!-- Sidebar content -->
-    <nav class="zs:flex zs:flex-col zs:gap-2">
-      <a routerLink="/dashboard">Dashboard</a>
-      <a routerLink="/profile">Profile</a>
-      <a routerLink="/settings">Settings</a>
-    </nav>
-  </div>
-</ZS-sidebar>
-```
-
-**Inputs:**
-- `header`: `string`
-- `openSide`: `boolean` (two-way bindable)
-- `floating`: `boolean`
-- `preventClose`: `boolean`
-- `closeOnOverlay`: `boolean`
-
----
-
-### 11. **Carousel Component**
-
-```html
-<ZS-carousel
-  [itemsNumber]="5"
-  [arrows]="true"
-  [showIndicators]="true"
-  [autoPlay]="true"
-  [duration]="3000"
-  [maxItemsPerBox]="4"
-  [itemMinWidth]="200"
-  arrowColor="blue"
-  [(currentIndex)]="activeSlide"
-  (indexChangeEv)="onSlideChange($event)"
->
-  <div carousel-item *ngFor="let item of items">
-    <div class="zs:p-4 zs:bg-gray-100 zs:dark:bg-gray-800 zs:rounded-lg zs:m-2">
-      <h3>{{ item.title }}</h3>
-      <p>{{ item.description }}</p>
-    </div>
-  </div>
-</ZS-carousel>
-```
-
-**Inputs:**
-- `itemsNumber`: `number` (required)
-- `arrows`: `boolean`
-- `arrowColor`: BaseColors
-- `showIndicators`: `boolean`
-- `autoPlay`: `boolean`
-- `duration`: `number`
-- `maxItemsPerBox`: `number`
-- `itemMinWidth`: `number`
-
-**Two-way Binding:**
-- `currentIndex`: `number` (via `[currentIndex]` and `(currentIndexChange)`)
-
-**Outputs:**
-- `indexChangeEv`: `EventEmitter<number>`
-
----
-
-### 12. **Spinner Component**
-
-```html
-<!-- Basic Spinner -->
-<ZS-spinner
-  [loading]="isLoading"
-  type="spinner"
-  size="md"
-  color="blue"
-/>
-
-<!-- Full-page Overlay Spinner -->
-<ZS-spinner
-  [loading]="isLoading"
-  [isFloating]="true"
-  type="pro"
-  size="lg"
-  color="primary"
-  [withBox]="true"
-/>
-
-<!-- Different Spinner Types -->
-<ZS-spinner type="dots" color="success" size="lg" />
-<ZS-spinner type="bars" color="danger" size="md" />
-<ZS-spinner type="gear" color="violet" size="sm" />
-<ZS-spinner type="fan" color="teal" size="lg" />
-<ZS-spinner type="pulse" color="info" size="md" />
-<ZS-spinner type="double" color="warning" size="lg" />
-```
-
-**Types:**
-- `'spinner'` – Font Awesome spinner icon
-- `'pro'` – Progress ring spinner
-- `'double'` – Double ring spinner
-- `'gear'` – Gear icon spinner
-- `'fan'` – Fan icon spinner
-- `'pulse'` – Pulse ring spinner
-- `'dots'` – Bouncing dots
-- `'bars'` – Animated bars
-
-**Inputs:**
-- `loading`: `boolean`
-- `isFloating`: `boolean` (full-screen overlay)
-- `type`: LoaderType
-- `size`: `'sm' | 'md' | 'lg'`
-- `color`: BaseColors
-- `withBox`: `boolean`
-- `boxColorClass`: `string`
-
----
-
-### 13. **ThemeToggle Component**
-
-```html
-<!-- Default Theme Toggle -->
-<ZS-theme-toggle
-  [bodyClass]="'zs:bg-white zs:dark:bg-gray-900 zs:text-gray-900 zs:dark:text-gray-100'"
-  [showDefaultUI]="true"
-  [fromTop]="0.25"
-  (themeChangeEv)="onThemeChange($event)"
-></ZS-theme-toggle>
-
-<!-- Custom Implementation (No UI) -->
-<ZS-theme-toggle
-  [showDefaultUI]="false"
-  (themeChangeEv)="onThemeChange($event)"
-></ZS-theme-toggle>
-```
-
-**Features:**
-- Persistent theme storage in `localStorage`
-- System preference detection
-- Drag-to-reposition
-- Smooth animations
-- Keyboard accessible
-
----
-
-### 14. **ScrollToTop Component**
-
-```html
-<ZS-scroll-to-top
-  [position]="'right'"
-  arrowProgressColor="blue"
-  [circleColorClass]="'zs:text-gray-400/60 zs:dark:text-gray-600/70'"
-/>
-```
-
-**Inputs:**
-- `position`: `'left' | 'right'`
-- `arrowProgressColor`: BaseColors
-- `circleColorClass`: `string` (custom CSS classes)
-
----
-
-### 15. **Pagination Component**
-
-```html
-<ZS-pagination
-  [totalPages]="totalPages"
-  [currentPage]="currentPage"
-  [showTotalItems]="true"
-  [totalItems]="totalItems"
-  [totalItemsMessage]="'Total items:'"
-  (pageChangeEv)="onPageChange($event)"
-/>
-```
-
-**Inputs:**
-- `totalPages`: `number` (required)
-- `currentPage`: `number` (required)
-- `showTotalItems`: `boolean`
-- `totalItemsMessage`: `string`
-- `totalItems`: `number`
-
-**Outputs:**
-- `pageChangeEv`: `EventEmitter<number>`
-
----
-
-### 16. **Page404 Component**
-
-```html
-<ZS-page404
-  title="Oops! Page Not Found"
-  message="The page you're looking for doesn't exist or has been moved."
-  pageStyle="primary"
-  buttonText="Back to Home"
-  routerLink="/"
-  (onAction)="handleAction()"
-/>
-```
-
-**Inputs:**
-- `title`: `string`
-- `message`: `string`
-- `pageStyle`: `FormStyle | 'normal'`
-- `showButton`: `boolean`
-- `buttonText`: `string`
-- `routerLink`: `string`
-- `iconTpl`: `TemplateRef<any>`
-
-**Outputs:**
-- `onAction`: `EventEmitter<void>`
-
----
-
-### 17. **Connection Component**
-
-```html
-<ZS-connection (isOnlineEv)="onConnectionChange($event)"></ZS-connection>
-```
-
-**Outputs:**
-- `isOnlineEv`: `EventEmitter<boolean>`
-
----
-
-### 18. **Footer Component**
-
-```html
-<ZS-footer [showDefultContent]="true" [pages]="footerPages">
-  <div rights>&copy; 2026 My Company. All rights reserved.</div>
-</ZS-footer>
-```
-
-```typescript
-const footerPages: PagesType[] = [
-  { label: 'Privacy Policy', routerLink: '/privacy' },
-  { label: 'Terms of Service', routerLink: '/terms' },
-  { label: 'Contact Us', routerLink: '/contact' }
-];
-```
-
----
-
-### 19. **NavItem Component (Standalone)**
-
-The `ZS-nav-item` component can be used independently outside the Navbar for building custom navigation menus, dropdowns, or any hierarchical navigation structure.
-
-```html
-<!-- Basic NavItem -->
-<ZS-nav-item
-  [item]="navItem"
-  [collectionName]="'my-collection'"
-  (anyItemClickedEv)="onItemClick($event)"
-></ZS-nav-item>
-
-<!-- NavItem with Children (Dropdown) -->
-<ZS-nav-item
-  [item]="navItemWithChildren"
-  [collectionName]="'dropdown-collection'"
-  (anyItemClickedEv)="onItemClick($event)"
-></ZS-nav-item>
-```
-
-```typescript
-import { Component } from '@angular/core';
-import { NavItem, NavbarItem } from '@ziadshalaby/ngx-zs-component';
-
-@Component({
-  selector: 'app-my-component',
-  standalone: true,
-  imports: [NavItem],
-  template: `
-    <div class="zs:p-4">
-      <ZS-nav-item
-        [item]="settingsMenu"
-        [collectionName]="'settings-menu'"
-        (anyItemClickedEv)="handleMenuClick($event)"
-      ></ZS-nav-item>
-    </div>
-  `
-})
-export class MyComponent {
-  // Simple leaf item
-  readonly simpleItem: NavbarItem = {
-    id: 'profile',
-    label: 'My Profile',
-    routerLink: '/profile',
-    action: () => console.log('Profile clicked')
-  };
-
-  // Item with children (dropdown)
-  readonly settingsMenu: NavbarItem = {
-    id: 'settings',
-    label: '⚙️ Settings',
-    children: [
-      { 
-        id: 'account', 
-        label: 'Account Settings', 
-        routerLink: '/settings/account',
-        closeParentMenuAfterClick: true 
-      },
-      { 
-        id: 'privacy', 
-        label: 'Privacy', 
-        routerLink: '/settings/privacy',
-        closeParentMenuAfterClick: true 
-      },
-      { 
-        id: 'notifications', 
-        label: 'Notifications', 
-        routerLink: '/settings/notifications',
-        closeParentMenuAfterClick: true 
-      }
-    ],
-    childrenConfig: {
-      childrenOpenWindow: true,      // Opens as floating dropdown
-      childrenWindowDir: 'bottom-right',
-      showChevronDownIcon: true,
-      closeMenuOnPointerOutside: true
-    }
-  };
-
-  handleMenuClick(item: NavbarItem) {
-    console.log('Menu item clicked:', item.label);
-    item.action?.();
-  }
-}
-```
-
-**NavItem Configuration Options:**
-
-```typescript
-export interface NavbarItem {
-  id: string | number;
-  label: string;
-  routerLink?: string;                // Router link for navigation
-  routerLinkActive?: string;          // Active state class
-  action?: () => void;                // Custom action on click
-  iconTpl?: Signal<TemplateRef<any> | undefined>;
-  iconClasses?: string;
-  children?: NavbarItem[];            // Nested items
-  childrenConfig?: {
-    showChevronDownIcon?: boolean;     // Default: true
-    childrenOpenWindow?: boolean;      // Default: false (inline)
-    childrenWindowDir?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
-    closeMenuOnPointerOutside?: boolean;
-  };
-  closeParentMenuAfterClick?: boolean; // Auto-close parent after click
-  colorClass?: string;                // Custom CSS classes
-  useDefaultColorClass?: 'text' | 'bg';
-}
-```
-
-**Key Features:**
-- ✅ **Nested Dropdown Support** – Unlimited nesting levels
-- ✅ **Floating or Inline** – Choose between dropdown or inline display
-- ✅ **Auto-close** – Configurable close behavior
-- ✅ **Keyboard Accessible** – Full keyboard navigation
-- ✅ **Custom Actions** – Support for `action()` callbacks
-- ✅ **Router Integration** – Built-in RouterLink support
-
----
-
-### 20. **Range Component**
-
-The `ZS-range` component provides a custom range slider with visual feedback, progress tracking, and accessibility features.
-
-```html
-<!-- Basic Range Slider -->
-<ZS-range
-  label="Select Price Range"
-  [min]="100"
-  [max]="1000"
-  [step]="50"
-  [value]="selectedPrice"
-  (valueChange)="selectedPrice = $event"
-/>
-
-<!-- Range with Different Style -->
-<ZS-range
-  label="Volume"
-  hint="Adjust the volume level"
-  inputStyle="success"
-  size="lg"
-  [showValue]="true"
-  [value]="volume"
-  (valueChange)="volume = $event"
-/>
-
-<!-- Disabled Range -->
-<ZS-range
-  label="Rating"
-  [min]="1"
-  [max]="5"
-  [step]="1"
-  [value]="4.5"
-  [disabled]="true"
-/>
-```
-
-**Inputs:**
-- `label`: `string | null`
-- `hint`: `string | null`
-- `min`: `number` (default: 10)
-- `max`: `number` (default: 400)
-- `step`: `number` (default: 10)
-- `inputStyle`: FormStyle
-- `size`: `'sm' | 'md' | 'lg'`
-- `disabled`: `boolean`
-- `isReadonly`: `boolean`
-- `showValue`: `boolean` (default: true)
-
-**Two-way Binding:**
-- `value`: `number` (via `[value]` and `(valueChange)`)
-
----
-
-### 21. **File Input Component**
-
-The `ZS-file` component provides a complete file upload solution with drag-and-drop, preview, validation, and multiple file support.
-
-```html
-<!-- Basic File Upload -->
-<ZS-file
-  label="Upload Document"
-  hint="Supported: PDF, DOCX, JPG"
-  accept=".pdf,.docx,.jpg,.png"
-  [maxSize]="5 * 1024 * 1024"
-  [(files)]="uploadedFiles"
-  (changeEv)="onFileChange($event)"
-/>
-
-<!-- Multiple File Upload -->
-<ZS-file
-  label="Upload Images"
-  hint="Select multiple images"
-  accept="image/*"
-  [multiple]="true"
-  [maxFiles]="10"
-  [required]="true"
-  inputStyle="primary"
-  [(files)]="imageFiles"
-/>
-
-<!-- File Upload with Preview -->
-<ZS-file
-  label="Profile Picture"
-  accept="image/*"
-  [allowPreview]="true"
-  [maxSize]="2 * 1024 * 1024"
-  [required]="true"
-  [validateFns]="[fileValidator]"
-  [(files)]="profilePicture"
-/>
-
-<!-- Readonly File List -->
-<ZS-file
-  label="Attachments"
-  [files]="existingFiles"
-  [isReadonly]="true"
-  [allowPreview]="true"
-/>
-```
-
-```typescript
-import { Component } from '@angular/core';
-import { FileInput, FilesType, FileData } from '@ziadshalaby/ngx-zs-component';
-
-@Component({
-  // ...
-})
-export class MyComponent {
-  uploadedFiles: FilesType = new Map();
-  imageFiles: FilesType = new Map();
-  profilePicture: FilesType = new Map();
-
-  // Custom validator
-  fileValidator = (files: FileData[]): string[] => {
-    const errors: string[] = [];
-    for (const file of files) {
-      if (!file.name.match(/^[a-zA-Z0-9\s\-_]+\.(jpg|png|pdf)$/)) {
-        errors.push(`Invalid filename: ${file.name}`);
-      }
-    }
-    return errors;
-  };
-
-  onFileChange(event: any) {
-    console.log('Files changed:', event);
-    console.log('Valid:', event.valid);
-  }
-}
-```
-
-**Inputs:**
-- `label`: `string | null`
-- `hint`: `string | null`
-- `placeholder`: `string | null`
-- `inputStyle`: FormStyle
-- `accept`: `string` (MIME types or extensions)
-- `multiple`: `boolean`
-- `maxSize`: `number` (bytes, default: 5MB)
-- `maxFiles`: `number | 'infinity'` (default: 'infinity')
-- `allowPreview`: `boolean` (default: true)
-- `required`: `boolean`
-- `disabled`: `boolean`
-- `isReadonly`: `boolean`
-- `autofocus`: `boolean`
-- `validateFns`: `ValidatorFn<FileData[]>[]`
-
-**Two-way Binding:**
-- `files`: `FilesType` (Map of file data)
-- `touched`: `boolean`
-
-**Outputs:**
-- `changeEv`: `EventEmitter<ChangeEventType<FileData[]>>`
-
----
-
-### 22. **Label Component**
-
-The `ZS-label` component provides consistent labeling with hint/description support for form controls.
-
-```html
-<!-- Basic Label -->
-<ZS-label
-  label="Email Address"
-  for="email-input"
-/>
-
-<!-- Label with Hint -->
-<ZS-label
-  label="Password"
-  hint="Minimum 8 characters"
-  for="password-input"
-  [required]="true"
-/>
-
-<!-- Label with Different Sizes -->
-<ZS-label
-  label="Large Label"
-  hint="Large hint text"
-  size="lg"
-  for="large-input"
-/>
-
-<ZS-label
-  label="Small Label"
-  hint="Small hint text"
-  size="sm"
-  for="small-input"
-/>
-```
-
-**Inputs:**
-- `label`: `string | null`
-- `hint`: `string | null`
-- `hintId`: `string | null` (for accessibility linking)
-- `size`: `'sm' | 'md' | 'lg'` (default: 'md')
-- `required`: `boolean`
-- `for`: `string | null` (input ID reference)
-
-**Size Classes:**
-- `sm`: `text-xs` label, `text-[10px]` hint
-- `md`: `text-sm` label, `text-xs` hint
-- `lg`: `text-base` label, `text-sm` hint
-
----
-
-### 23. **InputErrors Component**
-
-The `ZS-input-errors` component displays validation error messages with automatic extraction from nested error objects.
-
-```html
-<!-- Simple Error Display -->
-<ZS-input-errors
-  [Id]="'email-error'"
-  [errors]="[emailErrors]"
-/>
-
-<!-- Multiple Error Sources -->
-<ZS-input-errors
-  [Id]="'form-errors'"
-  [errors]="[requiredError, minLengthError, customErrors]"
-/>
-```
-
-```typescript
-import { Component } from '@angular/core';
-import { InputErrors } from '@ziadshalaby/ngx-zs-component';
-
-@Component({
-  // ...
-  imports: [InputErrors],
-  template: `
-    <ZS-input-errors
-      [errors]="[validationErrors]"
-    />
-  `
-})
-export class MyComponent {
-  validationErrors = [
-    'Email is required',
-    'Password must be at least 8 characters',
-    'Password must contain a number'
-  ];
-
-  // Can also handle nested error objects
-  apiErrors = {
-    field: 'email',
-    errors: ['Invalid format', 'Already exists']
-  };
-}
-```
-
-**Inputs:**
-- `Id`: `string` (default: auto-generated UUID)
-- `errors`: `(string[])[]` – Array of error arrays or nested error structures
-
-**Features:**
-- ✅ **Automatic Extraction** – Uses `ExtractorService` to flatten nested errors
-- ✅ **Accessibility** – `role="status"` and `aria-live="polite"`
-- ✅ **Customizable** – Accepts any error structure
-- ✅ **Clean UI** – Bulleted list with icons
-
----
-
-### 24. **Custom Validators (ValidatorFn)**
-
-You can create custom validators for `ZS-input` and `ZS-file` components using the `ValidatorFn` type.
-
-#### Input Validator Example
-
-```typescript
-import { ValidatorFn } from '@ziadshalaby/ngx-zs-component';
-
-// Custom username validator
-const usernameValidator: ValidatorFn<string | null> = (value) => {
-  const errors: string[] = [];
-  
-  if (value === null || value === '') {
-    errors.push('Username is required');
-    return errors;
-  }
-
-  // Check for spaces
-  if (value.includes(' ')) {
-    errors.push('Username cannot contain spaces');
-  }
-
-  // Check for special characters (only letters, numbers, underscore)
-  if (!/^[a-zA-Z0-9_]+$/.test(value)) {
-    errors.push('Username can only contain letters, numbers, and underscores');
-  }
-
-  // Check minimum length
-  if (value.length < 3) {
-    errors.push('Username must be at least 3 characters');
-  }
-
-  return errors;
-};
-
-// Custom password strength validator
-const passwordValidator: ValidatorFn<string | null> = (value) => {
-  const errors: string[] = [];
-  
-  if (!value) {
-    errors.push('Password is required');
-    return errors;
-  }
-
-  if (value.length < 8) {
-    errors.push('Password must be at least 8 characters');
-  }
-
-  if (!/[A-Z]/.test(value)) {
-    errors.push('Password must contain at least one uppercase letter');
-  }
-
-  if (!/[a-z]/.test(value)) {
-    errors.push('Password must contain at least one lowercase letter');
-  }
-
-  if (!/[0-9]/.test(value)) {
-    errors.push('Password must contain at least one number');
-  }
-
-  if (!/[!@#$%^&*]/.test(value)) {
-    errors.push('Password must contain at least one special character (!@#$%^&*)');
-  }
-
-  return errors;
-};
-```
-
-#### Using Validators in Input
-
-```html
-<ZS-input
-  label="Username"
-  placeholder="Choose a username"
-  [validateFns]="[usernameValidator, usernameAvailabilityValidator]"
-  (changedEv)="onUsernameChange($event)"
-/>
-
-<ZS-input
-  type="password"
-  label="Password"
-  [validateFns]="[passwordValidator]"
-/>
-```
-
-#### File Input Validator Example
-
-```typescript
-import { FileData, ValidatorFn } from '@ziadshalaby/ngx-zs-component';
-
-// Custom file validator
-const fileValidator: ValidatorFn<FileData[]> = (files) => {
-  const errors: string[] = [];
-  
-  if (!files || files.length === 0) {
-    return ['No files selected'];
-  }
-
-  // Check for specific file types
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-  for (const file of files) {
-    if (!allowedTypes.includes(file.type)) {
-      errors.push(`Invalid file type: ${file.name} (${file.type})`);
-    }
-  }
-
-  // Check for executable files
-  const executableExtensions = ['.exe', '.bat', '.sh', '.app'];
-  for (const file of files) {
-    const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-    if (executableExtensions.includes(ext)) {
-      errors.push(`Executable files are not allowed: ${file.name}`);
-    }
-  }
-
-  return errors;
-};
-```
-
----
-
-## 🛠️ Services
-
-### **AlertService**
-
-```typescript
-class AlertService {
-  // Signal containing all active alerts
-  readonly alerts: Signal<AlertType[]>;
-  
-  // Add a single alert
-  addAlert(newAlert: NewAlert): void;
-  
-  // Add multiple alerts
-  bulkAlert(newAlerts: string[], options: BulkAlert): void;
-  
-  // Called when an alert is closed
-  onAlertClosed(id: string | number): void;
-}
-```
-
-### **NavItemService**
-
-```typescript
-class NavItemService {
-  // Map of collections with open state
-  readonly collections: Signal<Map<string, CollectionEntry>>;
-  
-  // Get currently open index for a collection
-  openIndex(collectionName: string): string;
-  
-  // Add an item to a collection
-  addItemInCollection(collectionName: string, index: string): void;
-  
-  // Change the open index of a collection
-  onOpenIndexChange(collectionName: string, index: string): void;
-}
-```
-
-### **FormService**
-
-```typescript
-class Form<T extends Record<string, any>> {
-  readonly fields: ZFormFieldMap<T>;
-  readonly initialValues: T;
-  
-  constructor(initial: T);
-  
-  // Field accessors
-  set<K extends keyof T>(key: K, value: T[K] | null, valid?: boolean, touched?: boolean): void;
-  patch<K extends keyof T>(key: K, partial: Partial<{ value: T[K] | null; valid: boolean; touched: boolean }>): void;
-  get<K extends keyof T>(key: K): { value: T[K] | null; valid: boolean; touched: boolean };
-  
-  // Form state
-  markAllTouched(): void;
-  allTouched(): boolean;
-  reset(): void;
-  
-  // Data extraction
-  getValues(): T;
-  getValidations(): Record<keyof T, boolean>;
-  allFilled(): Record<keyof T, boolean>;
-  canSubmit(allowEmptyFields?: (keyof T)[], allowInvalidFields?: (keyof T)[]): boolean;
-  submit(callback: (values: T) => void, allowEmptyFields?: (keyof T)[], allowInvalidFields?: (keyof T)[]): void;
-}
-```
-
-**Example Usage:**
-
-```typescript
 interface LoginForm {
   email: string;
   password: string;
@@ -1460,391 +1499,838 @@ const loginForm = new Form<LoginForm>({
   password: ''
 });
 
-// Set field values
-loginForm.set('email', 'user@example.com');
-loginForm.set('password', 'secret123');
+// Set values
+loginForm.set('email', 'user@example.com', true);
 
-// Get form values
-const values = loginForm.getValues(); // { email: 'user@example.com', password: 'secret123' }
+// Get values
+const email = loginForm.get('email');
 
-// Submit form
+// Submit
 loginForm.submit((values) => {
-  console.log('Form submitted:', values);
+  console.log('Submitting:', values);
 });
 ```
 
-### **ExtractorService**
-
-```typescript
-class ExtractorService {
-  // Extract all error messages recursively from any structure
-  extract(input: unknown): string[];
-}
-```
-
-### **VisibilityObserverService**
-
-```typescript
-class VisibilityObserverService {
-  // Observe element visibility with IntersectionObserver
-  observe(el: Element, callback: () => void): void;
-  unobserve(el: Element): void;
-}
-```
-
 ---
 
-## 🎨 Theme & Styling
+### `ExtractorService`
 
-### **Palette Service**
+A service for recursively extracting error messages from any structure.
 
-The library uses a unified palette system for consistent theming across all components.
+**Methods:**
 
-**Available Styles:**
-```typescript
-type FormStyle = 
-  | 'primary'   // Blue
-  | 'secondary' // Slate
-  | 'success'   // Green
-  | 'danger'    // Red
-  | 'warning'   // Amber
-  | 'info'      // Cyan
-  | 'dark'      // Dark
-  | 'violet'    // Violet
-  | 'teal';     // Teal
-```
+| Method | Parameters | Return | Description |
+|--------|------------|--------|-------------|
+| `extract` | `input: unknown` | `string[]` | Extract error messages |
 
-### **Color System**
+**Example:**
 
 ```typescript
-type BaseColors = 
-  'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' |
-  'red' | 'orange' | 'amber' | 'yellow' | 'rose' |
-  'lime' | 'green' | 'emerald' | 'teal' |
-  'cyan' | 'sky' | 'blue' | 'indigo' |
-  'violet' | 'purple' | 'fuchsia' | 'pink';
-```
+import { inject } from '@angular/core';
+import { ExtractorService } from '@ziadshalaby/ngx-zs-component';
 
-### **Z-Index System**
+export class MyComponent {
+  private extractor = inject(ExtractorService);
 
-```typescript
-type KeyType = 
-  'alert' | 'spinner' | 'modal' | 'themeToggle' |
-  'navbar' | 'navbarOverlay' | 'sideBar' | 'sideBarOverlay' |
-  'scrollToTop' | 'navItemDropdown' | 'selectDropdown';
-```
-
-**Usage in Templates:**
-```html
-<div class="{{ zIndices.alert }}">Alert content</div>
-```
-
----
-
-## 🌙 Dark Mode Mechanism
-
-The library implements dark mode by toggling the `dark` class on the `document.documentElement` (`<html>` element). This approach ensures that all components respond correctly to dark mode changes and allows for seamless integration with your own application's theming.
-
-### How It Works
-
-```typescript
-// Inside ThemeToggle component
-effect(() => {
-  const theme = this.currentTheme();
-  // Toggle 'dark' class on document.documentElement
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-  
-  // Apply body classes for background and text colors
-  const classes = this.bodyClass()
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-  
-  document.body.classList.value = '';
-  classes.forEach(c => document.body.classList.add(c));
-  
-  // Persist to localStorage
-  if (this.userSelectedTheme()) {
-    localStorage.setItem('theme', theme);
+  extractErrors() {
+    const errors = this.extractor.extract({
+      errors: ['Error 1', 'Error 2'],
+      nested: { message: 'Nested error' }
+    });
+    // ['Error 1', 'Error 2', 'Nested error']
   }
-});
+}
 ```
 
-### Customizing the Body Classes
+---
 
-You can customize the body's background and text colors using the `bodyClass` input:
+### `NavItemService`
 
-```html
-<!-- Custom body classes -->
-<ZS-theme-toggle
-  [bodyClass]="'zs:bg-slate-50 zs:dark:bg-slate-950 zs:text-slate-900 zs:dark:text-slate-100'"
-/>
+A service for managing navigation dropdown states.
 
-<!-- Custom with your own theme variables -->
-<ZS-theme-toggle
-  [bodyClass]="'zs:bg-white zs:dark:bg-[#1a1a2e] zs:text-black zs:dark:text-white'"
-/>
-```
+**Methods:**
 
-### Custom Dark Mode Implementation
+| Method | Parameters | Return | Description |
+|--------|------------|--------|-------------|
+| `openIndex` | `collectionName: string` | `string` | Get open index |
+| `addItemInCollection` | `collectionName: string, index: string` | `void` | Add item to collection |
+| `onOpenIndexChange` | `collectionName: string, index: string` | `void` | Change open index |
 
-If you want to implement your own theme toggle without using the default UI:
+---
 
-```html
-<ZS-theme-toggle
-  [showDefaultUI]="false"
-  (themeChangeEv)="onThemeChange($event)"
-></ZS-theme-toggle>
-```
+### `VisibilityObserverService`
+
+A service that wraps the Intersection Observer API.
+
+**Methods:**
+
+| Method | Parameters | Return | Description |
+|--------|------------|--------|-------------|
+| `observe` | `el: Element, callback: () => void` | `void` | Observe element |
+| `unobserve` | `el: Element` | `void` | Unobserve element |
+
+---
+
+## Types & Interfaces
+
+### Core Types
 
 ```typescript
-import { Component } from '@angular/core';
-import { ThemeToggle, themeTypes } from '@ziadshalaby/ngx-zs-component';
+// Color and styling types
+type FormStyle = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'violet' | 'teal';
+type BaseSize = 'sm' | 'md' | 'lg';
+type BaseColors = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'rose' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink';
+
+// Alert types
+interface AlertType {
+  id: number | string;
+  message: string;
+  type: 'success' | 'danger' | 'warning' | 'info';
+  autoClose?: boolean;
+  duration?: number;
+  showCloseButton?: boolean;
+  progress?: number;
+}
+
+// Dropdown item
+interface DropdownItem<T> {
+  id: T;
+  name: string;
+  [key: string]: any;
+}
+
+// Change event
+interface ChangeEventType<T = string | null> {
+  value: T;
+  valid: boolean;
+  fromForce: boolean;
+}
+
+// Navbar item
+interface NavbarItem {
+  id: string | number;
+  label: string;
+  routerLink?: string;
+  routerLinkActive?: string;
+  action?: () => void;
+  iconTpl?: Signal<TemplateRef<any> | undefined>;
+  iconClasses?: string;
+  children?: NavbarItem[];
+  childrenConfig?: {
+    showChevronDownIcon?: boolean;
+    childrenOpenWindow?: boolean;
+    childrenWindowDir?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
+    closeMenuOnPointerOutside?: boolean;
+  };
+  closeParentMenuAfterClick?: boolean;
+  colorClass?: string;
+  useDefaultColorClass?: 'text' | 'bg';
+}
+
+// File data
+interface FileData {
+  name: string;
+  size: number;
+  type: string;
+  url?: string;
+}
+type FilesType = Map<string, FileData>;
+
+// Theme types
+type themeTypes = 'light' | 'dark';
+```
+
+---
+
+## Configuration
+
+### Global CSS Variables
+
+The library uses CSS custom properties for theming:
+
+```css
+/* Scrollbar colors */
+--scroll-thumb: #888;
+--scroll-track: #f1f1f1;
+
+/* Carousel */
+--carousel-item-width: 25%;
+```
+
+### Tailwind Configuration
+
+The library uses the `zs:` prefix for all Tailwind classes. Your Tailwind configuration should support this:
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  darkMode: 'class',
+  // The library uses the 'zs:' prefix
+  // Ensure your content includes library files
+  content: [
+    // ... your content
+    "./node_modules/@ziadshalaby/ngx-zs-component/**/*.{html,ts}"
+  ]
+}
+```
+
+### Z-Index Configuration
+
+You can override z-index values by importing and modifying the `zIndices` object:
+
+```typescript
+import { zIndices } from '@ziadshalaby/ngx-zs-component';
+
+zIndices.modal = 'zs:z-2000';
+```
+
+---
+
+## Usage Examples
+
+### Example 1: Login Form
+
+```typescript
+import { Component, signal, inject } from '@angular/core';
+import { 
+  Button, Input, Alert, AlertService, 
+  Form, Card, ThemeToggle 
+} from '@ziadshalaby/ngx-zs-component';
 
 @Component({
-  // ...
-  imports: [ThemeToggle],
+  selector: 'app-login',
+  standalone: true,
+  imports: [Button, Input, Alert, Card, ThemeToggle],
   template: `
-    <button (click)="toggleTheme()">
-      Toggle Theme
-    </button>
-    <ZS-theme-toggle
-      [showDefaultUI]="false"
-      (themeChangeEv)="onThemeChange($event)"
-    ></ZS-theme-toggle>
+    <div class="zs:max-w-md zs:mx-auto zs:mt-20">
+      <ZS-card cardStyle="primary" animation="bottom">
+        <div class="zs:p-8">
+          <h2 class="zs:text-2xl zs:font-bold zs:mb-6">Login</h2>
+          
+          <ZS-input
+            type="email"
+            label="Email"
+            placeholder="you@example.com"
+            [required]="true"
+            [(value)]="loginForm.get('email').value"
+          ></ZS-input>
+          
+          <ZS-input
+            type="password"
+            label="Password"
+            placeholder="Enter password"
+            [required]="true"
+            [minlength]="6"
+            [(value)]="loginForm.get('password').value"
+          ></ZS-input>
+          
+          <ZS-button 
+            btnStyle="primary" 
+            [disabled]="isLoading()"
+            (clickedEv)="submit()"
+            class="zs:w-full"
+          >
+            {{ isLoading() ? 'Logging in...' : 'Login' }}
+          </ZS-button>
+        </div>
+      </ZS-card>
+      
+      <ZS-alert></ZS-alert>
+    </div>
   `
 })
-export class MyComponent {
-  private themeToggle = inject(ThemeToggle);
+export class LoginComponent {
+  private alertService = inject(AlertService);
+  isLoading = signal(false);
   
-  toggleTheme() {
-    const current = this.themeToggle.currentTheme();
-    this.themeToggle.setTheme(current === 'dark' ? 'light' : 'dark');
-  }
-  
-  onThemeChange(theme: themeTypes) {
-    console.log('Theme changed to:', theme);
-    // Your custom logic here
+  loginForm = new Form<{ email: string; password: string }>({
+    email: '',
+    password: ''
+  });
+
+  submit() {
+    this.isLoading.set(true);
+    
+    // Simulate API call
+    setTimeout(() => {
+      this.isLoading.set(false);
+      this.alertService.addAlert({
+        type: 'success',
+        message: 'Login successful!',
+        autoClose: true
+      });
+    }, 1500);
   }
 }
 ```
 
-### Manual Theme Control
-
-You can also control the theme manually without the ThemeToggle component:
+### Example 2: Registration Form with Validation
 
 ```typescript
-import { effect } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
+import { 
+  Button, Input, Select, Checkbox, Alert, AlertService, 
+  Form, Card 
+} from '@ziadshalaby/ngx-zs-component';
 
-// Set theme
-const setTheme = (theme: 'light' | 'dark') => {
-  document.documentElement.classList.toggle('dark', theme === 'dark');
-  localStorage.setItem('theme', theme);
-};
+@Component({
+  selector: 'app-register',
+  standalone: true,
+  imports: [Button, Input, Select, Checkbox, Alert, Card],
+  template: `
+    <div class="zs:max-w-md zs:mx-auto zs:mt-20">
+      <ZS-card cardStyle="success" animation="bottom">
+        <div class="zs:p-8">
+          <h2 class="zs:text-2xl zs:font-bold zs:mb-6">Register</h2>
+          
+          <ZS-input
+            label="Username"
+            placeholder="Choose a username"
+            [required]="true"
+            [validateFns]="[usernameValidator]"
+            [(value)]="registerForm.get('username').value"
+          ></ZS-input>
+          
+          <ZS-input
+            type="email"
+            label="Email"
+            placeholder="you@example.com"
+            [required]="true"
+            [(value)]="registerForm.get('email').value"
+          ></ZS-input>
+          
+          <ZS-input
+            type="password"
+            label="Password"
+            placeholder="Create a password"
+            [required]="true"
+            [minlength]="8"
+            [(value)]="registerForm.get('password').value"
+          ></ZS-input>
+          
+          <ZS-select
+            label="Role"
+            [items]="roles"
+            placeholder="Select a role"
+            [required]="true"
+            [(selectedItems)]="selectedRole"
+          ></ZS-select>
+          
+          <ZS-checkbox
+            label="I agree to the Terms of Service"
+            [required]="true"
+            [(value)]="termsAccepted"
+          ></ZS-checkbox>
+          
+          <ZS-button 
+            btnStyle="success" 
+            [disabled]="!canSubmit()"
+            (clickedEv)="submit()"
+            class="zs:w-full zs:mt-4"
+          >
+            Register
+          </ZS-button>
+        </div>
+      </ZS-card>
+      
+      <ZS-alert></ZS-alert>
+    </div>
+  `
+})
+export class RegisterComponent {
+  private alertService = inject(AlertService);
+  
+  registerForm = new Form<{ username: string; email: string; password: string }>({
+    username: '',
+    email: '',
+    password: ''
+  });
+  
+  roles: DropdownItem<number>[] = [
+    { id: 1, name: 'Developer' },
+    { id: 2, name: 'Designer' },
+    { id: 3, name: 'Manager' }
+  ];
+  selectedRole = signal<DropdownItem<number>[]>([]);
+  termsAccepted = signal(false);
 
-// Read theme from localStorage
-const getSavedTheme = (): 'light' | 'dark' | null => {
-  return localStorage.getItem('theme') as 'light' | 'dark' | null;
-};
+  usernameValidator = (value: string | null): string[] => {
+    const errors: string[] = [];
+    if (!value) return errors;
+    if (value.length < 3) errors.push('Username must be at least 3 characters');
+    if (value.includes(' ')) errors.push('Username cannot contain spaces');
+    if (!/^[a-zA-Z0-9_]+$/.test(value)) errors.push('Username can only contain letters, numbers, and underscores');
+    return errors;
+  };
 
-// Check system preference
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-const systemTheme = prefersDark.matches ? 'dark' : 'light';
-
-// Apply theme
-const theme = getSavedTheme() || systemTheme;
-setTheme(theme);
-
-// Listen for system preference changes
-prefersDark.addEventListener('change', (e) => {
-  if (!localStorage.getItem('theme')) {
-    setTheme(e.matches ? 'dark' : 'light');
+  canSubmit(): boolean {
+    return this.registerForm.canSubmit() && 
+           this.selectedRole().length > 0 && 
+           this.termsAccepted();
   }
+
+  submit() {
+    this.alertService.addAlert({
+      type: 'success',
+      message: 'Registration successful!',
+      autoClose: true
+    });
+  }
+}
+```
+
+---
+
+## Advanced Usage
+
+### Custom Validation with `ZS-input`
+
+```typescript
+// Create a custom validator
+passwordValidator = (value: string | null): string[] => {
+  const errors: string[] = [];
+  if (!value) return errors;
+  
+  if (value.length < 8) {
+    errors.push('Password must be at least 8 characters');
+  }
+  if (!/[A-Z]/.test(value)) {
+    errors.push('Password must contain at least one uppercase letter');
+  }
+  if (!/[a-z]/.test(value)) {
+    errors.push('Password must contain at least one lowercase letter');
+  }
+  if (!/[0-9]/.test(value)) {
+    errors.push('Password must contain at least one number');
+  }
+  
+  return errors;
+};
+
+// Use in template
+<ZS-input
+  type="password"
+  label="Password"
+  [validateFns]="[passwordValidator]"
+  [required]="true"
+></ZS-input>
+```
+
+### Custom Styling with `ZS-card`
+
+```typescript
+// Custom card style
+const customCardStyle = 'zs:bg-gradient-to-r zs:from-blue-500 zs:to-purple-600';
+
+<ZS-card 
+  cardStyle="primary"
+  [bodyClass]="customCardStyle"
+  [variant]="{ shadow: true, border: false }"
+>
+  <div class="zs:p-6 zs:text-white">
+    <h3>Custom Card</h3>
+  </div>
+</ZS-card>
+```
+
+### Integrating with Reactive Forms
+
+```typescript
+import { Component, inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Input } from '@ziadshalaby/ngx-zs-component';
+
+@Component({
+  selector: 'app-reactive-form',
+  standalone: true,
+  imports: [Input, ReactiveFormsModule],
+  template: `
+    <ZS-input
+      [value]="form.get('email')?.value"
+      (changedEv)="form.get('email')?.setValue($event.value)"
+      [error]="form.get('email')?.touched && form.get('email')?.invalid ? ['Invalid email'] : []"
+    ></ZS-input>
+  `
+})
+export class ReactiveFormComponent {
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email])
+  });
+}
+```
+
+### Using Form Class with Validation
+
+```typescript
+interface UserForm {
+  name: string;
+  email: string;
+  age: number;
+}
+
+const form = new Form<UserForm>({
+  name: '',
+  email: '',
+  age: 18
+});
+
+// Custom validation logic
+function validateUser(form: Form<UserForm>): boolean {
+  const email = form.get('email').value;
+  const age = form.get('age').value;
+  
+  if (email && !email.includes('@')) {
+    form.set('email', email, false);
+    return false;
+  }
+  
+  if (age && age < 18) {
+    form.set('age', age, false);
+    return false;
+  }
+  
+  return true;
+}
+
+// Submit with validation
+form.submit(
+  (values) => {
+    // Valid submission
+    console.log('Submitting:', values);
+  },
+  [], // No empty fields allowed
+  ['age'] // Age can be invalid (will be handled in callback)
+);
+```
+
+### Extending the Library
+
+#### Custom Color Variant
+
+```typescript
+import { unifiedPaletteMap, FormStyle } from '@ziadshalaby/ngx-zs-component';
+
+// Add a custom color variant
+const customVariant: FormStyle = 'custom' as FormStyle;
+
+unifiedPaletteMap.set(customVariant, {
+  input: {
+    border: 'zs:border-pink-200 zs:dark:border-pink-700',
+    borderHover: 'zs:hover:border-pink-500 zs:dark:hover:border-pink-500',
+    inputBg: 'zs:bg-pink-50 zs:dark:bg-slate-900',
+    text: 'zs:text-pink-900 zs:dark:text-pink-100'
+  },
+  // ... include all other palette properties
 });
 ```
 
-### Important Notes for Custom Implementation
-
-1. **Class Toggling**: The library always toggles the `dark` class on `document.documentElement`. This is the standard Tailwind approach for dark mode.
-
-2. **Body Classes**: The library applies CSS classes to the `document.body`. If you're using your own body classes, make sure to coordinate with the library's `bodyClass` input.
-
-3. **CSS Variables**: If you use CSS custom properties for theming, you can style them based on the `dark` class:
-
-```css
-:root {
-  --bg-primary: #ffffff;
-  --text-primary: #000000;
-}
-
-:root.dark {
-  --bg-primary: #1a1a2e;
-  --text-primary: #ffffff;
-}
-```
-
-4. **Conflicts**: If your application also toggles the `dark` class, ensure there's no conflict. The library's effect will always reflect its internal state, so it's recommended to use the library's ThemeToggle component or set the theme programmatically through it.
-
 ---
 
-## 📱 Responsive Design
+## Error Handling
 
-All components are built with mobile-first responsive design using Tailwind's responsive prefixes:
+### Common Errors and Solutions
 
-- `xs:` – Mobile devices (480px+)
-- `sm:` – Tablets (640px+)
-- `md:` – Small laptops (768px+)
-- `lg:` – Desktops (1024px+)
-- `xl:` – Large screens (1280px+)
-- `2xl:` – Extra large screens (1536px+)
+| Error | Cause | Solution |
+|-------|-------|----------|
+| `Cannot read properties of undefined` | Accessing signal value before initialization | Use optional chaining: `mySignal()?.property` |
+| `NG0304: 'ZS-xxx' is not a known element` | Component not imported | Import the component in your standalone component or module |
+| `Tailwind classes not applying` | Missing Tailwind configuration | Ensure Tailwind is properly configured and the `zs:` prefix is supported |
+| `Dark mode not working` | Missing dark class on html element | Add `dark` class to `<html>` or use `ZS-theme-toggle` |
+| `Font Awesome icons not showing` | Font Awesome not loaded | Add Font Awesome CSS to your project |
+| `Alerts not appearing` | ZS-alert not added to template | Add `<ZS-alert></ZS-alert>` to your root component |
+| `Form validation not triggering` | `touched` not set | The `touched` signal is automatically updated on blur and change events |
 
----
+### Error Messages from ExtractorService
 
-## ♿ Accessibility (a11y)
-
-All components follow WAI-ARIA best practices:
-
-- ✅ Proper ARIA roles and attributes
-- ✅ Keyboard navigation (Tab, Enter, Space, Escape)
-- ✅ Focus management and focus indicators
-- ✅ Screen reader support with `sr-only` labels
-- ✅ Color contrast compliance
-- ✅ `aria-live` regions for dynamic content
-- ✅ `aria-expanded`, `aria-controls`, `aria-haspopup`
-- ✅ `aria-label`, `aria-labelledby`, `aria-describedby`
-- ✅ `role` attributes for semantic meaning
-
----
-
-## 🚀 Performance Features
-
-- **Zoneless Change Detection** – Reduced change detection cycles
-- **OnPush Change Detection** – Optimized rendering
-- **Standalone Components** – Lazy loading friendly
-- **Signal-based State** – Fine-grained reactivity
-- **Lazy Loading** – Components loaded on demand
-- **Tree Shaking** – Unused features removed during build
-- **ViewChild/ContentChild** – Efficient DOM queries
-
----
-
-## 📦 Dependencies
-
-### Required Peer Dependencies
-
-```json
-{
-  "@angular/common": "^20.3.0 || ^21.0.0",
-  "@angular/core": "^20.3.0 || ^21.0.0"
-}
-```
-
-### Internal Dependencies
-
-```json
-{
-  "tslib": "^2.3.0",
-  "tailwindcss": "^4.1.16",
-  "@tailwindcss/cli": "^4.1.16"
-}
-```
-
----
-
-## 🌐 CDN & Font Awesome Setup
-
-The library uses **Font Awesome 6** for icons. Include the following in your project:
-
-```html
-<!-- In your index.html -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-```
-
-Or import in your `styles.css`:
-
-```css
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
-```
-
----
-
-## 📄 License
-
-MIT © [Ziad Shalaby](https://github.com/ziadshalaby00)
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
----
-
-## 📞 Support
-
-- **GitHub Issues**: [Report a bug](https://github.com/ziadshalaby00/ngx-zs-component-lib/issues)
-- **Email**: shalabyziad94@gmail.com
-
----
-
-## ⚡ Quick Reference
-
-### Common Imports
+The `ExtractorService` can extract error messages from various data structures:
 
 ```typescript
-// Components
-import { Button, Input, Select, Checkbox, Toggle, Range, FileInput } from '@ziadshalaby/ngx-zs-component';
-import { Alert, Card, Carousel, Modal, Navbar, NavItem, Sidebar } from '@ziadshalaby/ngx-zs-component';
-import { Pagination, Spinner, ThemeToggle, ScrollToTop, Page404, Connection, Footer } from '@ziadshalaby/ngx-zs-component';
+// Extract from Error objects
+const errors = extractor.extract(new Error('Something went wrong'));
+// ['Something went wrong']
 
-// Services
-import { AlertService, NavItemService, Form, ExtractorService, VisibilityObserverService } from '@ziadshalaby/ngx-zs-component';
+// Extract from arrays
+const errors = extractor.extract(['Error 1', 'Error 2']);
+// ['Error 1', 'Error 2']
 
-// Types
-import { FormStyle, BaseColors, BaseSize, DropdownItem, NavbarItem, AlertType } from '@ziadshalaby/ngx-zs-component';
-```
-
-### Common CSS Classes
-
-```css
-/* Shadow Utilities */
-.shadow-sm-all, .shadow-md-all, .shadow-lg-all
-.shadow-sm-all-night, .shadow-md-all-night, .shadow-lg-all-night
-
-/* Scroll Utilities */
-.scroll, .scroll-primary, .scroll-secondary, .scroll-success, .scroll-danger, .scroll-warning, .scroll-info, .scroll-violet, .scroll-teal, .scroll-dark
-
-/* Sidebar Shadow */
-.sidebar-shadow-right
-
-/* Custom Animations */
-.animate-fade-in, .animate-fadeIn, .animate-fadeOut, .animate-modalIn, .animate-modalOut
-.animate-float, .animate-bounce, .animate-spin, .animate-pulse
-.animate-bar-scale
+// Extract from nested objects
+const errors = extractor.extract({
+  errors: ['Error 1'],
+  nested: { message: 'Nested error' }
+});
+// ['Error 1', 'Nested error']
 ```
 
 ---
 
-## 🙏 Acknowledgments
+## Best Practices
 
-- [Angular Team](https://angular.dev/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Font Awesome](https://fontawesome.com/)
-- [ng-packagr](https://github.com/ng-packagr/ng-packagr)
+### 1. Use Signal-Based Reactivity
+
+Always use signals for state management:
+
+```typescript
+// ✅ Good
+value = signal<string | null>(null);
+isLoading = signal(false);
+
+// ❌ Avoid
+value = '';
+isLoading = false;
+```
+
+### 2. Import Components Individually
+
+Import only the components you need to reduce bundle size:
+
+```typescript
+// ✅ Good
+import { Button, Input } from '@ziadshalaby/ngx-zs-component';
+
+// ❌ Avoid
+import * as ZS from '@ziadshalaby/ngx-zs-component';
+```
+
+### 3. Use Two-Way Binding Where Appropriate
+
+Use `[(value)]` for form controls:
+
+```typescript
+// ✅ Good
+<ZS-input [(value)]="mySignal"></ZS-input>
+
+// ❌ Avoid
+<ZS-input [value]="mySignal()" (changedEv)="mySignal.set($event.value)"></ZS-input>
+```
+
+### 4. Leverage the Alert Service
+
+Use the alert service for user feedback instead of custom toast implementations:
+
+```typescript
+// ✅ Good
+private alertService = inject(AlertService);
+this.alertService.addAlert({ type: 'success', message: 'Saved!', autoClose: true });
+
+// ❌ Avoid
+window.alert('Saved!');
+```
+
+### 5. Use Form Class for Complex Forms
+
+For multi-field forms with validation, use the `Form` class:
+
+```typescript
+// ✅ Good
+form = new Form<LoginForm>({ email: '', password: '' });
+// Use form.get('email').value, form.submit(), etc.
+
+// ❌ Avoid
+email = signal('');
+password = signal('');
+// Manual validation logic
+```
+
+### 6. Enable Zoneless Change Detection
+
+The library works best with zoneless change detection:
+
+```typescript
+// app.config.ts
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZonelessChangeDetection(),
+    // ... other providers
+  ]
+};
+```
+
+### 7. Performance Considerations
+
+- **Use `trackBy` with `@for` loops** when rendering lists
+- **Avoid unnecessary signal updates** - batch updates when possible
+- **Use `computed` signals** for derived state instead of manual subscriptions
+- **Lazy load components** when possible
 
 ---
 
-*Built with ❤️ by Ziad Shalaby*
+## FAQ
+
+### Q: Can I use this library with Angular 19 or earlier?
+A: This library is designed for Angular 20+ and uses features like signals and standalone components. For earlier versions, consider using older versions of the library.
+
+### Q: Does this library work with Ionic or React?
+A: No, this is an Angular-only library built specifically for Angular applications.
+
+### Q: Can I customize the colors beyond the provided variants?
+A: Yes, you can extend the `unifiedPaletteMap` or override CSS classes using Tailwind's `@layer` or custom CSS.
+
+### Q: How do I change the default positions of alerts?
+A: Use the `positionClass` and `maxh` inputs on the `<ZS-alert>` component.
+
+### Q: Is this library accessible?
+A: Yes, all components include proper ARIA attributes, keyboard navigation, and screen reader support.
+
+### Q: Can I use this library without Tailwind CSS?
+A: No, the library is built on Tailwind CSS. However, the global CSS file includes all necessary styles, so you don't need to configure Tailwind separately.
+
+### Q: How do I implement dark mode?
+A: Use the `<ZS-theme-toggle>` component, or manually add the `dark` class to the `<html>` element.
+
+### Q: Can I use this library in an existing project?
+A: Yes, the library works alongside existing code. Just import the components and services you need.
+
+### Q: Does the library support internationalization (i18n)?
+A: The library's text content (like button labels, placeholders) can be overridden via inputs, making it compatible with i18n.
+
+### Q: How do I test components from this library?
+A: Use Angular's standard testing utilities. All components include test files (.spec.ts) for reference.
 
 ---
 
-## 📚 Additional Resources
+## Troubleshooting
 
-- [Angular Documentation](https://angular.dev/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Font Awesome Icons](https://fontawesome.com/icons)
-- [ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
+### Problem: Components not rendering
+
+**Solution:**
+1. Verify the component is imported in your standalone component or module
+2. Ensure the global CSS is imported in your `styles.css`
+3. Check for console errors
+
+### Problem: Styling not applied
+
+**Solution:**
+1. Verify Tailwind CSS is properly configured
+2. Import the global CSS file
+3. Check that the `zs:` prefix is being recognized by Tailwind
+
+### Problem: Dark mode not working
+
+**Solution:**
+1. Ensure the `dark` class is added to the `<html>` element
+2. Check that Tailwind's `darkMode` is set to `'class'`
+3. Verify the `ZS-theme-toggle` is properly configured
+
+### Problem: Form validation not showing errors
+
+**Solution:**
+1. Ensure the `touched` signal is being updated (happens automatically on blur)
+2. Check that `error()` signal is properly connected to `ZS-input-errors`
+3. Verify your custom validator returns an array of strings
+
+### Problem: Alert not showing
+
+**Solution:**
+1. Ensure `<ZS-alert>` is added to your template
+2. Verify the `AlertService` is properly injected
+3. Check that `addAlert` is called with valid parameters
+
+### Problem: Select dropdown not opening
+
+**Solution:**
+1. Check `disabled` and `isReadonly` inputs
+2. Verify `items` is not empty
+3. Ensure no event propagation issues in parent components
+
+### Problem: Carousel not responsive
+
+**Solution:**
+1. Adjust `maxItemsPerBox` and `itemMinWidth` inputs
+2. Ensure parent container has proper width
+3. Verify CSS variables like `--carousel-item-width` are not overridden
+
+---
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+### Development Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/ziadshalaby00/ngx-zs-component-lib.git
+cd ngx-zs-component-lib
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Build the library:
+```bash
+ng build ngx-zs-component
+```
+
+4. Run the demo application:
+```bash
+ng serve
+```
+
+### Testing
+
+Run unit tests:
+```bash
+ng test
+```
+
+### Building for Production
+
+```bash
+ng build ngx-zs-component --configuration production
+```
+
+### Publishing
+
+1. Build the library:
+```bash
+ng build ngx-zs-component
+```
+
+2. Navigate to the dist directory:
+```bash
+cd dist/ngx-zs-component
+```
+
+3. Publish to npm:
+```bash
+npm publish
+```
+
+### Guidelines
+
+- Follow Angular coding conventions
+- Add JSDoc comments for all public APIs
+- Include unit tests for new features
+- Update documentation for API changes
+- Follow semantic versioning
+
+---
+
+## License
+
+[Ziad Shalaby](https://github.com/ziadshalaby00)
+This project is licensed under the MIT License.
+
+---
+
+## Changelog / Versioning
+
+### Version 3.4.0
+
+- Added `ZS-field` component for flexible form field wrapping
+- Enhanced theme toggle with drag-to-position functionality
+- Improved accessibility across all components
+- Updated Tailwind CSS integration
+
+### Version 3.0.0
+
+- Migrated to Angular 20+ with signal-based reactivity
+- Added zoneless change detection support
+- Complete rewrite of all components using standalone architecture
+- Introduced unified palette system
+
+---
+
+*For more information, visit the [GitHub repository](https://github.com/ziadshalaby00/ngx-zs-component-lib) or contact the maintainer.*
