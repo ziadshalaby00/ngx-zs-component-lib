@@ -17,7 +17,7 @@
         [attr.aria-controls]="'submenu-' + index()"
       >
         <div class="zs:flex zs:items-center">
-          <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
+          <ng-container *ngTemplateOutlet="$safeNavigationMigration(item().iconTpl?.())"></ng-container>
           <span class="zs:wrap-break-word" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
         </div>
         @if(item().childrenConfig?.showChevronDownIcon !== false) {
@@ -66,7 +66,7 @@
       role="menuitem"
     >
       <span [ngClass]="[!rla.isActive && item().iconClasses ? item().iconClasses : '']">
-        <ng-container *ngTemplateOutlet="item().iconTpl?.()"></ng-container>
+        <ng-container *ngTemplateOutlet="$safeNavigationMigration(item().iconTpl?.())"></ng-container>
       </span>
       <span class="zs:wrap-break-word zs:line-clamp-3" [ngClass]="labelLineClass(item())">{{ item().label }}</span>
     </a>

@@ -1,4 +1,4 @@
-import { Component, signal, HostListener, effect, output, input, linkedSignal } from '@angular/core';
+import { Component, signal, HostListener, effect, output, input, linkedSignal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { zIndices, ZIndicesType } from '../z-index';
 
@@ -16,6 +16,7 @@ export type themeTypes = 'light' | 'dark';
   selector: 'ZS-theme-toggle',
   imports: [CommonModule],
   templateUrl: './theme-toggle.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './theme-toggle.css'
 })
 export class ThemeToggle {

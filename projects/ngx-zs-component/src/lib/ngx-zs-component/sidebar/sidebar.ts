@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, input, model, viewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, input, model, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { zIndices, ZIndicesType } from '../z-index';
 
 @Component({
@@ -7,6 +7,7 @@ import { zIndices, ZIndicesType } from '../z-index';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './sidebar.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./sidebar.css'],
 })
 export class Sidebar {

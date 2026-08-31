@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { ExtractorService } from '../../extractor-service/extractor-service';
 
 // ==============================================================================
@@ -9,6 +9,7 @@ import { ExtractorService } from '../../extractor-service/extractor-service';
   selector: 'ZS-input-errors',
   imports: [],
   templateUrl: './input-errors.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input-errors.css'
 })
 export class InputErrors {

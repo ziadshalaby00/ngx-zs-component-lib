@@ -8,8 +8,16 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/FieldInputStyleDirective/field-input-style.spec.ts", "projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/FieldInputStyleDirective/field-input-style.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

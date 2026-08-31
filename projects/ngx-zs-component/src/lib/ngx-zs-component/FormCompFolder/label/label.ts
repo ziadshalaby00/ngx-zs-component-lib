@@ -1,7 +1,7 @@
 // ==============================================
 // Component Metadata
 // ==============================================
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseSize } from '../../palette-service';
 import { CommonModule } from '@angular/common';
 
@@ -11,6 +11,7 @@ type sizeClassesType = Record<BaseSize, { label: string; hint: string }>;
   selector: 'ZS-label',
   imports: [CommonModule],
   templateUrl: './label.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './label.css'
 })
 export class Label {

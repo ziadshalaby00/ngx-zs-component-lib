@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'lib-ngx-zs-component',
@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
       ngx-zs-component works!
     </p>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: ``,
 })
 export class NgxZsComponent {

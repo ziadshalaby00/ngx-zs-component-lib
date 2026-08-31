@@ -3,7 +3,7 @@
 // ========================================================================
 
 import { CommonModule } from '@angular/common';
-import { Component, computed, HostListener, inject, input, signal } from '@angular/core';
+import { Component, computed, HostListener, inject, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { BaseColors, ColorMapping } from '../palette-service';
 import { zIndices, ZIndicesType } from '../z-index';
 
@@ -23,6 +23,7 @@ export type PositionType = 'left' | 'right';
   selector: 'ZS-scroll-to-top',
   imports: [CommonModule],
   templateUrl: './scroll-to-top.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './scroll-to-top.css'
 })
 export class ScrollToTop {

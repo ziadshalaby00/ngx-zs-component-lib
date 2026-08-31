@@ -1,4 +1,4 @@
-import { Component, computed, input, model, TemplateRef } from '@angular/core';
+import { Component, computed, input, model, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { BaseColors, BaseSize, ColorMapping } from '../../palette-service';
 import { Label } from '../label/label';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   selector: 'ZS-toggle',
   imports: [Label, CommonModule],
   templateUrl: './toggle.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './toggle.css'
 })
 export class Toggle {

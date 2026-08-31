@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, output, signal } from '@angular/core';
+import { Component, effect, output, signal, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'ZS-connection',
   imports: [CommonModule],
   templateUrl: './connection.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './connection.css'
 })
 export class Connection {

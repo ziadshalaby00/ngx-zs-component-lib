@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 export interface PagesType {
@@ -10,6 +10,7 @@ export interface PagesType {
   selector: 'ZS-footer',
   imports: [RouterModule],
   templateUrl: './footer.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './footer.css',
 })
 export class Footer {

@@ -1,6 +1,6 @@
 import { Footer } from './../../projects/ngx-zs-component/src/lib/ngx-zs-component/footer/footer';
 import { ScrollToTop } from './../../projects/ngx-zs-component/src/lib/ngx-zs-component/scroll-to-top/scroll-to-top';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeToggle, themeTypes } from "../../projects/ngx-zs-component/src/lib/ngx-zs-component/theme-toggle/theme-toggle";
 import { Button } from '../../projects/ngx-zs-component/src/lib/ngx-zs-component/FormCompFolder/button/button';
@@ -11,15 +11,11 @@ import { DemoAll } from './demo-all/demo-all';
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
-    ThemeToggle,
-    ScrollToTop,
-    Footer,
-    Button,
     Alert,
     DemoAll
 ],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.css'
 })
 export class App {

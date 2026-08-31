@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, input, signal, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, inject, input, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { cardPaletteMap, FormStyle, ringPaletteMap } from '../palette-service';
 import { VisibilityObserverService } from '../visibility-observer/visibility-observer-service';
 import { CommonModule } from '@angular/common';
@@ -31,6 +31,7 @@ export type AnimationType =
   standalone: true,
   templateUrl: './card.html',
   styleUrl: './card.css',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [CommonModule]
 })
 export class Card {

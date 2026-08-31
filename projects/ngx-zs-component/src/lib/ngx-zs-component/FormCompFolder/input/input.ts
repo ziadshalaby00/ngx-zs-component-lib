@@ -9,6 +9,7 @@ import {
   signal,
   TemplateRef,
   viewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { inputPaletteMap, BaseSize, FormStyle, ringPaletteMap } from '../../palette-service';
 import { Label } from '../label/label';
@@ -108,6 +109,7 @@ const EMAIL_REGEX: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   selector: 'ZS-input',
   imports: [CommonModule, Label, InputErrors],
   templateUrl: './input.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input.css'
 })
 export class Input {

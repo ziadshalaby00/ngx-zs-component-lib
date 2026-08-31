@@ -1,5 +1,5 @@
 import { RouterModule } from '@angular/router';
-import { Component, computed, effect, input, output, signal, TemplateRef, viewChild } from '@angular/core';
+import { Component, computed, effect, input, output, signal, TemplateRef, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormStyle, page404PaletteMap } from '../palette-service';
 import { CommonModule } from '@angular/common';
 
@@ -13,6 +13,7 @@ interface Page404StyleType {
   selector: 'ZS-page404',
   imports: [RouterModule, CommonModule],
   templateUrl: './page404.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './page404.css'
 })
 export class Page404 {

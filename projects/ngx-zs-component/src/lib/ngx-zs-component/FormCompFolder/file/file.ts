@@ -2,7 +2,7 @@
 // Imports
 // ==============================================================================
 
-import { Component, computed, ElementRef, input, model, output, viewChild } from '@angular/core';
+import { Component, computed, ElementRef, input, model, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormStyle, inputPaletteMap, ringPaletteMap } from '../../palette-service';
 import { ChangeEventType, ValidatorFn } from '../input/input';
 import { Label } from '../label/label';
@@ -31,6 +31,7 @@ export type FilesType = Map<string, FileData>;
   selector: 'ZS-file',
   imports: [Label, InputErrors, CommonModule, Button],
   templateUrl: './file.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './file.css'
 })
 export class FileInput {

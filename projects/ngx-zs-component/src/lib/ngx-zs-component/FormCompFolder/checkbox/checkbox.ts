@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, model } from '@angular/core';
+import { Component, computed, input, model, ChangeDetectionStrategy } from '@angular/core';
 import { BaseSize, checkboxTextPaletteMap, ringPaletteMap, FormStyle } from '../../palette-service';
 import { Label } from '../label/label';
 
@@ -19,6 +19,7 @@ export type ShapeType = 'square' | 'circle'
   selector: 'ZS-checkbox',
   imports: [Label, CommonModule],
   templateUrl: './checkbox.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './checkbox.css'
 })
 export class Checkbox {

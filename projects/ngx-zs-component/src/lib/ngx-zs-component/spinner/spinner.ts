@@ -8,7 +8,7 @@ export type LoaderType = 'spinner' | 'pro' | 'double' | 'gear' | 'fan' | 'pulse'
 // Component Definition
 // =================================================================================================
 
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { BaseColors, BaseSize, ColorMapping } from '../palette-service';
 import { zIndices, ZIndicesType } from '../z-index';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
   selector: 'ZS-spinner',
   imports: [CommonModule],
   templateUrl: './spinner.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './spinner.css'
 })
 export class Spinner {

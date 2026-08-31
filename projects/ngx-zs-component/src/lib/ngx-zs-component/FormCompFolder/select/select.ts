@@ -1,15 +1,16 @@
 // =================================================================================================
 // Imports
 // =================================================================================================
-import { 
-  Component, 
-  signal, 
-  computed, 
-  input, 
-  model, 
-  output, 
-  effect, 
-  inject
+import {
+  Component,
+  signal,
+  computed,
+  input,
+  model,
+  output,
+  effect,
+  inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -37,6 +38,7 @@ export interface DropdownItem<T> {
   selector: 'ZS-select',
   imports: [CommonModule, FormsModule, Input, Label, InputErrors],
   templateUrl: './select.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './select.css'
 })
 export class Select<T> {

@@ -31,7 +31,7 @@ export interface NavbarItem {
 // Imports
 // ==============================================
 
-import { Component, computed, effect, ElementRef, HostListener, inject, input, output, Signal, signal, TemplateRef } from '@angular/core';
+import { Component, computed, effect, ElementRef, HostListener, inject, input, output, Signal, signal, TemplateRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavItemService } from '../nav-item-service/nav-item-service';
@@ -45,6 +45,7 @@ import { zIndices, ZIndicesType } from '../../z-index';
   selector: 'ZS-nav-item',
   imports: [CommonModule, RouterModule],
   templateUrl: './nav-item.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './nav-item.css'
 })
 export class NavItem {

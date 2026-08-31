@@ -15,6 +15,7 @@ import {
   computed,
   output,
   TemplateRef,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { FormStyle, BaseSize, buttonSolidPaletteMap, ringPaletteMap, buttonOutlinePaletteMap } from '../../palette-service';
 import { CommonModule } from '@angular/common';
@@ -28,6 +29,7 @@ import { CommonModule } from '@angular/common';
   selector: 'ZS-button',
   imports: [CommonModule],
   templateUrl: './button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './button.css'
 })
 export class Button {

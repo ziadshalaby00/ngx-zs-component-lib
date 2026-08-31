@@ -9,7 +9,8 @@ import {
   effect,
   inject,
   input,
-  signal
+  signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { AlertService } from '../alert-service/alert-service';
 import { zIndices, ZIndicesType } from '../../z-index';
@@ -73,6 +74,7 @@ export type DirectionType = 'top' | 'bottom';
   selector: 'ZS-alert',
   imports: [CommonModule],
   templateUrl: './alert.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './alert.css'
 })
 export class Alert {

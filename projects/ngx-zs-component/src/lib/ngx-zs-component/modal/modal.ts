@@ -1,4 +1,4 @@
-import { Component, computed, effect, HostListener, input, model, output, Signal, signal, TemplateRef, untracked } from '@angular/core';
+import { Component, computed, effect, HostListener, input, model, output, Signal, signal, TemplateRef, untracked, ChangeDetectionStrategy } from '@angular/core';
 import { BaseSize, FormStyle, modalPaletteMap } from '../palette-service';
 import { Button, ButtonVariant } from '../FormCompFolder/button/button';
 import { CommonModule } from '@angular/common';
@@ -44,6 +44,7 @@ const positionMap: Record<Position, string> = {
   selector: 'ZS-modal',
   imports: [Button, CommonModule],
   templateUrl: './modal.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './modal.css'
 })
 export class Modal {

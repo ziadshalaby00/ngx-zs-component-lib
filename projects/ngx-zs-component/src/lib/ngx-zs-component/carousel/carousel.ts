@@ -16,7 +16,7 @@ export type ItemShapeType = 'rect' | 'circle';
 // Component
 // ==============================================
 
-import { Component, input, output, model, viewChild, ElementRef, computed, effect, signal } from '@angular/core';
+import { Component, input, output, model, viewChild, ElementRef, computed, effect, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseColors, ColorMapping } from '../palette-service';
 
@@ -24,6 +24,7 @@ import { BaseColors, ColorMapping } from '../palette-service';
   selector: 'ZS-carousel',
   imports: [CommonModule],
   templateUrl: './carousel.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './carousel.css'
 })
 export class Carousel {

@@ -3,7 +3,7 @@
 // ========================================================================
 
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, input, output, ChangeDetectionStrategy } from '@angular/core';
 
 
 // ========================================================================
@@ -14,6 +14,7 @@ import { Component, computed, input, output } from '@angular/core';
   selector: 'ZS-pagination',
   imports: [CommonModule],
   templateUrl: './pagination.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pagination.css'
 })
 export class Pagination {

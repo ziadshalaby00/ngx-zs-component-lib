@@ -140,7 +140,7 @@
             >
               @if (userProfile()?.imageUrl) {
                 <img
-                  [src]="userProfile()?.imageUrl"
+                  [src]="$safeNavigationMigration(userProfile()?.imageUrl)"
                   alt="{{ userProfile()?.name ?? 'User profile image' }}"
                   class="zs:size-9 zs:rounded-full zs:object-cover"
                 />
@@ -210,7 +210,7 @@
             [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
             [variant]="authButtons().login?.variant ?? 'outline'"
             [size]="authButtons().login?.size ?? 'md'"
-            [iconTpl]="authButtons().login?.iconTpl?.()"
+            [iconTpl]="$safeNavigationMigration(authButtons().login?.iconTpl?.())"
             (clickedEv)="onLogin()"
             >
               Login
@@ -220,7 +220,7 @@
             [btnStyle]="authButtons().signup?.btnStyle ?? 'primary'"
             [variant]="authButtons().signup?.variant ?? 'solid'"
             [size]="authButtons().signup?.size ?? 'md'"
-            [iconTpl]="authButtons().signup?.iconTpl?.()"
+            [iconTpl]="$safeNavigationMigration(authButtons().signup?.iconTpl?.())"
             class="zs:truncate"
             (clickedEv)="onSignup()"
             >
@@ -319,7 +319,7 @@
             [btnStyle]="authButtons().login?.btnStyle ?? 'secondary'"
             [variant]="authButtons().login?.variant ?? 'outline'"
             [size]="authButtons().login?.size ?? 'md'"
-            [iconTpl]="authButtons().login?.iconTpl?.()"
+            [iconTpl]="$safeNavigationMigration(authButtons().login?.iconTpl?.())"
             (clickedEv)="onLogin(); isMobileMenuOpen.set(false)"
             >
               Login
@@ -329,7 +329,7 @@
             [btnStyle]="authButtons().signup?.btnStyle ?? 'primary'"
             [variant]="authButtons().signup?.variant ?? 'solid'"
             [size]="authButtons().signup?.size ?? 'md'"
-            [iconTpl]="authButtons().signup?.iconTpl?.()"
+            [iconTpl]="$safeNavigationMigration(authButtons().signup?.iconTpl?.())"
             (clickedEv)="onSignup(); isMobileMenuOpen.set(false)"
             >
               Sign Up

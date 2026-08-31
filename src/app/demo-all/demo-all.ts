@@ -1,14 +1,14 @@
-import { Component, signal, inject, TemplateRef, viewChild } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import {
   Button, Input, Select, Checkbox, Toggle, Range, FileInput, Label, InputErrors,
-  Alert, Card, Carousel, Modal, Navbar, NavItem, Sidebar,
+  Card, Carousel, Modal, Navbar, NavItem, Sidebar,
   Pagination, Spinner, ThemeToggle, ScrollToTop, Page404, Connection, Footer,
   AlertService, Form,
-  FormStyle, BaseColors, BaseSize, DropdownItem, NavbarItem,
-  FilesType, FileData, ChangeEventType, VariantType, AnimationType,
+  FormStyle, BaseColors, BaseSize, DropdownItem,
+  FilesType, FileData, ChangeEventType, AnimationType,
   NavItemsType, UserItemsType, UserProfile, AuthButtonsType,
   LoaderType, ButtonVariant, ChVariantType, ShapeType
 } from '../../../projects/ngx-zs-component/src/public-api';
@@ -19,7 +19,7 @@ import {
   imports: [
     CommonModule, RouterModule,
     Button, Input, Select, Checkbox, Toggle, Range, FileInput, Label, InputErrors,
-    Alert, Card, Carousel, Modal, Navbar, NavItem, Sidebar,
+    Card, Carousel, Modal, Navbar, NavItem, Sidebar,
     Pagination, Spinner, ThemeToggle, ScrollToTop, Page404, Connection, Footer
   ],
   templateUrl: './demo-all.html',

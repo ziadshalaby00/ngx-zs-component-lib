@@ -1,4 +1,4 @@
-import { Signal } from '@angular/core';
+import { Signal, ChangeDetectionStrategy } from '@angular/core';
 // ==============================================
 // Imports
 // ==============================================
@@ -67,6 +67,7 @@ export type MobileModeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   selector: 'ZS-navbar',
   imports: [RouterModule, CommonModule, NavItem, Button],
   templateUrl: './navbar.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './navbar.css'
 })
 export class Navbar {
