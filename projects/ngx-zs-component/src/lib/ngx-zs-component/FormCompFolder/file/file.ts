@@ -174,13 +174,38 @@ export class FileInput implements FormValueControl<FilesType> {
       name: f.name,
       size: f.size,
       type: f.type,
-      url: this.allowPreview() ? URL.createObjectURL(f) : undefined,
+      url: this.allowPreview()
+        ? URL.createObjectURL(f)
+        : undefined,
       file: f,
     }));
 
     this.value.update((prev: FilesType) => {
       const multiple = this.multiple();
-      const next = multiple ? new Map(prev) : new Map<string, FileData>();
+
+      // ==========================================
+      // Single file → remove old files completely
+      // ==========================================
+      if (!multiple) {
+        prev.forEach(file => {
+          if (file.url?.startsWith('blob:')) {
+            URL.revokeObjectURL(file.url);
+          }
+        });
+
+        const next = new Map<string, FileData>();
+
+        for (const nf of selected) {
+          next.set(this.fileKey(nf), nf);
+        }
+
+        return next;
+      }
+
+      // ==========================================
+      // Multiple files → keep existing files
+      // ==========================================
+      const next = new Map(prev);
 
       for (const nf of selected) {
         next.set(this.fileKey(nf), nf);
@@ -192,7 +217,7 @@ export class FileInput implements FormValueControl<FilesType> {
     this.touch.emit();
     this.emitChangeValue(this.filesMapToList());
 
-    // Reset native <input> value to allow re-selecting the same file
+    // Allow selecting the same file again
     input.value = '';
   }
 

@@ -444,9 +444,6 @@
   .zs\:m-4 {
     margin: calc(var(--zs-spacing) * 4);
   }
-  .zs\:m-auto {
-    margin: auto;
-  }
   .zs\:mx-4 {
     margin-inline: calc(var(--zs-spacing) * 4);
   }
@@ -696,9 +693,6 @@
   }
   .zs\:w-64 {
     width: calc(var(--zs-spacing) * 64);
-  }
-  .zs\:w-\[60\%\] {
-    width: 60%;
   }
   .zs\:w-\[80vw\] {
     width: 80vw;
