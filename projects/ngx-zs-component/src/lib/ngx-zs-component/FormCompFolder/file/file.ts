@@ -24,6 +24,7 @@ export interface FileData {
   size: number;
   type: string;
   url?: string;
+  file: File;
 }
 
 export type FilesType = Map<string, FileData>;
@@ -174,6 +175,7 @@ export class FileInput implements FormValueControl<FilesType> {
       size: f.size,
       type: f.type,
       url: this.allowPreview() ? URL.createObjectURL(f) : undefined,
+      file: f,
     }));
 
     this.value.update((prev: FilesType) => {

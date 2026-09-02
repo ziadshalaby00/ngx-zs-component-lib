@@ -37,11 +37,5 @@ interface Role {
   styleUrl: './demo-all.css'
 })
 export class DemoAll {
-    model = signal({
-      test: ''
-    })
-
-    form = form(this.model, (s) => {
-      required(s.test, {message: 'ez'})
-    });
+  
 }
