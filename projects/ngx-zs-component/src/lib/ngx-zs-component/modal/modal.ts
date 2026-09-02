@@ -44,7 +44,7 @@ const positionMap: Record<Position, string> = {
   selector: 'ZS-modal',
   imports: [Button, CommonModule],
   templateUrl: './modal.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './modal.css'
 })
 export class Modal {

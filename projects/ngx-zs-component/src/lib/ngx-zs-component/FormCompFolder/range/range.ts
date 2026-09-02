@@ -7,50 +7,87 @@ import {
   computed,
   input,
   model,
+  output,
   signal,
   ElementRef,
   viewChild,
   effect,
 } from '@angular/core';
+import {
+  FormValueControl,
+  ValidationError,
+  WithOptionalFieldTree,
+  DisabledReason,
+} from '@angular/forms/signals';
 import { BaseSize, buttonSolidPaletteMap, FormStyle, inputPaletteMap } from '../../palette-service';
 import { Label } from '../label/label';
 import { CommonModule } from '@angular/common';
+import { InputErrors } from '../input-errors/input-errors';
 
 // ==============================================
 // Component Metadata
 // ==============================================
 @Component({
   selector: 'ZS-range',
-  imports: [Label, CommonModule],
+  imports: [Label, CommonModule, InputErrors],
   templateUrl: './range.html',
   styleUrl: './range.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Range {
+export class Range implements FormValueControl<number> {
 
   // ==============================================
-  // Inputs
+  // Inputs (config)
   // ==============================================
   readonly Id = input<string>(crypto.randomUUID());
   readonly label = input<string | null>(null);
   readonly hint = input<string | null>(null);
 
-  readonly min = input<number>(10);
-  readonly max = input<number>(400);
+  // NOTE: these two also double as the FormUiControl `min`/`max`
+  // constraint pass-through. If a schema rule declares min()/max() on
+  // the bound field, the FormField directive will overwrite these
+  // inputs with the schema's values — which is actually the desired
+  // behavior for a slider (constraint == visual bound). Just be aware
+  // of it if you ever want the slider bounds to differ from the
+  // validation bounds.
+  readonly min = input<number | undefined>(undefined);
+  readonly max = input<number | undefined>(undefined);
+
+  readonly theMin = computed(() => this.min() ?? 0);
+  readonly theMax = computed(() => this.max() ?? 100);
+
   readonly step = input<number>(10);
 
   readonly inputStyle = input<FormStyle>('secondary');
   readonly size = input<BaseSize>('md');
 
-  readonly disabled = input<boolean>(false);
-  readonly isReadonly = input<boolean>(false);
-
   readonly showValue = input<boolean>(true);
 
   // ==============================================
-  // Model
+  // FormUiControl — Availability state
   // ==============================================
-  readonly value = model<number>(200);
+  readonly disabled = input<boolean>(false);
+  readonly readonly = input<boolean>(false);
+  readonly hidden = input<boolean>(false);
+  readonly disabledReasons = input<readonly WithOptionalFieldTree<DisabledReason>[]>([]);
+
+  // ==============================================
+  // FormUiControl — Validation state
+  // ==============================================
+  readonly invalid = input<boolean>(false);
+  readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
+  readonly required = input<boolean>(false);
+
+  // ==============================================
+  // FormUiControl — Interaction state
+  // ==============================================
+  readonly touched = input<boolean>(false);
+  readonly touch = output<void>();
+
+  // ==============================================
+  // Model (required by FormValueControl<number>)
+  // ==============================================
+  readonly value = model<number>(50);
 
   // ==============================================
   // References & Internal State
@@ -61,11 +98,11 @@ export class Range {
   // ==============================================
   // Computed Properties
   // ==============================================
-  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
+  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.readonly());
 
   readonly percent = computed<number>(() => {
-    const range = this.max() - this.min();
-    return ((this.value() - this.min()) / range) * 100;
+    const range = this.theMax() - this.theMin();
+    return ((this.value() - this.theMin()) / range) * 100;
   });
 
   rangeSizeClasses = (type: 'size' | 'height'): string => {
@@ -124,6 +161,7 @@ export class Range {
     const sizeClasses = this.rangeSizeClasses('height');
     const disabledClass = this.disabled() ? 'zs:opacity-60' : '';
     const interactionClass = !this.disabledOrReadonly() ? 'zs:group' : '';
+    const invalidClass = this.invalid() ? 'zs:ring-2 zs:ring-red-500' : '';
 
     return [
       sizeClasses,
@@ -132,7 +170,8 @@ export class Range {
       this.palette().inputPalette.text,
       base,
       disabledClass,
-      interactionClass
+      interactionClass,
+      invalidClass,
     ].join(' ');
   });
 
@@ -146,7 +185,7 @@ export class Range {
   })
 
   // ==============================================
-  // Event Handlers
+  // Event Handlers — pointer interaction
   // ==============================================
   onMouseDown(event: MouseEvent): void {
     if (this.disabledOrReadonly()) return;
@@ -161,7 +200,52 @@ export class Range {
 
   onMouseUp(): void {
     if (this.disabledOrReadonly()) return;
-    this.dragging.set(false);
+    if (this.dragging()) {
+      this.dragging.set(false);
+      // Report the interaction as a "blur" so debounce('blur') schemas work.
+      this.touch.emit();
+    }
+  }
+
+  // ==============================================
+  // Event Handlers — keyboard interaction (a11y + lets the control
+  // be usable/testable without a mouse, which Signal Forms consumers
+  // will expect from any FormValueControl)
+  // ==============================================
+  onKeyDown(event: KeyboardEvent): void {
+    if (this.disabledOrReadonly()) return;
+
+    const step = this.step();
+    let delta = 0;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowUp':
+        delta = step;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowDown':
+        delta = -step;
+        break;
+      case 'Home':
+        event.preventDefault();
+        this.value.set(this.theMin());
+        return;
+      case 'End':
+        event.preventDefault();
+        this.value.set(this.theMax());
+        return;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    const next = Math.min(this.theMax(), Math.max(this.theMin(), this.value() + delta));
+    this.value.set(next);
+  }
+
+  onBlur(): void {
+    this.touch.emit();
   }
 
   // ==============================================
@@ -176,10 +260,10 @@ export class Range {
     const rect = track.getBoundingClientRect();
     const x = Math.min(Math.max(event.clientX - rect.left, 0), rect.width);
     const percent = x / rect.width;
-    const rawValue = this.min() + percent * (this.max() - this.min());
+    const rawValue = this.theMin() + percent * (this.theMax() - this.theMin());
 
     const stepped = Math.round(rawValue / this.step()) * this.step();
-    this.value.set(Math.min(this.max(), Math.max(this.min(), stepped)));
+    this.value.set(Math.min(this.theMax(), Math.max(this.theMin(), stepped)));
   }
 
   calcThumbPosition(): string {
@@ -220,4 +304,6 @@ export class Range {
       };
     });
   }
+
+  readonly errorsUI = computed<string[]>(() => this.errors().map(v => v.message ?? ''));
 }

@@ -9,7 +9,7 @@ import { ExtractorService } from '../../extractor-service/extractor-service';
   selector: 'ZS-input-errors',
   imports: [],
   templateUrl: './input-errors.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './input-errors.css'
 })
 export class InputErrors {

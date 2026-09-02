@@ -7,7 +7,7 @@ import { zIndices, ZIndicesType } from '../z-index';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './sidebar.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./sidebar.css'],
 })
 export class Sidebar {

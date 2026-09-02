@@ -1,54 +1,162 @@
-<div class="zs:flex zs:items-center zs:justify-start zs:w-full zs:select-none">
-  <!-- ===================== Checkbox Wrapper ===================== -->
-  <div
-    class="zs:cursor-pointer zs:leading-none"
-  >
-    <!-- ===================== Hidden Input (Native for screen readers) ===================== -->
-    <input
-      type="checkbox"
-      class="zs:hidden"
-      [id]="Id()"
-      [checked]="isChecked()"
-      [disabled]="disabledOrReadonly()"
-      (change)="toggleChecked()"
-    />
+<div
+  class="zs:flex zs:items-center zs:justify-start zs:w-full zs:select-none"
+>
 
-    <!-- ===================== Custom Accessible Toggle ===================== -->
+  <!-- =========================================================
+       Toggle
+       ========================================================= -->
+
+  <div class="zs:leading-none">
+
+    <!-- =======================================================
+         Accessible Toggle Button
+         ======================================================= -->
+
     <button
-    (click)="value.set(!value())"
-    class="zs:relative zs:rounded-full zs:border-2 zs:flex zs:items-center zs:overflow-hidden"
-    [ngClass]="[
+      type="button"
+
+      role="switch"
+
+      [id]="Id() + '-trigger'"
+
+      [attr.aria-checked]="isChecked()"
+      [attr.aria-disabled]="disabledOrReadonly()"
+      [attr.aria-required]="required()"
+
+      [attr.aria-labelledby]="
+        label() || hint()
+          ? Id() + '-label'
+          : null
+      "
+
+      [attr.aria-describedby]="
+        hint() || errors().length
+          ? Id() + '-hint ' + Id() + '-error'
+          : null
+      "
+
+      [disabled]="disabledOrReadonly()"
+
+      class="
+        zs:relative
+        zs:rounded-full
+        zs:border-2
+        zs:flex
+        zs:items-center
+        zs:overflow-hidden
+        zs:focus:outline-hidden
+        zs:focus-visible:ring-2
+      "
+
+      [ngClass]="[
         toggleClasses(),
         colorClasses('border'),
-        value() ? colorClasses('bg') : '', 
-        value() ? '' : 'zs:bg-gray-100 zs:dark:bg-gray-700',
-        btnSize(),
-    ]"
+        isChecked() ? colorClasses('bg') : '',
+        isChecked()
+          ? ''
+          : 'zs:bg-gray-100 zs:dark:bg-gray-700',
+        btnSize()
+      ]"
+
+      (click)="toggleChecked()"
+      (keydown)="onKeyDown($event)"
+      (blur)="onBlur()"
     >
+
+      <!-- =====================================================
+           Toggle Thumb
+           ===================================================== -->
+
       <div
-          class="zs:absolute zs:left-1 zs:top-1/2 zs:-translate-1/2
-           zs:rounded-full zs:flex zs:items-center zs:justify-center 
-           zs:transition-[translate] zs:duration-500 zs:ease-in-out zs:shadow-md"
-          [ngClass]="[
-              value() ? '' : colorClasses('bg'),
-              value() ? colorClasses('text') : 'zs:text-gray-100 zs:dark:text-gray-300',
-              value() ? 'zs:bg-gray-100 zs:dark:bg-gray-300' : '',
-              wrapperSize(),
-              value() ? transSize() : 'zs:translate-x-0',
-          ]"
+        class="
+          zs:absolute
+          zs:left-1
+          zs:top-1/2
+          zs:-translate-y-1/2
+          zs:rounded-full
+          zs:flex
+          zs:items-center
+          zs:justify-center
+          zs:transition-[transform]
+          zs:duration-500
+          zs:ease-in-out
+          zs:shadow-md
+        "
+
+        [ngClass]="[
+
+          isChecked()
+            ? ''
+            : colorClasses('bg'),
+
+          isChecked()
+            ? colorClasses('text')
+            : 'zs:text-gray-100 zs:dark:text-gray-300',
+
+          isChecked()
+            ? 'zs:bg-gray-100 zs:dark:bg-gray-300'
+            : '',
+
+          wrapperSize(),
+
+          isChecked()
+            ? transSize()
+            : 'zs:translate-x-0'
+
+        ]"
       >
-        <ng-container *ngTemplateOutlet="iconTpl()"></ng-container>
+
+        <!-- ===================================================
+             Optional Icon Template
+             =================================================== -->
+
+        <ng-container
+          *ngTemplateOutlet="iconTpl()"
+        ></ng-container>
+
       </div>
+
     </button>
+
   </div>
 
-  <!-- ===================== Label (ZS-label component) ===================== -->
-  <ZS-label [class]="(label() || hint()) ? 'zs:ml-1' : ''"
+
+  <!-- =========================================================
+       Label
+       ========================================================= -->
+
+  <ZS-label
+    [class]="
+      (label() || hint())
+        ? 'zs:ml-1'
+        : ''
+    "
+
     [id]="Id() + '-label'"
+
     [label]="label()"
+
     [hint]="hint()"
+
     [size]="size()"
+
+    [required]="required()"
+
     [hintId]="Id() + '-hint'"
-    [for]="Id()"
-  ></ZS-label>
+
+    [for]="Id() + '-trigger'"
+  >
+  </ZS-label>
+
 </div>
+
+
+<!-- ===========================================================
+     Validation Errors
+     =========================================================== -->
+
+<ZS-input-errors
+  [Id]="Id()"
+  [errors]="[errorsUI()]"
+>
+</ZS-input-errors>

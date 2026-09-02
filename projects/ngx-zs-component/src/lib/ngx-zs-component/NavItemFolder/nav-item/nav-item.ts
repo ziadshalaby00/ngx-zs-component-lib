@@ -45,7 +45,7 @@ import { zIndices, ZIndicesType } from '../../z-index';
   selector: 'ZS-nav-item',
   imports: [CommonModule, RouterModule],
   templateUrl: './nav-item.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './nav-item.css'
 })
 export class NavItem {

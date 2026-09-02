@@ -8,14 +8,18 @@ import {
   input,
   model,
   output,
-  effect,
-  inject,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {
+  FormValueControl,
+  WithOptionalFieldTree,
+  ValidationError,
+  DisabledReason
+} from '@angular/forms/signals';
 
-import { ChangeEventType, Input, ValidatorFn } from '../input/input';
+import { Input } from '../input/input';
 import { Label } from '../label/label';
 import { FormStyle, inputPaletteMap, selectPaletteMap } from '../../palette-service';
 import { InputErrors } from '../input-errors/input-errors';
@@ -38,24 +42,20 @@ export interface DropdownItem<T> {
   selector: 'ZS-select',
   imports: [CommonModule, FormsModule, Input, Label, InputErrors],
   templateUrl: './select.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './select.css'
 })
-export class Select<T> {
+export class Select<T> implements FormValueControl<DropdownItem<T>[]> {
   readonly zIndices: ZIndicesType = zIndices;
 
   // =================================================================================================
-  // Inputs
+  // Static configuration inputs
   // =================================================================================================
   readonly Id = input<string>(crypto.randomUUID());
   readonly items = input.required<DropdownItem<T>[]>();
 
   readonly label = input<string | null>(null);
   readonly hint = input<string | null>(null);
-
-  readonly required = input<boolean>(false);
-  readonly disabled = input<boolean>(false);
-  readonly isReadonly = input<boolean>(false);
 
   readonly inputStyle = input<FormStyle>('secondary');
   readonly placeholder = input<string>('Select an option...');
@@ -69,21 +69,48 @@ export class Select<T> {
   readonly searchDebounceDelay = input<number>(300);
   readonly showLoaderIconOnSearchInput = input<boolean>(false);
 
-  readonly preselectedIds = input<(number | string)[]>([]);
   readonly multiple = input<boolean>(false);
-  readonly validateFns = input<ValidatorFn<DropdownItem<T>[]>[]>([]);
 
   // =================================================================================================
-  // Model (Two-way Binding)
+  // FormValueControl — required value model.
+  // NOTE: replaces the old `selectedItems` model. `[formField]` binds to
+  // this signal directly, so there is no need for `preselectedIds` /
+  // the old constructor effect anymore — pass the initial selection
+  // through the form model you give to `form(...)` instead.
   // =================================================================================================
-  readonly selectedItems = model<DropdownItem<T>[]>([]);
-  readonly touched = model<boolean>(false); // Tracks if the user has interacted with the input
+  readonly value = model<DropdownItem<T>[]>([]);
 
+  // =================================================================================================
+  // FormUiControl — optional state signals.
+  // Any of these that exist on the component are auto-bound by
+  // [formField] once it detects them; the rest are simply ignored
+  // when the control is used outside a Signal Form.
+  // =================================================================================================
+  readonly disabled = input<boolean>(false);
+  readonly hidden = input<boolean>(false);
+  readonly required = input<boolean>(false);
+
+  // Renamed from `isReadonly` -> `readonly` so [formField] can bind it.
+  readonly readonly = input<boolean>(false);
+
+  readonly touched = input<boolean>(false);
+  readonly dirty = input<boolean>(false);
+
+  readonly invalid = input<boolean>(false);
+  readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
+  readonly pending = input<boolean>(false);
+
+  readonly disabledReasons = input<readonly WithOptionalFieldTree<DisabledReason>[]>([]);
+  readonly name = input<string>('');
+
+  // Emitted on "blur" (dropdown closes / selection made in single mode)
+  // so `debounce('blur')` and touched-tracking behave like a native control.
+  readonly touch = output<void>();
 
   // =================================================================================================
-  // Outputs
+  // Outputs (still useful for standalone / non-form usage)
   // =================================================================================================
-  readonly selectedItemsEv = output<ChangeEventType<DropdownItem<T>[]>>();
+  readonly selectedItemsEv = output<DropdownItem<T>[]>();
   readonly selectionClearedEv = output<void>();
 
 
@@ -91,7 +118,7 @@ export class Select<T> {
   // Local Signals
   // =================================================================================================
   readonly isOpen = signal<boolean>(false);
-  readonly searchQuery = signal<string | null>(null);
+  readonly searchQuery = signal<string | number | null>(null);
 
 
   // =================================================================================================
@@ -110,38 +137,30 @@ export class Select<T> {
       cleartexthover: string;
     };
   }>(() => {
-    const hasError = this.error().length;
+    // Previously referenced `this.error()`, which didn't exist on the
+    // class — now driven by the real form-provided `invalid` / `errors`.
+    const hasError = this.invalid() || this.errors().length > 0;
 
-    let inputEntry: {
-      border: string;
-      borderHover: string;
-      inputBg: string;
-      text: string;
-    } = inputPaletteMap.get(this.inputStyle())!;
+    let inputEntry = inputPaletteMap.get(this.inputStyle())!;
+    let selectEntry = selectPaletteMap.get(this.inputStyle())!;
 
-    let selectEntry: {
-      bgSelect: string,
-      cleartext: string,
-      cleartexthover: string,
-    } = selectPaletteMap.get(this.inputStyle())!;
-
-    if(hasError) {
+    if (hasError) {
       selectEntry = selectPaletteMap.get('danger')!;
       inputEntry = inputPaletteMap.get('danger')!;
     }
 
-    return { inputEntry, selectEntry }
-  })
+    return { inputEntry, selectEntry };
+  });
 
   readonly disabledOrReadonly = computed<boolean>(
-    () => this.disabled() || this.isReadonly()
+    () => this.disabled() || this.readonly()
   );
 
   readonly filteredItems = computed<DropdownItem<T>[]>(() => {
     const query = this.searchQuery();
     if (!query) return this.items();
 
-    const lowerQuery = query.toLowerCase();
+    const lowerQuery = String(query).toLowerCase();
     return this.items().filter(item =>
       item.name.toLowerCase().includes(lowerQuery)
     );
@@ -185,29 +204,6 @@ export class Select<T> {
     return this.styleEntry().selectEntry.bgSelect ?? '';
   });
 
-  readonly error = computed<string[]>(() => {
-    const selectedItems = this.selectedItems();
-    const required = this.required();
-
-    // Only validate after user interaction
-    if (!this.touched()) return [];
-
-    const errors: string[] = [];
-
-    // Required validation
-    if (required && !selectedItems.length) {
-      errors.push('This field is required');
-    }
-
-    // Custom validator
-    for (const fn of this.validateFns()) {
-      const result = fn(selectedItems);
-      if (Array.isArray(result)) errors.push(...result);
-    }
-
-    return errors.length > 0 ? errors : [];
-  });
-
 
   // =================================================================================================
   // Utility Methods
@@ -220,88 +216,65 @@ export class Select<T> {
 
 
   // =================================================================================================
-  // Lifecycle & Effects
-  // =================================================================================================
-  constructor() {
-    effect(() => {
-      const ids = this.preselectedIds();
-      const items: DropdownItem<T>[] = ids
-        ?.map(id => this.items().find(item => item.id === id))
-        .filter((item): item is DropdownItem<T> => item !== undefined) ?? [];
-
-      if (items.length > 0) {
-        this.selectItem(items, true);
-      } else if (ids.length === 0) {
-        this.clearSelection();
-      }
-    });
-  }
-
-
-  // =================================================================================================
   // Public Methods
+  // Note: no constructor effect anymore. Signal Forms manages field
+  // state through its own internal effects — a control shouldn't run
+  // its own effect against the same model signal (see "Making controls
+  // reusable / Design considerations" in the Signal Forms guide).
   // =================================================================================================
   toggleDropdown(): void {
     if (this.disabledOrReadonly()) return;
 
-    this.isOpen.set(!this.isOpen());
-    if (this.isOpen()) {
+    const willOpen = !this.isOpen();
+    this.isOpen.set(willOpen);
+
+    if (willOpen) {
       this.searchQuery.set(null);
+    } else {
+      // Closing the dropdown is this control's equivalent of a native blur.
+      this.touch.emit();
     }
-    if (!this.isOpen())  this.touched.set(true)
   }
 
-  selectItem(items: DropdownItem<T>[], isPreselectedIds: boolean = false): void {
+  selectItem(items: DropdownItem<T>[]): void {
     if (!items?.length || !items[0]) return;
 
     if (this.multiple()) {
-      this.selectedItems.update(current => {
-        const existing = current ?? [];
-        const clicked = items[0];
+      const existing = this.value() ?? [];
+      const clicked = items[0];
 
-        const alreadySelected = existing.some(i => i?.id === clicked.id);
-        if (alreadySelected) {
-          return existing.filter(i => i?.id !== clicked.id);
-        } else {
-          return [...existing, clicked];
-        }
-      });
+      const alreadySelected = existing.some(i => i?.id === clicked.id);
+      const next = alreadySelected
+        ? existing.filter(i => i?.id !== clicked.id)
+        : [...existing, clicked];
+
+      this.value.set(next);
+      this.selectedItemsEv.emit(next);
     } else {
-      this.selectedItems.set([items[0]]);
+      this.value.set([items[0]]);
+      this.selectedItemsEv.emit([items[0]]);
       this.isOpen.set(false);
       this.searchQuery.set(null);
+      this.touch.emit();
     }
-
-    if(isPreselectedIds) return;
-    this.touched.set(true)
-    this.emitChangeValue(this.selectedItems(), false);
   }
 
   clearSelection(): void {
     if (this.disabledOrReadonly()) return;
 
-    this.selectedItems.set([]);
+    this.value.set([]);
     this.selectionClearedEv.emit();
+    this.touch.emit();
   }
 
   inSelectItems(item?: DropdownItem<T>): boolean {
     if (!item) return false;
-    return this.selectedItems()?.some(i => i?.id === item.id) ?? false;
+    return this.value()?.some(i => i?.id === item.id) ?? false;
   }
 
   trackByFn(_index: number, item: DropdownItem<T>): T {
     return item.id;
   }
 
-  /** Forces the input to trigger a manual change event */
-  public forceChange(fromForce: boolean = true): void {
-    // Applies the same logic as natural change.
-    this.touched.set(true);
-    this.emitChangeValue(this.selectedItems(), fromForce);
-  }
-
-  emitChangeValue(value: DropdownItem<T>[], fromForce: boolean = true): void {
-    const valid = this.error().length === 0;
-    this.selectedItemsEv.emit({ value, valid, fromForce });
-  }
+  readonly errorsUI = computed<string[]>(() => this.errors().map(v => v.message ?? ''));
 }

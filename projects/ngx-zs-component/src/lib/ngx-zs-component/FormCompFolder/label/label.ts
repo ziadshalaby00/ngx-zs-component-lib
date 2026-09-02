@@ -11,7 +11,7 @@ type sizeClassesType = Record<BaseSize, { label: string; hint: string }>;
   selector: 'ZS-label',
   imports: [CommonModule],
   templateUrl: './label.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './label.css'
 })
 export class Label {

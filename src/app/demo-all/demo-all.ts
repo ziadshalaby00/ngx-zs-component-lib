@@ -12,12 +12,23 @@ import {
   NavItemsType, UserItemsType, UserProfile, AuthButtonsType,
   LoaderType, ButtonVariant, ChVariantType, ShapeType
 } from '../../../projects/ngx-zs-component/src/public-api';
+import { form, FormField, max, min, required, validate } from '@angular/forms/signals';
 
+interface Country {
+  code: string;
+  name: string;
+}
+
+interface Role {
+  id: number;
+  name: string;
+  description: string;
+}
 @Component({
   selector: 'app-demo-all',
   standalone: true,
   imports: [
-    CommonModule, RouterModule,
+    CommonModule, RouterModule, FormField,
     Button, Input, Select, Checkbox, Toggle, Range, FileInput, Label, InputErrors,
     Card, Carousel, Modal, Navbar, NavItem, Sidebar,
     Pagination, Spinner, ThemeToggle, ScrollToTop, Page404, Connection, Footer

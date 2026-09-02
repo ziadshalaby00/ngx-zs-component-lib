@@ -14,7 +14,7 @@ import { Component, computed, input, output, ChangeDetectionStrategy } from '@an
   selector: 'ZS-pagination',
   imports: [CommonModule],
   templateUrl: './pagination.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './pagination.css'
 })
 export class Pagination {

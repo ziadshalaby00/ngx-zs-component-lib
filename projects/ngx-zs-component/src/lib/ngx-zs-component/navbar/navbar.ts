@@ -67,7 +67,7 @@ export type MobileModeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   selector: 'ZS-navbar',
   imports: [RouterModule, CommonModule, NavItem, Button],
   templateUrl: './navbar.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './navbar.css'
 })
 export class Navbar {

@@ -24,7 +24,7 @@ import { BaseColors, ColorMapping } from '../palette-service';
   selector: 'ZS-carousel',
   imports: [CommonModule],
   templateUrl: './carousel.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './carousel.css'
 })
 export class Carousel {

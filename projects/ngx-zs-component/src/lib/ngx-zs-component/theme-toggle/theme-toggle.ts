@@ -16,7 +16,7 @@ export type themeTypes = 'light' | 'dark';
   selector: 'ZS-theme-toggle',
   imports: [CommonModule],
   templateUrl: './theme-toggle.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './theme-toggle.css'
 })
 export class ThemeToggle {

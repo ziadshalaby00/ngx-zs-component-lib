@@ -31,7 +31,7 @@ export type AnimationType =
   standalone: true,
   templateUrl: './card.html',
   styleUrl: './card.css',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule]
 })
 export class Card {

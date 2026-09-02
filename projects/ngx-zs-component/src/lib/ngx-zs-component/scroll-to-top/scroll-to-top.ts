@@ -23,7 +23,7 @@ export type PositionType = 'left' | 'right';
   selector: 'ZS-scroll-to-top',
   imports: [CommonModule],
   templateUrl: './scroll-to-top.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './scroll-to-top.css'
 })
 export class ScrollToTop {

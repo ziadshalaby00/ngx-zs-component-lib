@@ -5,7 +5,7 @@ import { Component, effect, output, signal, ChangeDetectionStrategy } from '@ang
   selector: 'ZS-connection',
   imports: [CommonModule],
   templateUrl: './connection.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './connection.css'
 })
 export class Connection {

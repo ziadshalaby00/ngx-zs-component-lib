@@ -386,4 +386,6 @@ export class Input implements FormValueControl<string | number | null> {
     if (this.disabledOrReadonly()) return;
     this.keydownEv.emit(event);
   }
+
+  readonly errorsUI = computed<string[]>(() => this.errors().map(v => v.message ?? ''));
 }

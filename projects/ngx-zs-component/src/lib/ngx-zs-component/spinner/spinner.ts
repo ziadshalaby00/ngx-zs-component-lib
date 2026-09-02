@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
   selector: 'ZS-spinner',
   imports: [CommonModule],
   templateUrl: './spinner.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './spinner.css'
 })
 export class Spinner {

@@ -10,7 +10,7 @@ export interface PagesType {
   selector: 'ZS-footer',
   imports: [RouterModule],
   templateUrl: './footer.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './footer.css',
 })
 export class Footer {

@@ -53,13 +53,15 @@
         [style.left]="calcThumbPosition()"
         [ngClass]="[ThumbClasses(), disabledOrReadonly() ? 'zs:cursor-not-allowed' : '']"
         role="slider"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur()"
         tabindex="0"
         [attr.id]="Id()"
-        [attr.aria-valuemin]="min()"
-        [attr.aria-valuemax]="max()"
+        [attr.aria-valuemin]="theMin()"
+        [attr.aria-valuemax]="theMax()"
         [attr.aria-valuenow]="value()"
         [attr.aria-disabled]="disabledOrReadonly() || null"
-        [attr.aria-readonly]="isReadonly() || null"
+        [attr.aria-readonly]="readonly() || null"
         [attr.aria-labelledby]="Id() + '-label'"
         [attr.aria-describedby]="hint() ? Id() + '-hint' : null"
         aria-orientation="horizontal"
@@ -75,4 +77,11 @@
       </div>
     }
   </div>
+
+    <!-- ========================= Error Messages ========================= -->
+    <ZS-input-errors
+    [Id]="Id()"
+    [errors]="[errorsUI()]"
+    >
+    </ZS-input-errors>
 </div>

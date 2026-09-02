@@ -121,7 +121,7 @@
   <!-- ========================= Error Messages ========================= -->
   <ZS-input-errors
     [Id]="Id() + '-error'"
-    [errors]="[errors().map(v => v.message ?? '')]"
+    [errors]="[errorsUI()]"
     aria-live="assertive"
     role="alert"
   >

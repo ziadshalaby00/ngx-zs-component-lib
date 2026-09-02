@@ -255,4 +255,6 @@ export class FileInput implements FormValueControl<FilesType> {
       }
     });
   }
+
+  readonly errorsUI = computed<string[]>(() => this.errors().map(v => v.message ?? ''));
 }

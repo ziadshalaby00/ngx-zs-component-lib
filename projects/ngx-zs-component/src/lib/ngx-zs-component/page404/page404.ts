@@ -13,7 +13,7 @@ interface Page404StyleType {
   selector: 'ZS-page404',
   imports: [RouterModule, CommonModule],
   templateUrl: './page404.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './page404.css'
 })
 export class Page404 {

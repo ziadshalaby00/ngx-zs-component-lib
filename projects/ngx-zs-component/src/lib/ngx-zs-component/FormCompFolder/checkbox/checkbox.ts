@@ -26,7 +26,7 @@ export type ShapeType = 'square' | 'circle'
   selector: 'ZS-checkbox',
   imports: [Label, CommonModule, InputErrors],
   templateUrl: './checkbox.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './checkbox.css'
 })
 export class Checkbox implements FormCheckboxControl {
@@ -181,4 +181,6 @@ export class Checkbox implements FormCheckboxControl {
     if (this.disabledOrReadonly()) return;
     this.touch.emit();
   }
+
+  readonly errorsUI = computed<string[]>(() => this.errors().map(v => v.message ?? ''));
 }

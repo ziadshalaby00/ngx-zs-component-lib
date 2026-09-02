@@ -74,7 +74,7 @@ export type DirectionType = 'top' | 'bottom';
   selector: 'ZS-alert',
   imports: [CommonModule],
   templateUrl: './alert.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './alert.css'
 })
 export class Alert {
