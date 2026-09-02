@@ -1,41 +1,51 @@
 <div class="zs:flex zs:items-center zs:justify-start zs:w-full zs:select-none">
+
   <!-- ===================== Checkbox Wrapper ===================== -->
-  <div
-    class="zs:cursor-pointer group leading-none"
-  >
-    <!-- ===================== Hidden Input (Native for screen readers) ===================== -->
+  <div class="zs:leading-none">
+
+    <!-- ===================== Native Input ===================== -->
     <input
       type="checkbox"
-      class="zs:hidden"
+      class="zs:sr-only"
       [id]="Id()"
-      [checked]="isChecked()"
+      [checked]="checked()"
       [disabled]="disabledOrReadonly()"
+      [required]="required()"
       (change)="toggleChecked()"
     />
 
     <!-- ===================== Custom Accessible Checkbox ===================== -->
     <span
-      role="'checkbox'"
+      role="checkbox"
       tabindex="0"
-      [attr.aria-checked]="isChecked()"
+      [attr.aria-checked]="checked()"
       [attr.aria-disabled]="disabledOrReadonly()"
+      [attr.aria-required]="required()"
       [attr.aria-labelledby]="Id() + '-label'"
+      [attr.aria-describedby]="Id() + '-hint ' + Id() + '-error'"
       [ngClass]="[
         sizeClass(),
         palette().checkboxTextPalette.checkBoxText,
         palette().checkboxTextPalette.checkBoxTextHover,
         palette().ringPalette.ring,
-        'zs:leading-none zs:inline-flex zs:items-center zs:justify-center zs:focus:outline-hidden zs:focus-visible:ring-2'
+        'zs:leading-none zs:inline-flex zs:items-center zs:justify-center zs:focus:outline-hidden zs:focus-visible:ring-2',
+        disabledOrReadonly() ? 'zs:cursor-not-allowed' : 'zs:cursor-pointer'
       ]"
       (click)="toggleChecked()"
       (keydown)="onKeyDown($event)"
+      (blur)="onBlur()"
     >
-      <i [class]="iconClasses()"></i>
+      <i
+        [class]="iconClasses()"
+        aria-hidden="true"
+      ></i>
     </span>
+
   </div>
 
-  <!-- ===================== Label (ZS-label component) ===================== -->
-  <ZS-label [class]="(label() || hint()) ? 'zs:ml-1.5' : ''"
+  <!-- ===================== Label ===================== -->
+  <ZS-label
+    [class]="(label() || hint()) ? 'zs:ml-1.5' : ''"
     [id]="Id() + '-label'"
     [label]="label()"
     [hint]="hint()"
@@ -44,3 +54,9 @@
     [for]="Id()"
   ></ZS-label>
 </div>
+
+<ZS-input-errors
+[Id]="Id()"
+[errors]="[errors().map(v => v.message ?? '')]"
+>
+</ZS-input-errors>

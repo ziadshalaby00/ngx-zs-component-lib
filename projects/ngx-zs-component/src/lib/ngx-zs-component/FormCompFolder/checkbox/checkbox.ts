@@ -1,7 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, model, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, input, model, output, ChangeDetectionStrategy } from '@angular/core';
 import { BaseSize, checkboxTextPaletteMap, ringPaletteMap, FormStyle } from '../../palette-service';
 import { Label } from '../label/label';
+import {
+  FormCheckboxControl,
+  ValidationError,
+  DisabledReason,
+  WithOptionalFieldTree
+} from '@angular/forms/signals';
+import { InputErrors } from '../input-errors/input-errors';
 
 // ==============================================
 // Types
@@ -17,14 +24,14 @@ export type ShapeType = 'square' | 'circle'
 
 @Component({
   selector: 'ZS-checkbox',
-  imports: [Label, CommonModule],
+  imports: [Label, CommonModule, InputErrors],
   templateUrl: './checkbox.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './checkbox.css'
 })
-export class Checkbox {
+export class Checkbox implements FormCheckboxControl {
   // ==============================================
-  // Inputs
+  // Inputs — own component API (not tied to Signal Forms)
   // ==============================================
 
   readonly Id = input<string>(crypto.randomUUID());
@@ -32,18 +39,56 @@ export class Checkbox {
   readonly hint = input<string | null>(null);
   readonly inputStyle = input<FormStyle>('secondary');
   readonly size = input<BaseSize>('md');
-  readonly disabled = input<boolean>(false);
-  readonly isReadonly = input<boolean>(false);
 
   readonly variant = input<ChVariantType>('regular');
   readonly shape = input<ShapeType>('square');
 
 
   // ==============================================
-  // Model
+  // FormCheckboxControl — required
   // ==============================================
 
-  readonly value = model<boolean>(false);
+  /**
+   * Required by FormCheckboxControl. Renamed from `value` — a checkbox-style
+   * control must NOT expose a `value` property, since FormField uses its
+   * presence/absence (vs `checked`) to decide whether to treat the control
+   * as a FormValueControl or a FormCheckboxControl. This is a breaking
+   * rename: update checkbox.html and any consumer using [(value)] to
+   * [(checked)].
+   */
+  readonly checked = model<boolean>(false);
+
+
+  // ==============================================
+  // FormUiControl — optional state, wired automatically by [formField]
+  // ==============================================
+
+  // Interaction state
+  readonly touched = input<boolean>(false);
+  /** Reports an interaction to Signal Forms (needed for e.g. debounce('blur')). */
+  readonly touch = output<void>();
+  readonly dirty = input<boolean>(false);
+
+  // Availability state
+  readonly disabled = input<boolean>(false);
+  /**
+   * Renamed from `isReadonly` to match FormUiControl's `readonly` exactly, so
+   * [formField] can bind it automatically. Breaking rename — update
+   * checkbox.html and any consumer using [isReadonly] to [readonly].
+   */
+  readonly readonly = input<boolean>(false);
+  readonly hidden = input<boolean>(false);
+  readonly disabledReasons = input<readonly WithOptionalFieldTree<DisabledReason>[]>([]);
+
+  // Validation state
+  readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
+  readonly invalid = input<boolean>(false);
+
+  // Validation constraints
+  readonly required = input<boolean>(false);
+
+  // Field metadata
+  readonly name = input<string>('');
 
 
   // ==============================================
@@ -89,7 +134,7 @@ export class Checkbox {
     const disabledClass = this.disabled() ? 'zs:opacity-60' : '';
     const interactionClass = this.disabledOrReadonly() ? 'zs:cursor-not-allowed' : '';
 
-    const state = this.value() ? 'true' : 'false' as ('true' | 'false');
+    const state = this.checked() ? 'true' : 'false' as ('true' | 'false');
     return [
       variantClass[state][v],
       shapeClass[state][s],
@@ -107,8 +152,8 @@ export class Checkbox {
     return sizeClasses[this.size()]
   });
 
-  readonly isChecked = computed<boolean>(() => this.value());
-  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
+  readonly isChecked = computed<boolean>(() => this.checked());
+  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.readonly());
 
 
   // ==============================================
@@ -117,7 +162,11 @@ export class Checkbox {
 
   toggleChecked() {
     if (this.disabledOrReadonly()) return;
-    this.value.update(v => !v);
+    this.checked.update(v => !v);
+
+    // A click is itself a discrete, committing interaction for a checkbox —
+    // mark it touched right away rather than waiting for blur.
+    this.touch.emit();
   }
 
   onKeyDown(event: KeyboardEvent) {
@@ -125,5 +174,11 @@ export class Checkbox {
       event.preventDefault();
       this.toggleChecked();
     }
+  }
+
+  /** Wire this to (blur) on the focusable element, e.g. for keyboard/tab-out interaction. */
+  onBlur(): void {
+    if (this.disabledOrReadonly()) return;
+    this.touch.emit();
   }
 }

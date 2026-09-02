@@ -4,11 +4,16 @@
 
 import { Component, computed, ElementRef, input, model, output, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { FormStyle, inputPaletteMap, ringPaletteMap } from '../../palette-service';
-import { ChangeEventType, ValidatorFn } from '../input/input';
 import { Label } from '../label/label';
 import { InputErrors } from '../input-errors/input-errors';
 import { CommonModule } from '@angular/common';
 import { Button } from '../button/button';
+import {
+  FormValueControl,
+  ValidationError,
+  DisabledReason,
+  WithOptionalFieldTree
+} from '@angular/forms/signals';
 
 // ==============================================================================
 // Types & Interfaces
@@ -31,13 +36,13 @@ export type FilesType = Map<string, FileData>;
   selector: 'ZS-file',
   imports: [Label, InputErrors, CommonModule, Button],
   templateUrl: './file.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './file.css'
 })
-export class FileInput {
+export class FileInput implements FormValueControl<FilesType> {
 
   // ==============================================================================
-  // Inputs
+  // Inputs — own component API (not tied to Signal Forms)
   // ==============================================================================
 
   readonly Id = input<string>(crypto.randomUUID());
@@ -48,29 +53,67 @@ export class FileInput {
   readonly inputStyle = input<FormStyle>('secondary');
 
   readonly autofocus = input<boolean>(false);
-  readonly disabled = input<boolean>(false);
-  readonly isReadonly = input<boolean>(false);
-  readonly required = input<boolean>(false);
-  readonly validateFns = input<ValidatorFn<FileData[]>[]>([]);
 
   readonly accept = input<string>('');
   readonly multiple = input<boolean>(false);
-  readonly maxSize = input<number>(5 * 1024 * 1024); // 5MB
   readonly allowPreview = input<boolean>(true);
-  readonly maxFiles = input<number | 'infinity'>('infinity');
+
+  // ==============================================================================
+  // FormValueControl — required
+  // ==============================================================================
+
+  /**
+   * Required by FormValueControl<FilesType>. This is now the canonical model —
+   * internal logic below reads/writes `value`, not `files`.
+   *
+   * NOTE: the schema's `required()` rule (and similar) typically checks for
+   * null/undefined/empty-string/empty-array. An empty Map won't automatically
+   * be treated as "empty" by those rules, since Map isn't one of the types they
+   * check. If you need `required()` to work out of the box for "no files
+   * selected", either validate file count via a custom schema rule (e.g.
+   * `validate(path, ({value}) => value().size === 0 ? {kind: 'required'} : null)`),
+   * or switch the value type to `FileData[]` instead of a Map.
+   */
+  readonly value = model<FilesType>(new Map());
+
+  /**
+   * Backwards-compat alias so existing template/consumer code referencing
+   * `files()` keeps working. It's the exact same signal as `value` (same
+   * object reference), so reads/writes through either name stay in sync.
+   * If any consumer relies on template two-way binding `[(files)]="x"` from
+   * OUTSIDE this component, prefer migrating them to `[(value)]` — aliasing
+   * guarantees the signal stays in sync but doesn't re-register `files` as a
+   * genuine Angular component input.
+   */
+  readonly files = this.value;
+
+  // Interaction state
+  readonly touched = input<boolean>(false);
+  /** Reports a blur/interaction to Signal Forms — wire (blur) on the native file input to this. */
+  readonly touch = output<void>();
+  readonly dirty = input<boolean>(false);
+
+  // Availability state
+  readonly disabled = input<boolean>(false);
+  readonly readonly = input<boolean>(false);
+  readonly hidden = input<boolean>(false);
+  readonly disabledReasons = input<readonly WithOptionalFieldTree<DisabledReason>[]>([]);
+
+  // Validation state
+  readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
+  readonly invalid = input<boolean>(false);
+
+  // Validation constraints
+  readonly required = input<boolean>(false);
+
+  // Field metadata
+  readonly name = input<string>('');
 
   // ==============================================================================
   // Outputs
   // ==============================================================================
 
-  readonly changeEv = output<ChangeEventType<FileData[]>>();
-
-  // ==============================================================================
-  // Model
-  // ==============================================================================
-
-  readonly files = model<FilesType>(new Map());
-  readonly touched = model<boolean>(false); // Tracks if the user has interacted with the input
+  readonly changeEv = output<FileData[]>();
 
   // ==============================================================================
   // ViewChild
@@ -98,61 +141,16 @@ export class FileInput {
     return { inputPalette, ringPalette};
   });
 
-  readonly hasFiles = computed<boolean>(() => this.files().size > 0);
+  readonly hasFiles = computed<boolean>(() => this.value().size > 0);
 
   readonly totalSize = computed<number>(() =>
     this.filesMapToList().reduce((sum, f) => sum + f.size, 0)
   );
 
-  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
-
-  readonly error = computed<string[]>(() => {
-    const hasFiles = this.hasFiles();
-    const files = this.files();
-    const required = this.required();
-    const totalSize = this.totalSize();
-    const maxSize = this.maxSize();
-    const maxFiles = this.maxFiles();
-    const accept = this.accept();
-
-    // Only validate after user interaction
-    if (!this.touched()) return [];
-
-    const errors: string[] = [];
-
-    // Required validation
-    if (required && !hasFiles) {
-      errors.push('This field is required');
-    }
-
-    // Max size validation
-    if (totalSize > maxSize) {
-      errors.push(`Total file size exceeds ${this.formatSize(maxSize)}`);
-    }
-
-    // Max files validation
-    if (maxFiles !== 'infinity' && files.size > maxFiles) {
-      errors.push(`Total number of files exceeds ${maxFiles}`);
-    }
-
-    // Accept (file type) validation
-    const invalidFiles = this.filesMapToList().filter(f => !this.matchesAccept(f, accept));
-    if (invalidFiles.length > 0) {
-      const names = invalidFiles.map(f => f.name).join(', ');
-      errors.push(`Some files have unsupported types: ${names}`);
-    }
-
-    // Custom validators
-    for (const fn of this.validateFns()) {
-      const result = fn(this.filesMapToList());
-      if (Array.isArray(result)) errors.push(...result);
-    }
-
-    return errors.length > 0 ? errors : [];
-  });
+  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.readonly());
 
   readonly filesMapToList = computed<FileData[]>(() => {
-    const files = this.files();
+    const files = this.value();
     return files.size ? Array.from(files.values()) : [];
   });
 
@@ -173,7 +171,7 @@ export class FileInput {
       url: this.allowPreview() ? URL.createObjectURL(f) : undefined,
     }));
 
-    this.files.update((prev: FilesType) => {
+    this.value.update((prev: FilesType) => {
       const multiple = this.multiple();
       const next = multiple ? new Map(prev) : new Map<string, FileData>();
 
@@ -184,17 +182,17 @@ export class FileInput {
       return next;
     });
 
-    this.touched.set(true);
-    this.emitChangeValue(this.filesMapToList(), false);
+    this.touch.emit();
+    this.emitChangeValue(this.filesMapToList());
 
     // Reset native <input> value to allow re-selecting the same file
     input.value = '';
   }
 
   removeFile(id: string): void {
-    if (this.isReadonly() || this.disabled()) return;
+    if (this.disabledOrReadonly()) return;
 
-    this.files.update((prev: FilesType) => {
+    this.value.update((prev: FilesType) => {
       const next = new Map(prev);
       const file = prev.get(id);
 
@@ -206,7 +204,7 @@ export class FileInput {
       return next;
     });
 
-    this.emitChangeValue(this.filesMapToList(), false);
+    this.emitChangeValue(this.filesMapToList());
 
     // Reset native file input
     const inputEl = this.fileInputRef()?.nativeElement;
@@ -215,16 +213,13 @@ export class FileInput {
     }
   }
 
-  // ==============================================================================
-  // Public Methods
-  // ==============================================================================
+  /** Wire this to (blur) on the native file input / trigger button so the
+   * field registers as touched even when the user cancels the file dialog. */
+  onBlur(): void {
+    if (this.disabledOrReadonly()) return;
 
-  /** Forces the input to trigger a manual change event */
-  public forceChange(fromForce: boolean = true): void {
-    this.touched.set(true);
-    this.emitChangeValue(this.filesMapToList(), fromForce);
+    this.touch.emit();
   }
-
 
   // ==============================================================================
   // Private Helpers
@@ -245,38 +240,8 @@ export class FileInput {
     return `${f.name}_${f.size}_${f.type}`;
   }
 
-  private emitChangeValue(value: FileData[], fromForce: boolean = true): void {
-    const valid = this.error().length === 0;
-    this.changeEv.emit({ value, valid, fromForce });
-  }
-
-  private matchesAccept(file: FileData, accept: string): boolean {
-    if (!accept) return true;
-
-    const types = accept.split(',').map(t => t.trim().toLowerCase());
-
-    return types.some(type => {
-      if (type === '*/*') return true;
-
-      // Wildcard MIME types (e.g., image/*)
-      if (type.endsWith('/*')) {
-        const baseType = type.split('/')[0];
-        return file.type.startsWith(`${baseType}/`);
-      }
-
-      // Exact MIME type match
-      if (type.includes('/') && !type.startsWith('.')) {
-        return file.type === type;
-      }
-
-      // File extension match (e.g., .jpg)
-      if (type.startsWith('.')) {
-        return file.name.toLowerCase().endsWith(type);
-      }
-
-      // Fallback: partial match in MIME type
-      return file.type.includes(type);
-    });
+  private emitChangeValue(value: FileData[]): void {
+    this.changeEv.emit(value);
   }
 
   // ==============================================================================
@@ -284,7 +249,7 @@ export class FileInput {
   // ==============================================================================
 
   ngOnDestroy(): void {
-    this.files().forEach(f => {
+    this.value().forEach(f => {
       if (f.url?.startsWith('blob:')) {
         URL.revokeObjectURL(f.url);
       }

@@ -43,11 +43,12 @@
       [id]="Id()"
       [name]="iName()"
       [type]="actualType"
+      (keydown)="onKeydown($event)"
       [attr.placeholder]="placeholder()"
       [value]="value()"
       [disabled]="disabled() ? true : null"
-      [attr.min]="supportsMinMaxStep() ? min() : null"
-      [attr.max]="supportsMinMaxStep() ? max() : null"
+      [attr.min]="supportsMinMaxStep() ? htmlMin() : null"
+      [attr.max]="supportsMinMaxStep() ? htmlMax() : null"
       [attr.step]="supportsMinMaxStep() ? step() : null"
       [attr.required]="required() ? true : null"
       (input)="onInput($event)"
@@ -56,19 +57,19 @@
       (blur)="onBlur()"
       (change)="onChange()"
       [attr.autocomplete]="autocomplete()"
-      [attr.maxlength]="maxlength()"
-      [attr.minlength]="minlength()"
+      [attr.maxlength]="effectiveMaxLength()"
+      [attr.minlength]="effectiveMinLength()"
       [attr.autofocus]="autofocus() ? true : null"
-      [attr.readonly]="isReadonly() ? true : null"
-      [attr.aria-invalid]="!!error()"
+      [attr.readonly]="readonly() ? true : null"
+      [attr.aria-invalid]="invalid()"
       [attr.inputmode]="inputmode()"
       [spellcheck]="spellcheck()"
       class="zs:flex-1 zs:bg-transparent zs:outline-hidden zs:caret-current zs:w-full"
       [class]="getSize('field')"
       [attr.aria-describedby]="
         (hint() ? Id() + '-hint' : '') +
-        (hint() && error() ? ' ' : '') +
-        (error() ? Id() + '-error' : '')
+        (hint() && invalid() ? ' ' : '') +
+        (invalid() ? Id() + '-error' : '')
       "
     />
 
@@ -132,7 +133,7 @@
   <!-- ========================= Error Messages ========================= -->
   <ZS-input-errors
   [Id]="Id()"
-  [errors]="[error()]"
+  [errors]="[errors().map(v => v.message ?? '')]"
   >
   </ZS-input-errors>
 

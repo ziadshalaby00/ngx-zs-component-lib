@@ -14,19 +14,25 @@ import {
 import { inputPaletteMap, BaseSize, FormStyle, ringPaletteMap } from '../../palette-service';
 import { Label } from '../label/label';
 import { InputErrors } from '../input-errors/input-errors';
+import {
+  FormValueControl,
+  ValidationError,
+  DisabledReason,
+  WithOptionalFieldTree
+} from '@angular/forms/signals';
 
 // ==============================================================================
 // Types
 // ==============================================================================
 
-export type DateType =   
+export type DateType =
   | 'date' 
   | 'datetime-local' 
   | 'month' 
   | 'week' 
   | 'time';
 
-export type InputType = 
+export type InputType =
   | DateType 
   | 'text'
   | 'email'
@@ -37,18 +43,10 @@ export type InputType =
   | 'url'
   | 'search';
 
-export type ValidatorFn<T = string | null> = (value: T) => string[];
-export type FormatterFn = (value: string | null) => string | null;
-
 type SizeClassesType = 'container' | 'field' | 'leftIcon' | 'rightIcon';
 
-export interface ChangeEventType<T = string | null> {
-  value: T;
-  valid: boolean;
-  fromForce: boolean;
-}
 // ==============================================================================
-// Constants & Regex
+// Constants
 // ==============================================================================
 
 const SIZE_CLASSES_MAP = new Map<SizeClassesType, Record<BaseSize, string>>([
@@ -98,9 +96,6 @@ const ICONS = {
   spinner: 'fas fa-spinner fa-spin',
 };
 
-const PHONE_REGEX: RegExp = /^\+?[0-9\s\-()]{7,20}$/;
-const EMAIL_REGEX: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 // ==============================================================================
 // Component Definition
 // ==============================================================================
@@ -109,12 +104,12 @@ const EMAIL_REGEX: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   selector: 'ZS-input',
   imports: [CommonModule, Label, InputErrors],
   templateUrl: './input.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './input.css'
 })
-export class Input {
+export class Input implements FormValueControl<string | number | null> {
   // ==============================================================================
-  // Inputs
+  // Inputs — own component API (not tied to Signal Forms)
   // ==============================================================================
 
   readonly Id = input<string>(crypto.randomUUID());
@@ -125,26 +120,23 @@ export class Input {
   readonly type = input<InputType>('text');
   readonly inputStyle = input<FormStyle>('secondary');
 
-  readonly disabled = input<boolean>(false);
-  readonly isReadonly = input<boolean>(false);
   readonly autocomplete = input<string | null>('off');
-  readonly required = input<boolean>(false);
   readonly inputmode = input<string | null>(null);
 
   readonly iconTpl = input<TemplateRef<any>>();
   readonly showSearchIcon = input<boolean>(false);
   readonly showLoaderIconOnSearchInput = input<boolean>(false);
 
-  readonly maxlength = input<number | null>(null);
-  readonly minlength = input<number | null>(null);
   readonly spellcheck = input<boolean>(false);
 
-  readonly min = input<string | number | null>(null);
-  readonly max = input<string | number | null>(null);
+  // Native HTML min/max attribute (supports date strings e.g. "2024-01-01").
+  // Renamed from `min`/`max` because those names now belong to FormUiControl's
+  // numeric schema constraints below — see note further down.
+  // BREAKING CHANGE for input.html: replace [min]="min()" / [max]="max()"
+  // with [attr.min]="htmlMin()" / [attr.max]="htmlMax()".
+  readonly htmlMin = input<string | number | null>(null);
+  readonly htmlMax = input<string | number | null>(null);
   readonly step = input<number | null>(null);
-
-  readonly validateFns = input<ValidatorFn<string | null>[]>([]);
-  readonly formatFn = input<FormatterFn>((val) => val?.trim() ?? null);
 
   readonly autofocus = input<boolean>(false);
   readonly searchDebounceDelay = input<number>(300);
@@ -157,11 +149,51 @@ export class Input {
   readonly inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
 
   // ==============================================================================
-  // Model
+  // FormValueControl — required
   // ==============================================================================
 
-  readonly value = model<string | null>(null);
-  readonly touched = model<boolean>(false); // Tracks if the user has interacted with the input
+  /** Required by FormValueControl<string | null>. Bound automatically by [formField]. */
+  readonly value = model<string | number | null>(null);
+
+  // ==============================================================================
+  // FormUiControl — optional state, wired automatically by [formField] when present
+  // ==============================================================================
+
+  // Interaction state
+  /** Kept as a model for backwards compatibility with any existing [(touched)] usage. */
+  readonly touched = model<boolean>(false);
+  /** Reports a blur to the form. Required for e.g. debounce('blur') to work. */
+  readonly touch = output<void>();
+  readonly dirty = input<boolean>(false);
+
+  // Availability state
+  readonly disabled = input<boolean>(false);
+  readonly readonly = input<boolean>(false);
+  readonly hidden = input<boolean>(false);
+  readonly disabledReasons = input<readonly WithOptionalFieldTree<DisabledReason>[]>([]);
+
+  // Validation state
+  readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
+  readonly invalid = input<boolean>(false);
+
+  // Validation constraints coming from schema rules (required()/min()/minLength()/...)
+  readonly required = input<boolean>(false);
+  readonly min = input<string | number | undefined>(undefined);
+  readonly max = input<string | number | undefined>(undefined);
+  readonly minLength = input<number | undefined>(undefined);
+  readonly maxLength = input<number | undefined>(undefined);
+
+  // Field metadata
+  readonly name = input<string>('');
+
+  // Kept for backwards compatibility with manual (non-schema) usage of the component.
+  readonly minlength = input<number | null>(null);
+  readonly maxlength = input<number | null>(null);
+
+  // ==============================================================================
+  // Model (kept)
+  // ==============================================================================
+  // (value/touched declared above, grouped with the rest of the FormValueControl contract)
 
   // ==============================================================================
   // Outputs
@@ -170,8 +202,8 @@ export class Input {
   readonly enterEv = output<void>();
   readonly focusEv = output<void>();
   readonly blurEv = output<void>();
-  readonly changedEv = output<ChangeEventType<string | null>>();
-  readonly searchEv = output<string | null>();
+  readonly changedEv = output<string | number | null>();
+  readonly searchEv = output<string | number | null>();
   readonly clearedEv = output<void>();
   readonly keydownEv = output<KeyboardEvent>();
 
@@ -181,22 +213,21 @@ export class Input {
 
   readonly showPassword = signal<boolean>(false);
   private searchDebounceTimer?: ReturnType<typeof setTimeout>;
-  readonly loaderIconOnSearchInput = signal<string | null>(null); // Fixed typo: "Serach" → "Search"
+  readonly loaderIconOnSearchInput = signal<string | null>(null);
 
   // ==============================================================================
   // Computed Properties
   // ==============================================================================
 
-  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.isReadonly());
+  readonly disabledOrReadonly = computed<boolean>(() => this.disabled() || this.readonly());
 
   readonly containerClasses = computed<string>(() => {
     const baseClasses =
       'zs:border zs:transition-[border-color,background-color,box-shadow,opacity] zs:duration-150 zs:ease-out zs:focus-within:ring-2 motion-reduce:zs:transition-none';
-    const hasError = this.error().length;
 
     let styleConfig = inputPaletteMap.get(this.inputStyle())!;
     let ringConfig = ringPaletteMap.get(this.inputStyle())!;
-    if (hasError) {
+    if (this.invalid()) {
       styleConfig = inputPaletteMap.get('danger')!;
       ringConfig = ringPaletteMap.get('danger')!;
     }
@@ -225,104 +256,25 @@ export class Input {
     const dateTypes: DateType[] = ['date', 'datetime-local', 'month', 'week', 'time'];
     return dateTypes.includes(this.type() as DateType);
   });
-  
+
   readonly dateIcon = computed<string>(() => {
     return DATE_ICON_MAP[this.type() as DateType] || 'fas fa-calendar';
   });
 
   readonly showClear = computed<boolean>(() => this.type() !== 'password' && !!this.value());
 
-  readonly error = computed<string[]>(() => {
-    const val = this.value();
-    const type = this.type();
-    const required = this.required();
-    const minlength = this.minlength();
-    const maxlength = this.maxlength();
-    const min = this.min();
-    const max = this.max();
-
-    // Only validate after user interaction
-    if (!this.touched()) return [];
-
-    const errors: string[] = [];
-
-    // Required validation
-    if (required && !val) {
-      errors.push('This field is required');
-    }
-
-    // Min length
-    if (minlength !== null && val && val.length < minlength) {
-      errors.push(`The value must be at least ${minlength} characters`);
-    }
-
-    // Max length
-    if (maxlength !== null && val && val.length > maxlength) {
-      errors.push(`The value must be at most ${maxlength} characters`);
-    }
-
-    // Email format
-    if (type === 'email' && val && !EMAIL_REGEX.test(val)) {
-      errors.push('Please enter a valid email address');
-    }
-
-    // Number range & validity
-    if (type === 'number' && val) {
-      const num = Number(val);
-      if (Number.isNaN(num)) {
-        errors.push('Please enter a valid number');
-      } else {
-        if (min !== null && num < Number(min)) {
-          errors.push(`The value must be at least ${min}`);
-        }
-        if (max !== null && num > Number(max)) {
-          errors.push(`The value must be at most ${max}`);
-        }
-      }
-    }
-
-    // Date/Time Range Validation
-    if (this.isDate() && val) {
-      const valueTime = new Date(val).getTime();
-
-      const minDate = min ? new Date(min as string).getTime() : null;
-      const maxDate = max ? new Date(max as string).getTime() : null;
-
-      if (minDate !== null && valueTime < minDate) {
-        errors.push(`The date must be on or after ${min}`);
-      }
-      if (maxDate !== null && valueTime > maxDate) {
-        errors.push(`The date must be on or before ${max}`);
-      }
-    }
-
-    // Phone format
-    if (type === 'phone' && val && !PHONE_REGEX.test(val)) {
-      errors.push('Please enter a valid phone number');
-    }
-
-    // URL validity
-    if (type === 'url' && val) {
-      try {
-        new URL(val);
-      } catch {
-        errors.push('Please enter a valid URL');
-      }
-    }
-
-    // Custom validator
-    for (const fn of this.validateFns()) {
-      const result = fn(val);
-      if (Array.isArray(result)) errors.push(...result);
-    }
-
-    return errors.length > 0 ? errors : [];
-  });
-
   readonly supportsMinMaxStep = computed<boolean>(() => {
     const t = this.type();
     return this.isDate() || ['number'].includes(t);
-  })
+  });
+
+  /** Merges the schema-driven constraint with the manual (backwards-compat) one. */
+  readonly effectiveMinLength = computed<number | undefined>(
+    () => this.minLength() ?? this.minlength() ?? undefined
+  );
+  readonly effectiveMaxLength = computed<number | undefined>(
+    () => this.maxLength() ?? this.maxlength() ?? undefined
+  );
 
   // ==============================================================================
   // Getters
@@ -360,10 +312,16 @@ export class Input {
   onInput(event: Event): void {
     if (this.disabledOrReadonly()) return;
 
-    const value = (event.target as HTMLInputElement).value;
+    const input = event.target as HTMLInputElement;
+
+    let value: string | number | null = input.value;
+
+    if (this.type() === 'number') {
+      value = input.value === '' ? null : input.valueAsNumber;
+    }
+
     this.value.set(value);
 
-    // Handle search input with debounce and loader
     if (this.type() === 'search') {
       if (this.showLoaderIconOnSearchInput()) {
         this.loaderIconOnSearchInput.set(ICONS.spinner);
@@ -391,8 +349,10 @@ export class Input {
 
   onBlur(): void {
     if (this.disabledOrReadonly()) return;
+
     this.touched.set(true);
-    this.value.set(this.formatFn()(this.value()));
+    // Tells Signal Forms this field was blurred — required for e.g. debounce('blur').
+    this.touch.emit();
     this.blurEv.emit();
   }
 
@@ -400,20 +360,19 @@ export class Input {
     if (this.disabledOrReadonly()) return;
     this.touched.set(true);
 
-    this.emitChangeValue(this.value(), false);
+    this.changedEv.emit(this.value());
   }
 
   onSearch(): void {
     if (this.disabledOrReadonly()) return;
+    clearTimeout(this.searchDebounceTimer);
     this.searchEv.emit(this.value());
   }
 
   clear(): void {
     if (this.disabledOrReadonly()) return;
+    clearTimeout(this.searchDebounceTimer);
     this.value.set(null);
-
-    this.emitChangeValue(null, false);
-
     this.searchEv.emit(null);
     this.clearedEv.emit();
   }
@@ -426,19 +385,5 @@ export class Input {
   onKeydown(event: KeyboardEvent): void {
     if (this.disabledOrReadonly()) return;
     this.keydownEv.emit(event);
-  }
-
-  /** Forces the input to trigger a manual change event */
-  public forceChange(fromForce: boolean = true): void {
-    // Applies the same logic as natural change.
-    this.touched.set(true);
-    this.value.set(this.formatFn()(this.value()));
-
-    this.emitChangeValue(this.value(), fromForce);
-  }
-
-  private emitChangeValue(value: string | null, fromForce: boolean = true): void {
-    const valid = this.error().length === 0;
-    this.changedEv.emit({ value, valid, fromForce });
   }
 }

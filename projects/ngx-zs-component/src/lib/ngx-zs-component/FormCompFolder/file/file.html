@@ -47,8 +47,9 @@
       class="zs:absolute zs:inset-0 zs:opacity-0 zs:cursor-pointer"
       [disabled]="disabledOrReadonly()"
       (change)="handleFileChange($event)"
+      (blur)="onBlur()"
       [attr.aria-required]="required()"
-      [attr.aria-invalid]="!!error().length"
+      [attr.aria-invalid]="invalid()"
       [attr.aria-describedby]="Id() + '-hint ' + Id() + '-error'"
     />
 
@@ -120,7 +121,7 @@
   <!-- ========================= Error Messages ========================= -->
   <ZS-input-errors
     [Id]="Id() + '-error'"
-    [errors]="[error()]"
+    [errors]="[errors().map(v => v.message ?? '')]"
     aria-live="assertive"
     role="alert"
   >
