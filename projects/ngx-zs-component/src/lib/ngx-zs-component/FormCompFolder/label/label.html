@@ -14,7 +14,7 @@
         {{ label() }}
 
         <!-- Required Indicator -->
-        @if (true) {
+        @if (required()) {
           <span class="zs:text-red-500 zs:ml-1" aria-hidden="true">*</span>
           <span class="sr-only">(required)</span>
         }

@@ -84,6 +84,11 @@ export class Checkbox implements FormCheckboxControl {
   readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
   readonly invalid = input<boolean>(false);
 
+  readonly showError = computed(() =>
+    this.touched() &&
+    this.invalid()
+  );
+
   // Validation constraints
   readonly required = input<boolean>(false);
 

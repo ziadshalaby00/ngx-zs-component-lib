@@ -78,6 +78,11 @@ export class Range implements FormValueControl<number> {
   readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
   readonly required = input<boolean>(false);
 
+  readonly showError = computed(() =>
+    this.touched() &&
+    this.invalid()
+  );
+
   // ==============================================
   // FormUiControl — Interaction state
   // ==============================================
@@ -161,7 +166,7 @@ export class Range implements FormValueControl<number> {
     const sizeClasses = this.rangeSizeClasses('height');
     const disabledClass = this.disabled() ? 'zs:opacity-60' : '';
     const interactionClass = !this.disabledOrReadonly() ? 'zs:group' : '';
-    const invalidClass = this.invalid() ? 'zs:ring-2 zs:ring-red-500' : '';
+    const invalidClass = this.showError() ? 'zs:ring-2 zs:ring-red-500' : '';
 
     return [
       sizeClasses,

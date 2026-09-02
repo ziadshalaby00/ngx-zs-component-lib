@@ -12,7 +12,7 @@ import {
   NavItemsType, UserItemsType, UserProfile, AuthButtonsType,
   LoaderType, ButtonVariant, ChVariantType, ShapeType
 } from '../../../projects/ngx-zs-component/src/public-api';
-import { form, FormField, max, min, required, validate } from '@angular/forms/signals';
+import { disabled, form, FormField, max, min, required, validate } from '@angular/forms/signals';
 
 interface Country {
   code: string;
@@ -37,5 +37,11 @@ interface Role {
   styleUrl: './demo-all.css'
 })
 export class DemoAll {
-  
+    model = signal({
+      test: ''
+    })
+
+    form = form(this.model, (s) => {
+      required(s.test, {message: 'ez'})
+    });
 }

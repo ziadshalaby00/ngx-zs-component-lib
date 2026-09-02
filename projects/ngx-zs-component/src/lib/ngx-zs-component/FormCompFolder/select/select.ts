@@ -100,6 +100,11 @@ export class Select<T> implements FormValueControl<DropdownItem<T>[]> {
   readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
   readonly pending = input<boolean>(false);
 
+  readonly showError = computed(() =>
+    this.touched() &&
+    this.invalid()
+  );
+
   readonly disabledReasons = input<readonly WithOptionalFieldTree<DisabledReason>[]>([]);
   readonly name = input<string>('');
 
@@ -139,7 +144,7 @@ export class Select<T> implements FormValueControl<DropdownItem<T>[]> {
   }>(() => {
     // Previously referenced `this.error()`, which didn't exist on the
     // class — now driven by the real form-provided `invalid` / `errors`.
-    const hasError = this.invalid() || this.errors().length > 0;
+    const hasError = this.showError();
 
     let inputEntry = inputPaletteMap.get(this.inputStyle())!;
     let selectEntry = selectPaletteMap.get(this.inputStyle())!;

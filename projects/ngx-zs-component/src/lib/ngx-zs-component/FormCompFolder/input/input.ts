@@ -176,6 +176,11 @@ export class Input implements FormValueControl<string | number | null> {
   readonly errors = input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
   readonly invalid = input<boolean>(false);
 
+  readonly showError = computed(() =>
+    this.touched() &&
+    this.invalid()
+  );
+
   // Validation constraints coming from schema rules (required()/min()/minLength()/...)
   readonly required = input<boolean>(false);
   readonly min = input<string | number | undefined>(undefined);
@@ -227,7 +232,7 @@ export class Input implements FormValueControl<string | number | null> {
 
     let styleConfig = inputPaletteMap.get(this.inputStyle())!;
     let ringConfig = ringPaletteMap.get(this.inputStyle())!;
-    if (this.invalid()) {
+    if (this.showError()) {
       styleConfig = inputPaletteMap.get('danger')!;
       ringConfig = ringPaletteMap.get('danger')!;
     }

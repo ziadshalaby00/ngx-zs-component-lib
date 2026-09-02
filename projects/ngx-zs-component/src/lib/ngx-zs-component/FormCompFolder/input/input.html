@@ -133,7 +133,7 @@
   <!-- ========================= Error Messages ========================= -->
   <ZS-input-errors
   [Id]="Id()"
-  [errors]="[errorsUI()]"
+  [errors]="[showError() ? errorsUI() : []]"
   >
   </ZS-input-errors>
 

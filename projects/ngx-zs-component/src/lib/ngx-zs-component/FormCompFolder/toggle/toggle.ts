@@ -109,6 +109,10 @@ export class Toggle implements FormCheckboxControl {
     input<readonly WithOptionalFieldTree<ValidationError>[]>([]);
 
   readonly invalid = input<boolean>(false);
+  readonly showError = computed(() =>
+    this.touched() &&
+    this.invalid()
+  );
 
 
   // ----------------------------------------------
