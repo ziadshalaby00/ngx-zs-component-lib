@@ -2370,12 +2370,6 @@ npm publish
 - Update documentation for API changes
 - Follow semantic versioning
 
----
-
-## License
-
-[Ziad Shalaby](https://github.com/ziadshalaby00)
-This project is licensed under the MIT License.
 
 ---
 
