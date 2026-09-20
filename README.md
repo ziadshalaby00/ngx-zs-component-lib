@@ -3,7 +3,7 @@
 **A comprehensive Angular component library built with Angular 20+ and Tailwind CSS.** It provides a rich set of reusable UI components with built-in theming support (light/dark modes), responsive design, and accessibility features.
 
 [![npm version](https://badge.fury.io/js/%40ziadshalaby%2Fngx-zs-component.svg)](https://badge.fury.io/js/%40ziadshalaby%2Fngx-zs-component)
-[![Angular](https://img.shields.io/badge/Angular-20%2B-red.svg)](https://angular.io/)
+[![Angular](https://img.shields.io/badge/Angular-22%2B-red.svg)](https://angular.io/)
 
 
 
