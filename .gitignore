@@ -43,3 +43,5 @@ __screenshots__/
 Thumbs.db
 
 publish.cmd
+.code-mergeignore
+output.css
